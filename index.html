@@ -901,7 +901,7 @@
   .mode-btn.active {
     background: var(--accent);
     color: #fff;
-    box-shadow: 0 2px 8px rgba(255,77,141,0.3);
+    box-shadow: 0 2px 8px var(--accent-dim);
   }
   .mode-btn#btnPMS.active {
     background: var(--accent);
@@ -5030,20 +5030,36 @@ const INGREDIENTS = [
     qty:'Skyr (100g) · Blueberries or fruit (50g) · Pumpkin seeds (10g) · MyFitness choco crunchy PB (1 tbsp / 15g) · Cocoa powder (1 tsp / 3g) · Amul 70% dark chocolate (2 cubes / 10g) · Cinnamon powder (pinch)' },
 ];
 
+// Snack dropdown trimmed to exactly the items requested — protein and coffee
+// now live in their own dedicated components below since they're logged at
+// different times of day, not tied to the 4-5pm snack slot.
 const SNACK_INGREDIENTS = [
-  { id:'shake',       name:'Protein shake',     unit:'1 scoop + milk', cal:170, p:26, c:8,  f:3,  fib:0, ask_qty:false },
-  { id:'hung_curd_s', name:'Hung curd',         unit:'80g',    cal:70,  p:6,  c:3,  f:3,  fib:0, ask_qty:false },
-  { id:'veg_sticks',  name:'Cucumber / carrot / tomato sticks', unit:'1 cup', cal:35, p:1, c:7, f:0, fib:3, ask_qty:false },
-  { id:'fruit',       name:'Fruit (banana / apple / orange)', unit:'1 piece', cal:80, p:1, c:20, f:0, fib:3, ask_qty:false },
-  { id:'dates',       name:'Dates',             unit:'per date', cal:23, p:0, c:6,  f:0,  fib:1, ask_qty:true  },
-  { id:'almonds',     name:'Almonds',           unit:'per 10g', cal:58, p:2,  c:2,  f:5,  fib:1, ask_qty:true  },
-  { id:'makhana',     name:'Makhana (roasted)', unit:'per 10g', cal:35, p:1,  c:7,  f:0,  fib:0, ask_qty:true  },
-  { id:'aloo_tikki_s',name:'Aloo tikki',        unit:'100g',    cal:190, p:4, c:28, f:7,  fib:3, ask_qty:false },
-  { id:'peanut_butter',name:'Peanut butter',    unit:'per tsp (8g)', cal:48, p:2, c:2, f:4, fib:0, ask_qty:true },
-  { id:'avo_toast_s', name:'Avo toast + skyr 🥑',          unit:'1 plate',   cal:440, p:18, c:47, f:24, fib:7, ask_qty:false,
-    qty:'Avocado (1 medium / ~150g, mashed) · Brown bread (2 slices / ~60g) · Skyr Milky Mist (60g) · Lemon (½) · Oregano (pinch)' },
-  { id:'skyr_bowl_s', name:'Skyr dessert bowl 🍫', unit:'1 bowl',   cal:304, p:19, c:23, f:16, fib:4, ask_qty:false,
-    qty:'Skyr (100g) · Blueberries or fruit (50g) · Pumpkin seeds (10g) · MyFitness choco crunchy PB (1 tbsp / 15g) · Cocoa powder (1 tsp / 3g) · Amul 70% dark chocolate (2 cubes / 10g) · Cinnamon powder (pinch)' },
+  { id:'hung_curd_s', name:'Hung curd',                   unit:'100g',   cal:90,  p:8,  c:4,  f:4,  fib:0, ask_qty:false },
+  { id:'hc_bowl_s',   name:'Hung curd dessert bowl',       unit:'1 bowl', cal:330, p:16, c:26, f:19, fib:4, ask_qty:false,
+    qty:'Hung curd (100g) · Blueberries or fruit (50g) · Pumpkin seeds (10g) · MyFitness choco crunchy PB (1 tbsp / 15g) · Cocoa powder (1 tsp / 3g) · Amul 70% dark chocolate (2 cubes / 10g) · Cinnamon powder (pinch)' },
+  { id:'veg_sticks',  name:'Cucumber / carrot / tomato sticks salad', unit:'100g', cal:35, p:1, c:7, f:0, fib:3, ask_qty:false },
+  { id:'fruit',       name:'Fruit (1 small — apple / orange / pear / plum)', unit:'~100g', cal:60, p:1, c:15, f:0, fib:2, ask_qty:false },
+  { id:'sweetcorn_s', name:'Sweet corn',                   unit:'70g',    cal:67,  p:2,  c:15, f:1,  fib:2, ask_qty:false },
+  { id:'minus30',     name:'Minus 30 roasted hazelnut ice cream sandwich', unit:'1 sandwich', cal:140, p:2, c:18, f:6, fib:1, ask_qty:false,
+    qty:'18g carbs, of which ~6g sugar' },
+  { id:'cali_ques_s', name:'California burrito quesadilla', unit:'1 quesadilla', cal:460, p:14, c:42, f:26, fib:3, ask_qty:false },
+];
+
+// Coffee — its own component. Always available, not tied to a fixed time,
+// since it can be had with breakfast, mid-morning, or whenever.
+const COFFEE_OPTIONS = [
+  { id:'coffee_black',   name:'Black coffee',                              unit:'1 cup', cal:5,  p:0, c:1, f:0, fib:0, ask_qty:false },
+  { id:'coffee_milk',    name:'Black coffee + slim milk',                  unit:'1 cup (60ml milk)', cal:25, p:2, c:3, f:0, fib:0, ask_qty:false },
+  { id:'coffee_jaggery', name:'Black coffee + slim milk + jaggery',        unit:'1 cup (60ml milk + 1 tsp jaggery)', cal:45, p:2, c:8, f:0, fib:0, ask_qty:false },
+];
+
+// Protein — its own component, completely separate from wake-up. Logged
+// whenever it actually happens: morning, after lunch, or late at night.
+const PROTEIN_OPTIONS = [
+  { id:'protein_1scoop', name:'Protein (1 scoop) + water',                 unit:'1 scoop',  cal:120, p:25, c:3,  f:1, fib:0, ask_qty:false },
+  { id:'protein_2scoop', name:'Protein (2 scoops) + water',                unit:'2 scoops', cal:240, p:50, c:6,  f:2, fib:0, ask_qty:false },
+  { id:'protein_shake',  name:'Protein shake (banana, cocoa, milk)',       unit:'1 shake',  cal:425, p:59, c:38, f:5, fib:3, ask_qty:false,
+    qty:'Banana (1) · Slim milk (200ml) · Protein powder (2 scoops) · Unsweetened cocoa powder (1 tsp)' },
 ];
 
 // Universal slot structure — all slots use INGREDIENTS, snack uses SNACK_INGREDIENTS
@@ -5051,16 +5067,18 @@ const SNACK_INGREDIENTS = [
 const MEAL_SLOTS = [
   {
     id: 'wakeup', emoji: '☀️', name: 'Wake up', time: '7–8am',
-    targetP: 27, targetCal: 200, fixed: true,
-    meal: { name: 'Coffee + protein shake + electrolytes', cal: 200, p: 27, c: 8, f: 3, fib: 4,
-      desc: 'Black coffee · Slim milk (60ml / ~¼ cup) · Protein powder (1 scoop / ~30g) · Water (250ml) · Electrolyte tablet (1) · Chia seeds (5g) soaked in water' }
+    targetP: 1, targetCal: 40, fixed: true,
+    meal: { name: 'Chia seeds + lemon water + electrolytes', cal: 40, p: 1, c: 5, f: 2, fib: 4,
+      desc: 'Chia seeds (5g) soaked overnight in water · Fresh lemon juice · Water (250ml) · Electrolyte tablet (1)' }
   },
+  { id:'coffee', emoji:'☕', name:'Coffee', time:'Anytime', targetP:2, targetCal:25, ingredientList:'coffee' },
+  { id:'protein', emoji:'🥤', name:'Protein', time:'Anytime', targetP:25, targetCal:150, ingredientList:'protein' },
   { id:'breakfast', emoji:'🍳', name:'Breakfast', time:'9–10am', targetP:28, targetCal:380, ingredientList:'main',
     defaultMeal: { name:'Moong dal chilla (2) + boiled eggs (2)', qty:'Moong dal chilla (2 / 100g each, incl. oil) · Boiled eggs (2)', cal:370, p:27, c:20, f:16, fib:8 } },
   { id:'lunch',     emoji:'🍚', name:'Lunch',     time:'1–2pm',  targetP:28, targetCal:400, ingredientList:'main',
     defaultMeal: { name:'Chicken + rice + salad', qty:'Chicken breast grilled (100g raw) · Rice cooked (100g) · Salad (cucumber + tomato)', cal:390, p:28, c:36, f:5, fib:3 } },
-  { id:'snack',     emoji:'🥔', name:'Snack',     time:'4–5pm',  targetP:12, targetCal:200, ingredientList:'snack',
-    defaultMeal: { name:'Protein shake + fruit', qty:'Protein shake (1 scoop + milk) · Fruit (1 piece)', cal:250, p:27, c:28, f:3, fib:3 } },
+  { id:'snack',     emoji:'🥔', name:'Snack',     time:'4–5pm',  targetP:16, targetCal:330, ingredientList:'snack',
+    defaultMeal: { name:'Hung curd dessert bowl', qty:'Hung curd (100g) · Blueberries (50g) · Pumpkin seeds (10g) · Choco PB (1 tbsp) · Cocoa · Dark chocolate (2 cubes)', cal:330, p:16, c:26, f:19, fib:4 } },
   { id:'dinner',    emoji:'🌙', name:'Dinner',    time:'7–9pm',  targetP:30, targetCal:450, ingredientList:'main',
     defaultMeal: { name:'Chicken + roti (2) + dal', qty:'Chicken breast grilled (100g raw) · Roti (2) · Dal cooked (200g)', cal:430, p:34, c:44, f:5, fib:8 } },
 ];
@@ -5069,16 +5087,18 @@ const MEAL_SLOTS = [
 const PMS_MEAL_SLOTS = [
   {
     id: 'wakeup', emoji: '☀️', name: 'Wake up', time: '7–8am',
-    targetP: 27, targetCal: 200, fixed: true,
-    meal: { name: 'Coffee + protein shake + electrolytes', cal: 200, p: 27, c: 8, f: 3, fib: 4,
-      desc: 'Black coffee · Slim milk (60ml / ~¼ cup) · Protein powder (1 scoop / ~30g) · Water (250ml) · Electrolyte tablet (1) · Chia seeds (5g) soaked in water' }
+    targetP: 1, targetCal: 40, fixed: true,
+    meal: { name: 'Chia seeds + lemon water + electrolytes', cal: 40, p: 1, c: 5, f: 2, fib: 4,
+      desc: 'Chia seeds (5g) soaked overnight in water · Fresh lemon juice · Water (250ml) · Electrolyte tablet (1)' }
   },
+  { id:'coffee', emoji:'☕', name:'Coffee', time:'Anytime', targetP:2, targetCal:25, ingredientList:'coffee' },
+  { id:'protein', emoji:'🥤', name:'Protein', time:'Anytime', targetP:25, targetCal:150, ingredientList:'protein' },
   { id:'breakfast', emoji:'🍳', name:'Breakfast', time:'9–10am', targetP:28, targetCal:300, ingredientList:'main',
     defaultMeal: { name:'2 boiled eggs + paneer', qty:'Boiled eggs (2) · High protein paneer (100g)', cal:305, p:29, c:4, f:25, fib:0 } },
   { id:'lunch',     emoji:'🍕', name:'Junk / Lunch', time:'1–3pm', targetP:0, targetCal:400, ingredientList:'junk',
     defaultMeal: { name:'Not craving junk — skip', qty:'No junk today.', cal:0, p:0, c:0, f:0, fib:0 } },
-  { id:'snack',     emoji:'🥔', name:'Snack',     time:'4–5pm',  targetP:15, targetCal:280, ingredientList:'snack',
-    defaultMeal: { name:'Skyr dessert bowl 🍫', qty:'Skyr (100g) · Blueberries (50g) · Pumpkin seeds (10g) · Choco PB (1 tbsp) · Cocoa · Dark chocolate (2 cubes)', cal:304, p:19, c:23, f:16, fib:4 } },
+  { id:'snack',     emoji:'🥔', name:'Snack',     time:'4–5pm',  targetP:16, targetCal:330, ingredientList:'snack',
+    defaultMeal: { name:'Hung curd dessert bowl', qty:'Hung curd (100g) · Blueberries (50g) · Pumpkin seeds (10g) · Choco PB (1 tbsp) · Cocoa · Dark chocolate (2 cubes)', cal:330, p:16, c:26, f:19, fib:4 } },
   { id:'dinner',    emoji:'🌙', name:'Dinner',    time:'7–9pm',  targetP:28, targetCal:520, ingredientList:'main',
     defaultMeal: { name:'Paneer + roti (2) + dal', qty:'High protein paneer (100g) · Roti (2) · Dal cooked (200g)', cal:485, p:29, c:48, f:20, fib:8 } },
 ];
@@ -5136,11 +5156,13 @@ function acceptDefault(slotId, dateStr) {
   renderSlotSection(); renderTracker(); renderWeeklyTracker(); renderMonthlyDeficit();
 }
 
-function toggleMealEaten(slotId, idx, dateStr) {
+// Replaces the old per-item toggleMealEaten — one checkbox per slot now
+// marks every logged item in that slot as eaten together, instead of
+// requiring a tick per ingredient.
+function toggleSlotEaten(slotId, checked, dateStr) {
   const log = getSlotLog(dateStr);
   if (!Array.isArray(log[slotId])) return;
-  if (!log[slotId][idx]) return;
-  log[slotId][idx].eaten = !log[slotId][idx].eaten;
+  log[slotId].forEach(m => { m.eaten = checked; });
   setSlotLog(dateStr, log);
   renderSlotSection();
 }
@@ -5257,15 +5279,15 @@ function renderSlotSection() {
     // Slot total
     const slotTotal = loggedMeals.reduce((s,m) => ({cal:s.cal+(m.cal||0), p:s.p+(m.p||0)}), {cal:0,p:0});
 
-    // Logged items list — each with an "eaten" checkbox
+    // One checkbox per slot (not per item) — checking it marks every logged
+    // item in this slot as eaten in one tap, instead of ticking each ingredient.
+    const allEaten = loggedMeals.length > 0 && loggedMeals.every(m => m.eaten);
+
+    // Logged items list — no per-item checkbox anymore
     const loggedHtml = loggedMeals.map((m, idx) => `
       <div style="display:flex;align-items:center;gap:8px;padding:6px 14px;border-top:1px solid var(--border-tertiary)">
-        <input type="checkbox" title="Mark as eaten"
-          style="width:20px;height:20px;accent-color:var(--accent);flex-shrink:0;cursor:pointer"
-          ${m.eaten ? 'checked' : ''}
-          onchange="toggleMealEaten('${slot.id}', ${idx}, '${ds}')">
         <div style="flex:1">
-          <div style="font-size:13px;font-weight:500;${m.eaten ? 'opacity:0.6' : ''}">${m.name}</div>
+          <div style="font-size:13px;font-weight:500;${allEaten ? 'opacity:0.6' : ''}">${m.name}</div>
           ${m.qty ? `<div style="font-size:11px;color:var(--text-tertiary);margin-top:2px;line-height:1.6">${m.qty}</div>` : ''}
         </div>
         <div style="text-align:right;flex-shrink:0">
@@ -5277,9 +5299,7 @@ function renderSlotSection() {
       </div>`).join('');
 
     // Build dropdown from ingredients
-    const ingList = slot.ingredientList === 'snack' ? SNACK_INGREDIENTS
-                  : slot.ingredientList === 'junk'  ? null
-                  : INGREDIENTS;
+    const ingList = getIngredientListForSlot(slot.id);
 
     let optionsHtml;
     if (slot.ingredientList === 'junk') {
@@ -5309,6 +5329,10 @@ function renderSlotSection() {
               <div class="slot-name">${slot.name} <span style="font-weight:400;color:var(--text-tertiary);font-size:11px">${slot.time}</span></div>
             </div>
           </div>
+          ${loggedMeals.length > 0 ? `<input type="checkbox" title="Mark whole ${slot.name.toLowerCase()} as eaten"
+            style="width:22px;height:22px;accent-color:var(--accent);flex-shrink:0;cursor:pointer"
+            ${allEaten ? 'checked' : ''}
+            onchange="toggleSlotEaten('${slot.id}', this.checked, '${ds}')">` : ''}
         </div>
         ${headerMacros}
         ${loggedHtml}
@@ -5323,11 +5347,18 @@ function renderSlotSection() {
   // Custom meals for today
   const customs = getCustomMeals(currentDay);
   const customTotal = customs.reduce((s,m) => s + (m.cal||0), 0);
+  // FIX: custom meals are stored with `title`, not `name` — reading `m.name`
+  // rendered the literal text "undefined" for every custom meal. Also added
+  // the same "mark as eaten" checkbox every other slot has.
   const customHtml = customs.length > 0 ? customs.map((m,i) => `
     <div style="display:flex;align-items:center;gap:8px;padding:8px 14px;border-top:1px solid var(--border-tertiary)">
+      <input type="checkbox" title="Mark as eaten"
+        style="width:20px;height:20px;accent-color:var(--accent);flex-shrink:0;cursor:pointer"
+        ${m.eaten ? 'checked' : ''}
+        onchange="toggleCustomMealEaten(${i}, this.checked)">
       <div style="flex:1">
-        <div style="font-size:13px;font-weight:500">${m.name}</div>
-        <div style="font-size:11px;color:var(--text-tertiary)">${m.cal} cal · ${m.p||0}g P · ${m.c||0}g C · ${m.f||0}g F</div>
+        <div style="font-size:13px;font-weight:500;${m.eaten ? 'opacity:0.6' : ''}">${escapeHtml(m.title || m.name || 'Custom meal')}</div>
+        <div style="font-size:11px;color:var(--text-tertiary)">${m.cal||0} cal · ${m.p||0}g P · ${m.c||0}g C · ${m.f||0}g F</div>
       </div>
       <button onclick="deleteCustomMealSlot(${i})" style="background:none;border:none;font-size:16px;cursor:pointer;color:var(--text-tertiary);padding:4px">✕</button>
     </div>`).join('') : '';
@@ -5379,6 +5410,21 @@ function toggleWakeup(checked, dateStr) {
 }
 
 
+// Single source of truth for which ingredient list a slot's dropdown uses.
+// promptIngredientQty / confirmIngredientAdd MUST resolve against this exact
+// same list or the option index points at the wrong item (this was the
+// snack-slot bug: dropdown built from SNACK_INGREDIENTS, resolver read
+// INGREDIENTS.concat(SNACK_INGREDIENTS)).
+function getIngredientListForSlot(slotId) {
+  const allSlots = isPMSMode() ? PMS_MEAL_SLOTS : MEAL_SLOTS;
+  const slot = allSlots.find(s => s.id === slotId);
+  if (!slot) return INGREDIENTS;
+  if (slot.ingredientList === 'snack') return SNACK_INGREDIENTS;
+  if (slot.ingredientList === 'coffee') return COFFEE_OPTIONS;
+  if (slot.ingredientList === 'protein') return PROTEIN_OPTIONS;
+  return INGREDIENTS;
+}
+
 function promptIngredientQty(slotId, val, dateStr) {
   if (!val) return;
 
@@ -5397,47 +5443,28 @@ function promptIngredientQty(slotId, val, dateStr) {
     return;
   }
 
-  // Ingredient
-  const ing = INGREDIENTS.concat(SNACK_INGREDIENTS)[parseInt(val.slice(1))];
+  // Ingredient — resolve against the SAME list the dropdown was built from
+  const ing = getIngredientListForSlot(slotId)[parseInt(val.slice(1))];
   if (!ing) return;
 
-  if (!ing.ask_qty) {
-    // Fixed quantity — add directly with qty description if available
-    const log = getSlotLog(dateStr);
-    if (!Array.isArray(log[slotId])) log[slotId] = [];
-    log[slotId].push({ name: ing.name, qty: ing.qty || ing.unit, cal: ing.cal, p: ing.p, c: ing.c, f: ing.f, fib: ing.fib });
-    setSlotLog(dateStr, log);
-    renderSlotSection(); renderTracker(); renderWeeklyTracker(); renderMonthlyDeficit();
-    return;
-  }
-
-  // Ask quantity — show popup
+  // Always show the qty drawer for consistency — every ingredient goes
+  // through the same "How much?" step, whether it's eggs, a bowl, or 100g.
   const overlay = document.createElement('div');
   overlay.className = 'talk-popup-overlay';
   overlay.id = 'ingQtyOverlay';
 
-  // Build qty options based on ingredient type
-  let qtyOpts = '';
-  if (ing.unit === 'per egg' || ing.unit.includes('per ')) {
-    qtyOpts = [1,2,3,4].map(n =>
-      `<option value="${n}">${n} × ${ing.name} — ${ing.cal * n} cal · ${ing.p * n}g P</option>`
-    ).join('');
-  } else if (ing.unit === 'per slice') {
-    qtyOpts = [1,2,3].map(n =>
-      `<option value="${n}">${n} slice${n>1?'s':''} — ${ing.cal * n} cal · ${ing.p * n}g P</option>`
-    ).join('');
-  } else {
-    qtyOpts = [1,2,3].map(n =>
-      `<option value="${n}">${n} × (${ing.unit}) — ${ing.cal * n} cal · ${ing.p * n}g P</option>`
-    ).join('');
-  }
+  const r1 = n => Math.round(n * 10) / 10;
+  const steps = [0.5, 1, 1.5, 2, 3, 4];
+  const qtyOpts = steps.map(n =>
+    `<option value="${n}"${n === 1 ? ' selected' : ''}>${n} × ${ing.unit} — ${Math.round(ing.cal * n)} cal · ${r1(ing.p * n)}g P</option>`
+  ).join('');
 
   overlay.innerHTML = `
     <div class="talk-popup">
       <div class="talk-popup-handle"></div>
       <div class="talk-popup-title">${ing.name}</div>
-      <div class="talk-popup-sub" style="margin-bottom:14px">How many?</div>
-      <select id="ingQtySelect" style="width:100%;padding:12px;border-radius:10px;border:1.5px solid var(--border-secondary);background:var(--bg-secondary);font-size:14px;font-family:inherit;margin-bottom:14px">
+      <div class="talk-popup-sub" style="margin-bottom:14px">How much? (1 × ${ing.unit} = ${ing.cal} cal)</div>
+      <select id="ingQtySelect" class="qty-select" style="width:100%;padding:12px;border-radius:10px;border:1.5px solid var(--border-secondary);background:var(--bg-secondary);color:var(--text-primary);font-size:14px;font-family:inherit;margin-bottom:14px">
         ${qtyOpts}
       </select>
       <button class="talk-open-claude" onclick="confirmIngredientAdd('${slotId}', '${val}', '${dateStr}')">Add →</button>
@@ -5448,14 +5475,16 @@ function promptIngredientQty(slotId, val, dateStr) {
 }
 
 function confirmIngredientAdd(slotId, val, dateStr) {
-  const allIng = INGREDIENTS.concat(SNACK_INGREDIENTS);
-  const ing = allIng[parseInt(val.slice(1))];
+  const ing = getIngredientListForSlot(slotId)[parseInt(val.slice(1))];
   if (!ing) return;
-  const qty = parseInt(document.getElementById('ingQtySelect').value) || 1;
+  const qty = parseFloat(document.getElementById('ingQtySelect').value) || 1;
+  const r1 = n => Math.round(n * 10) / 10;
   const meal = {
     name: qty === 1 ? ing.name : `${qty}× ${ing.name}`,
-    qty: `${qty} × ${ing.unit}`,
-    cal: ing.cal * qty, p: ing.p * qty, c: ing.c * qty, f: ing.f * qty, fib: ing.fib * qty
+    // At 1× keep the ingredient's own detailed breakdown (e.g. the dessert
+    // bowl components) if it has one; otherwise show the multiplied unit.
+    qty: (qty === 1 && ing.qty) ? ing.qty : `${qty} × ${ing.unit}`,
+    cal: Math.round(ing.cal * qty), p: r1(ing.p * qty), c: r1(ing.c * qty), f: r1(ing.f * qty), fib: r1((ing.fib || 0) * qty)
   };
   const log = getSlotLog(dateStr);
   if (!Array.isArray(log[slotId])) log[slotId] = log[slotId] ? [log[slotId]] : [];
@@ -5486,6 +5515,14 @@ function deleteCustomMealSlot(idx) {
   setCustomMeals(currentDay, customs);
   renderSlotSection();
   renderTracker();
+}
+
+function toggleCustomMealEaten(idx, checked) {
+  const customs = getCustomMeals(currentDay);
+  if (!customs[idx]) return;
+  customs[idx].eaten = checked;
+  setCustomMeals(currentDay, customs);
+  renderSlotSection();
 }
 
 function openAddMeal() {
