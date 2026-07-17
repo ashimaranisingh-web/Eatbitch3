@@ -54,6 +54,7 @@
     --accent-dim: #2e0e1f;
     --success: #f13294;
     --success-light: #f5619f;
+    --success-dim: #2e0e1f;
   }
   
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -189,7 +190,7 @@
 
   /* Nested sub-blocks inside the super dropdown */
   .sub-block {
-    background: var(--bg-secondary);
+    background: var(--bg-primary);
     border-radius: 10px;
     margin-top: 10px;
     overflow: hidden;
@@ -270,7 +271,7 @@
   .activity-item {
     display: flex; justify-content: space-between; align-items: center;
     padding: 8px 12px;
-    background: var(--bg-secondary);
+    background: var(--bg-primary);
     border-radius: var(--radius-md);
     font-size: 13px; gap: 10px;
   }
@@ -296,7 +297,7 @@
   }
   .fitness-row {
     padding: 12px 14px;
-    background: var(--bg-secondary);
+    background: var(--bg-primary);
     border-radius: var(--radius-md);
     border: 0.5px solid var(--border-tertiary);
     transition: border-color 0.2s;
@@ -387,7 +388,7 @@
   .weight-delta:empty { display: none; }
   .weight-delta {
     font-size: 12px; color: var(--text-secondary); margin-top: 10px;
-    padding: 8px 12px; background: var(--bg-secondary);
+    padding: 8px 12px; background: var(--bg-primary);
     border-radius: var(--radius-md); line-height: 1.5;
   }
   .weight-delta strong { color: var(--text-primary); font-weight: 500; }
@@ -559,7 +560,7 @@
   }
   .recipe-line {
     font-size: 12px; color: var(--text-primary); margin: 4px 0 10px; line-height: 1.5;
-    padding: 8px 10px; background: var(--bg-secondary); border-radius: var(--radius-md);
+    padding: 8px 10px; background: var(--bg-primary); border-radius: var(--radius-md);
     border-left: 2px solid var(--border-secondary);
   }
   .bottom-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
@@ -596,7 +597,7 @@
   details.groc summary::after { content: "\25BE"; font-size: 10px; transition: transform 0.15s; }
   details.groc[open] summary::after { transform: rotate(180deg); }
   .groc-content {
-    margin-top: 8px; padding: 10px 12px; background: var(--bg-secondary);
+    margin-top: 8px; padding: 10px 12px; background: var(--bg-primary);
     border-radius: var(--radius-md); font-size: 12px; color: var(--text-primary);
     line-height: 1.6; border-left: 2px solid var(--border-secondary);
   }
@@ -611,7 +612,7 @@
   details.qty-block summary::after { margin-left: auto; }
 
   .day-totals {
-    background: var(--bg-secondary); border-radius: var(--radius-md);
+    background: var(--bg-primary); border-radius: var(--radius-md);
     padding: 12px 14px; margin-top: 14px;
     display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px;
   }
@@ -734,7 +735,7 @@
     max-height: 280px; overflow-y: auto;
     border: 0.5px solid var(--border-tertiary);
     border-radius: var(--radius-md);
-    background: var(--bg-secondary);
+    background: var(--bg-primary);
     padding: 4px;
   }
   .quick-pick-day {
@@ -909,12 +910,13 @@
   }
   
   .pms-mode-banner {
-    background: #fce4ec;
+    background: var(--bg-warning);
+    border: 0.5px solid var(--border-warning);
     border-radius: 10px;
     padding: 10px 14px;
     margin-bottom: 12px;
     font-size: 12px;
-    color: #880e4f;
+    color: var(--text-warning);
     line-height: 1.5;
   }
   
@@ -924,7 +926,7 @@
     margin-bottom: 16px;
   }
   .cycle-setup {
-    background: var(--bg-secondary);
+    background: var(--bg-primary);
     border-radius: var(--radius-lg);
     padding: 14px 16px;
     text-align: center;
@@ -1053,7 +1055,7 @@
     font-size: 11px;
     padding: 3px 9px;
     border-radius: 20px;
-    background: rgba(0,0,0,0.06);
+    background: rgba(255,255,255,0.08);
     color: var(--text-primary);
   }
   
@@ -1154,7 +1156,7 @@
     gap: 14px;
   }
   .supp-row {
-    background: var(--bg-secondary);
+    background: var(--bg-primary);
     border-radius: 12px;
     padding: 12px 14px;
   }
@@ -1215,7 +1217,7 @@
   }
   .supp-drawer-item {
     flex: 1;
-    background: var(--bg-secondary);
+    background: var(--bg-primary);
     border-radius: 12px;
     padding: 10px 8px;
     display: flex;
@@ -1239,7 +1241,7 @@
     gap: 10px;
   }
   .supp-card {
-    background: var(--bg-secondary);
+    background: var(--bg-primary);
     border-radius: 12px;
     padding: 12px 14px;
     display: flex;
@@ -1278,7 +1280,7 @@
     gap: 14px;
   }
   .prep-card {
-    background: var(--bg-secondary);
+    background: var(--bg-primary);
     border-radius: 14px;
     overflow: hidden;
   }
@@ -1344,11 +1346,11 @@
     position: relative;
     overflow: hidden;
   }
-  .daily-msg-card.menstrual  { background: linear-gradient(135deg, #fde8e8, #fcd4d4); }
-  .daily-msg-card.follicular { background: linear-gradient(135deg, #e8f5e9, #d4edda); }
-  .daily-msg-card.ovulation  { background: linear-gradient(135deg, #e3f2fd, #d0e8fa); }
-  .daily-msg-card.luteal     { background: linear-gradient(135deg, #fffde7, #fff9c4); }
-  .daily-msg-card.default    { background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary,var(--bg-secondary))); }
+  .daily-msg-card.menstrual  { background: #2a1618; }
+  .daily-msg-card.follicular { background: #16241a; }
+  .daily-msg-card.ovulation  { background: #16202a; }
+  .daily-msg-card.luteal     { background: #262316; }
+  .daily-msg-card.default    { background: var(--bg-primary); }
   
   .daily-msg-top {
     display: flex;
@@ -1520,7 +1522,8 @@
     border-radius: var(--radius-lg);
     padding: 16px;
     margin-bottom: 14px;
-    background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+    background: var(--bg-warning);
+    border: 0.5px solid var(--accent);
     display: flex;
     align-items: center;
     gap: 14px;
@@ -1532,6 +1535,7 @@
     font-size: 16px;
     font-weight: 700;
     margin-bottom: 3px;
+    color: var(--text-primary);
   }
   .survival-badge-text {
     font-size: 12px;
@@ -1543,12 +1547,11 @@
     border: none;
     font-size: 18px;
     cursor: pointer;
-    opacity: 0.4;
+    opacity: 0.5;
     padding: 4px;
     align-self: flex-start;
+    color: var(--text-primary);
   }
-
-
 
   /* ── Talk toast ── */
   .talk-toast-overlay {
@@ -1578,7 +1581,7 @@
   .talk-toast-msg {
     font-size: 13px;
     color: var(--text-secondary);
-    background: var(--bg-secondary);
+    background: var(--bg-primary);
     border-radius: 10px;
     padding: 10px 12px;
     margin-bottom: 10px;
@@ -1630,7 +1633,7 @@
   }
   .craving-result {
     margin-top: 10px;
-    background: var(--bg-secondary);
+    background: var(--bg-primary);
     border-radius: var(--radius-lg);
     overflow: hidden;
   }
@@ -1690,7 +1693,7 @@
   }
   .weekly-stat {
     flex: 1;
-    background: var(--bg-secondary);
+    background: var(--bg-primary);
     border-radius: var(--radius-lg);
     padding: 12px 14px;
     display: flex;
@@ -1719,89 +1722,12 @@
   .weekly-stat.over    .weekly-stat-val { color: var(--danger,#e53e3e); }
   .weekly-stat.on-track .weekly-stat-val { color: var(--success); }
 
-  /* ── Weekly budget (single unified component) ── */
-  .weekly-budget {
-    background: var(--bg-primary);
-    border: 0.5px solid var(--border-tertiary);
-    border-radius: var(--radius-lg);
-    padding: 14px 16px;
-    margin-bottom: 14px;
-  }
-  .weekly-budget-head {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 12px;
-  }
-  .weekly-budget-label {
-    font-size: 10px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.07em;
-    color: var(--text-tertiary);
-    margin-bottom: 4px;
-  }
-  .weekly-budget-nums { display: flex; align-items: baseline; gap: 6px; }
-  .weekly-budget-eaten {
-    font-size: 26px;
-    font-weight: 700;
-    color: var(--text-primary);
-    line-height: 1;
-  }
-  .weekly-budget-of {
-    font-size: 13px;
-    color: var(--text-tertiary);
-    font-weight: 500;
-  }
-  .weekly-deficit-chip {
-    text-align: right;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 1px;
-    flex-shrink: 0;
-    padding-top: 2px;
-  }
-  .weekly-deficit-chip .wd-num {
-    font-size: 17px;
-    font-weight: 700;
-    color: var(--success);
-    line-height: 1.1;
-  }
-  .weekly-deficit-chip .wd-num.over { color: var(--danger); }
-  .weekly-deficit-chip .wd-sub {
-    font-size: 9px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--text-tertiary);
-    font-weight: 600;
-  }
-  .weekly-deficit-chip.empty { justify-content: center; }
-  .weekly-budget-bar {
-    height: 8px;
-    background: var(--bg-secondary);
-    border-radius: 4px;
-    overflow: hidden;
-    margin-bottom: 8px;
-  }
-  .weekly-budget-fill {
-    height: 100%;
-    border-radius: 4px;
-    transition: width 0.3s ease, background 0.3s ease;
-  }
-  .weekly-budget-foot {
-    font-size: 11px;
-    color: var(--text-tertiary);
-    line-height: 1.5;
-  }
-
   /* ── Meal slot dropdowns ── */
   .slot-section {
     margin-bottom: 16px;
   }
   .slot-card {
-    background: var(--bg-secondary);
+    background: var(--bg-primary);
     border-radius: var(--radius-lg);
     overflow: hidden;
     margin-bottom: 8px;
@@ -1858,24 +1784,186 @@
     cursor: pointer;
   }
   .slot-select:focus { outline: none; border-color: var(--success); }
-
-  /* ── Protein checkpoint ── */
-  .protein-check-card {
-    border-radius: var(--radius-lg);
-    padding: 12px 16px;
-    margin-bottom: 14px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  /* One checkbox per slot, right-aligned and level with the slot name so it's
+     an easy right-thumb target. */
+  .slot-check {
+    width: 22px; height: 22px;
+    accent-color: var(--accent);
+    flex-shrink: 0;
+    cursor: pointer;
+    margin: 0 0 0 8px;
+    align-self: center;
   }
-  .protein-check-card.good { background: #16241a; border: 0.5px solid rgba(74,222,128,0.2); }
-  .protein-check-card.warn { background: #262316; border: 0.5px solid rgba(224,145,63,0.2); }
-  .protein-check-card.low  { background: #2a1618; border: 0.5px solid rgba(255,92,92,0.2); }
-  
-  .protein-check-emoji { font-size: 22px; flex-shrink: 0; }
-  .protein-check-body { flex: 1; }
-  .protein-check-title { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
-  .protein-check-sub   { font-size: 12px; color: var(--text-secondary); }
+  .replace-btn {
+    width: 100%;
+    padding: 11px;
+    border: none;
+    background: none;
+    font-size: 12px;
+    color: var(--text-tertiary);
+    font-family: inherit;
+    cursor: pointer;
+    min-height: 44px;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-underline-offset: 3px;
+  }
+  .replace-btn:active { color: var(--text-primary); }
+  /* Native <option> renders with the OS default (black text) unless told
+     otherwise — unreadable on the dark card background. */
+  .slot-select option, .qty-select option {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+  }
+  .qty-select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1.5px solid var(--border-secondary);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 14px;
+    font-family: inherit;
+    margin-bottom: 14px;
+  }
+  /* Native select options render with UA default colors on some browsers —
+     force them to the dark palette so text is never dark-on-dark. */
+  .slot-select option { background: var(--bg-primary); color: var(--text-primary); }
+
+  /* Quantity popup */
+  .qty-input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1.5px solid var(--border-secondary);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 16px;
+    font-family: inherit;
+    outline: none;
+    margin-bottom: 10px;
+  }
+  .qty-input:focus { border-color: var(--accent); }
+  .qty-label {
+    font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.07em;
+    color: var(--text-tertiary);
+    display: block; margin-bottom: 6px;
+  }
+  .qty-preview {
+    font-size: 13px; color: var(--success);
+    font-weight: 600; margin-bottom: 16px; min-height: 18px;
+  }
+  .qty-quick { display: flex; gap: 6px; margin-bottom: 12px; }
+  .qty-quick-btn {
+    flex: 1; padding: 8px 0;
+    border-radius: 8px;
+    border: 1px solid var(--border-tertiary);
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    font-size: 13px; font-family: inherit;
+    cursor: pointer; min-height: 40px;
+  }
+  .qty-quick-btn:active { border-color: var(--accent); color: var(--text-primary); }
+
+  /* Slot checkbox — right-aligned, level with the slot name */
+  .slot-check {
+    width: 22px; height: 22px;
+    accent-color: var(--accent);
+    flex-shrink: 0;
+    cursor: pointer;
+    margin: 0;
+    align-self: flex-start;
+  }
+
+  /* Logged ingredient rows (no per-item checkbox — one slot-level one instead) */
+  .slot-item-row {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 14px;
+    border-top: 1px solid var(--border-tertiary);
+  }
+  .slot-item-name { font-size: 13px; font-weight: 500; color: var(--text-primary); }
+  .slot-item-qty { font-size: 11px; color: var(--text-tertiary); margin-top: 2px; line-height: 1.6; }
+  .slot-item-cal { font-size: 12px; font-weight: 600; color: var(--success); }
+  .slot-item-p   { font-size: 11px; color: var(--text-tertiary); }
+  .slot-item-remove {
+    background: none; border: none; font-size: 16px;
+    cursor: pointer; color: var(--text-tertiary);
+    padding: 4px; flex-shrink: 0; font-family: inherit;
+  }
+  .slot-item-remove:active { color: var(--danger); }
+  .slot-card.eaten .slot-item-name,
+  .slot-card.eaten .slot-planned-name { opacity: 0.55; }
+
+  /* Ghost "Replace / Add" — borderless so it doesn't compete with real actions */
+  .slot-replace-btn {
+    width: 100%; padding: 10px;
+    border: none; background: none;
+    font-size: 12px; color: var(--text-tertiary);
+    font-family: inherit; cursor: pointer;
+    min-height: 40px;
+  }
+  .slot-replace-btn:active { color: var(--text-primary); }
+
+  /* ── Day tab status dot ── */
+  .day-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: transparent;
+    flex: 0 0 auto;
+  }
+  .day-dot.ontrack { background: var(--success); }
+  .day-dot.over    { background: var(--danger); }
+  /* The active tab is filled with the accent colour, so a green dot would
+     vanish into it — force both states to read against that fill. */
+  .day-tab.active .day-dot.ontrack { background: rgba(255,255,255,0.95); }
+  .day-tab.active .day-dot.over    { background: #ffd0d0; }
+
+  /* ── Weekly card ── */
+  .week-card {
+    background: var(--bg-primary);
+    border: 0.5px solid var(--border-tertiary);
+    border-radius: var(--radius-lg);
+    padding: 14px 16px;
+    margin-bottom: 14px;
+  }
+  .week-card-label {
+    font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.07em;
+    color: var(--text-tertiary);
+  }
+  .week-card-row {
+    display: flex; align-items: baseline; gap: 8px;
+    margin: 4px 0 10px;
+  }
+  .week-card-val {
+    font-size: 26px; font-weight: 700;
+    color: var(--text-primary); line-height: 1;
+  }
+  .week-card-sub { font-size: 12px; color: var(--text-tertiary); }
+  .week-bar {
+    height: 6px; background: var(--bg-secondary);
+    border-radius: 3px; overflow: hidden; margin-bottom: 12px;
+  }
+  .week-bar-fill {
+    height: 100%; background: var(--accent);
+    border-radius: 3px; transition: width 0.25s ease;
+  }
+  .week-bar-fill.over { background: var(--danger); }
+  .week-rows {
+    display: flex; flex-direction: column; gap: 7px;
+    padding-top: 11px;
+    border-top: 0.5px solid var(--border-tertiary);
+  }
+  .week-row {
+    display: flex; justify-content: space-between;
+    align-items: center; gap: 10px; font-size: 12px;
+  }
+  .week-row-label { color: var(--text-secondary); }
+  .week-row-val { color: var(--text-primary); font-weight: 600; white-space: nowrap; }
+  .week-row-val.green { color: var(--success); }
+  .week-row-val.red   { color: var(--danger); }
+  .week-row-val.muted { color: var(--text-tertiary); font-weight: 400; }
 
   /* ── Week navigator ── */
   .week-nav {
@@ -1916,32 +2004,6 @@
   }
   .week-reset-ghost:active { color: var(--danger); }
 
-  /* ── Monthly deficit compact ── */
-  .monthly-deficit-bar {
-    background: var(--bg-secondary);
-    border-radius: var(--radius-lg);
-    padding: 10px 14px;
-    margin-bottom: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .monthly-deficit-label {
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.07em;
-    color: var(--text-tertiary);
-  }
-  .monthly-deficit-val {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--success);
-  }
-  .monthly-deficit-sub {
-    font-size: 11px;
-    color: var(--text-tertiary);
-  }
 </style>
 </head>
 <body>
@@ -1969,9 +2031,7 @@
 
 <!-- 2. Weekly component + reset week -->
 <div id="weeklyTrackerSection"></div>
-<div id="monthlyDeficitSection"></div>
 
-<!-- 3. Activity logged -->
 <!-- 3-6. SUPER DROPDOWN: Activity + Fitness Goals + Weight & Goal + Supplement Drawer -->
 <details class="activity super-block" id="fitnessSuperBlock">
   <summary class="activity-summary">
@@ -2093,7 +2153,6 @@
 </div>
 
 <!-- 10. Meals -->
-<div id="proteinCheckSection"></div>
 <div id="slotSection"></div>
 
 <nav class="day-tabs">
@@ -2141,6 +2200,11 @@
       <input type="number" class="modal-input" id="newMealCal2" placeholder="Cal" style="display:none">
     </div>
     <p class="modal-macro-label">Protein · Carbs · Fat · Fiber</p>
+
+    <label style="display:flex; align-items:center; gap:8px; margin:2px 0 16px; font-size:12px; color:var(--text-secondary); cursor:pointer;">
+      <input type="checkbox" id="newMealSaveToDropdown" style="width:18px; height:18px; accent-color:var(--accent); flex-shrink:0; cursor:pointer;">
+      Also save this as a permanent option in the ingredient dropdowns
+    </label>
 
     <div class="modal-actions">
       <button class="modal-cancel" id="addMealCancel">Cancel</button>
@@ -2198,9 +2262,6 @@
 const TARGETS = { cal: 1550, p: 120, c: 130, f: 50, fib: 28 };
 const PMS_TARGETS = { cal: 1700, p: 110, c: 155, f: 55, fib: 30 };
 
-// PMS PLAN — hormone-balanced meals for luteal phase (post-ovulation → period)
-// Same structure as MEAL_PLAN. No chicken. More comfort carbs. Anti-bloat foods.
-// Junk substitutes baked in: paratha=pizza, stuffed chilla=momos, khichdi=pasta, egg pav=burger
 const PMS_MEAL_PLAN = {
   mon: { totals:{}, meals:[
     { id:'mon-1', time:'7–8am · Wake-up', title:'Coffee with milk',
@@ -2236,12 +2297,13 @@ const PMS_MEAL_PLAN = {
         { n:'Kala chana topping',  cal:50,  p:4,  c:8,  f:1, fib:3 },
         { n:'Hung curd dollop',    cal:35,  p:3,  c:2,  f:2, fib:0 }
       ] },
-    { id:'mon-5', time:'7–8pm · Dinner', title:'Scrambled eggs + palak + protein shake',
-      desc:'High protein post-workout. No chicken needed — 3 scrambled eggs + protein shake hits your protein for the day. Palak for iron (period coming). Easy to make, no recipe needed.',
-      quantities:'Eggs (3, scrambled with onion-tomato) · Tomato (40g) · Onion (30g) · Spinach/palak (100g) · Protein shake (1 scoop + 100ml milk) · 1 tsp oil · Salt + pepper',
+    { id:'mon-5', time:'7–8pm · Dinner', title:'Scrambled eggs + palak + roti + protein shake',
+      desc:'High protein post-workout, nothing to cook beyond a pan of scrambled eggs. Palak for iron (period coming). Shake tops the protein up.',
+      quantities:'Eggs (3, scrambled) · Spinach/palak (100g) · Roti (1) · Protein shake (1 scoop + 100ml milk) · 1 tsp oil · Salt + pepper',
       items:[
-        { n:'3 scrambled eggs',    cal:270, p:21, c:4,  f:18, fib:1 },
+        { n:'3 scrambled eggs',    cal:270, p:21, c:3,  f:18, fib:0 },
         { n:'Sautéed palak',       cal:60,  p:4,  c:6,  f:2,  fib:4 },
+        { n:'Roti (1)',            cal:100, p:3,  c:20, f:1,  fib:2 },
         { n:'Protein shake + milk',cal:130, p:25, c:4,  f:2,  fib:0 }
       ] }
   ]},
@@ -2253,7 +2315,6 @@ const PMS_MEAL_PLAN = {
       items:[
         { n:'Coffee + slim milk',  cal:25, p:2, c:3, f:0, fib:0 },
         { n:'Soaked almonds (8)',   cal:60, p:3, c:2, f:5, fib:1 },
-
         { n:'Protein shake (1 scoop)',cal:120, p:25, c:3, f:1, fib:0 },
       ] },
     { id:'tue-2', time:'9–10am · Breakfast', title:'2 moong dal chillas + paneer filling',
@@ -2297,7 +2358,6 @@ const PMS_MEAL_PLAN = {
       items:[
         { n:'Coffee + slim milk',  cal:25, p:2, c:3, f:0, fib:0 },
         { n:'Chia water',          cal:30, p:1, c:2, f:2, fib:4 },
-
         { n:'Protein shake (1 scoop)',cal:120, p:25, c:3, f:1, fib:0 },
       ] },
     { id:'wed-2', time:'9–10am · Breakfast', title:'1 paratha + aloo tikki + paneer bhurji',
@@ -2387,7 +2447,6 @@ const PMS_MEAL_PLAN = {
       items:[
         { n:'Coffee + slim milk',  cal:25, p:2, c:3, f:0, fib:0 },
         { n:'Chia water',          cal:30, p:1, c:2, f:2, fib:4 },
-
         { n:'Protein shake (1 scoop)',cal:120, p:25, c:3, f:1, fib:0 },
       ] },
     { id:'fri-2', time:'9–10am · Breakfast', title:'Moong dal chilla (2) + scrambled eggs + coffee',
@@ -2426,7 +2485,7 @@ const PMS_MEAL_PLAN = {
   sat: { totals:{}, meals:[
     { id:'sat-1', time:'7–8am · Wake-up', title:'Coffee with milk',
       desc:'Coffee with 60ml slim milk. Saturday — no chia needed, keep it simple.',
-      quantities:'Black coffee · Slim milk (60ml)',
+      quantities:'Black coffee (1 cup) · Slim milk (60ml)',
       items:[
         { n:'Coffee + slim milk',  cal:25, p:2, c:3, f:0, fib:0 }
       ] },
@@ -2437,13 +2496,14 @@ const PMS_MEAL_PLAN = {
         { n:'Protein + cocoa + milk', cal:200, p:40, c:10, f:4, fib:1 },
         { n:'Banana',                 cal:80,  p:1,  c:20, f:0, fib:2 }
       ] },
-    { id:'sat-3', time:'1–1:30pm · Lunch', title:'Paneer paratha + hung curd + pickle',
-      desc:'🍕 Pizza substitute. Chewy hot paratha + melted paneer filling. Comfort carbs for serotonin, protein from paneer, hung curd to fight bloat. Auntie can make this easily.',
-      quantities:'Paneer paratha (1 medium, paneer 70g inside) · Hung curd (100g) · Cucumber (60g) · Pickle (small)',
+    { id:'sat-3', time:'1–1:30pm · Lunch', title:'Paneer paratha + aloo tikki + hung curd',
+      desc:'🍕 Pizza substitute. Hot paratha + melted paneer inside, tikki on the side, cool hung curd to cut it. Comfort carbs without the dalia.',
+      quantities:'Paneer paratha (1 medium, 60g paneer inside) · Aloo tikki (1 / 80g) · Hung curd (80g) · Cucumber raita (80g)',
       items:[
-        { n:'Paneer paratha (1)',   cal:300, p:19, c:31, f:12, fib:3 },
-        { n:'Hung curd',           cal:85,  p:8,  c:4,  f:4,  fib:0 },
-        { n:'Cucumber + pickle',   cal:25,  p:1,  c:5,  f:0,  fib:1 }
+        { n:'Paneer paratha (1)',   cal:280, p:18, c:30, f:11, fib:3 },
+        { n:'Aloo tikki (1)',       cal:120, p:3,  c:18, f:4,  fib:2 },
+        { n:'Hung curd',            cal:70,  p:6,  c:3,  f:3,  fib:0 },
+        { n:'Cucumber raita',       cal:50,  p:3,  c:5,  f:2,  fib:1 }
       ] },
     { id:'sat-4', time:'4–5pm · Snack', title:'Aloo tikki chaat',
       desc:'🥟 Momo substitute. Street food at home. Spicy, tangy, crunchy. Zero junk needed after this.',
@@ -2453,7 +2513,7 @@ const PMS_MEAL_PLAN = {
         { n:'Kala chana topping',   cal:50,  p:4,  c:8,  f:1, fib:3 },
         { n:'Hung curd',            cal:35,  p:3,  c:2,  f:2, fib:0 }
       ] },
-    { id:'sat-5', time:'7–8pm · Dinner', title:'Moong dal chilla (2) + paneer filling + salad',
+    { id:'sat-5', time:'8–8:30pm · Meal 2', title:'Moong dal chilla (2) + paneer filling + salad',
       desc:'Light but satisfying. Dance day dinner. Chilla = easy protein + fiber. Paneer filling = satiating fat + protein. No heavy food before bed.',
       quantities:'Moong dal batter (140g) · Paneer (80g, crumbled) · Capsicum (40g) · Onion (40g) · Cucumber (80g) · Tomato (60g)',
       items:[
@@ -2469,7 +2529,6 @@ const PMS_MEAL_PLAN = {
       quantities:'Black coffee · Slim milk (60ml) · Protein powder (1 scoop)',
       items:[
         { n:'Coffee + slim milk',  cal:25, p:2, c:3, f:0, fib:0 },
-
         { n:'Protein shake (1 scoop)',cal:120, p:25, c:3, f:1, fib:0 },
       ] },
     { id:'sun-2', time:'9–10am · Breakfast', title:'Avocado toast + 1 scrambled egg + coffee',
@@ -2508,12 +2567,10 @@ const PMS_MEAL_PLAN = {
   ]}
 };
 
-// Auto-compute totals for PMS plan
 function applyPMSDayTotals() {
   Object.values(PMS_MEAL_PLAN).forEach(day => {
     const t = {cal:0,p:0,c:0,f:0,fib:0};
     day.meals.forEach(m => {
-      // Derive meal-level macros from items (same as applyDerivedMacros for normal plan)
       const mt = {cal:0,p:0,c:0,f:0,fib:0};
       m.items.forEach(it => {
         mt.cal+=it.cal; mt.p+=it.p; mt.c+=it.c; mt.f+=it.f; mt.fib+=it.fib;
@@ -2526,9 +2583,6 @@ function applyPMSDayTotals() {
 }
 applyPMSDayTotals();
 
-
-// Aggregated grocery list for the whole 7-day plan. Quantities computed from each meal's
-// quantities field. Round up where it makes sense for shopping (you can't buy 600g of chicken).
 const WEEKLY_GROCERY_LIST = [
   { section: 'Protein', items: [
     'Chicken breast — ~460g raw (Mon 120g, Wed 100g, Thu 120g, Fri 120g — LUNCH ONLY)',
@@ -2588,22 +2642,12 @@ const WEEKLY_GROCERY_LIST = [
     'Olive oil — small bottle (~50ml used)',
     'Cooking oil — ~50ml',
     'Pickle (achaar) — 1 jar (mango or mixed),',
-    
-    
     'Cumin, black pepper, salt, rock salt, turmeric, chilli powder, basil — pantry'
   ]}
 ];
 const DAY_NAMES = { mon:'Monday', tue:'Tuesday', wed:'Wednesday', thu:'Thursday', fri:'Friday', sat:'Saturday', sun:'Sunday' };
 const DAY_SHORT = { mon:'Mon', tue:'Tue', wed:'Wed', thu:'Thu', fri:'Fri', sat:'Sat', sun:'Sun' };
 const DAY_ORDER = ['mon','tue','wed','thu','fri','sat','sun'];
-
-/* ----------------------------------------------------------------
-   Each `items` entry now carries per-item macros: {n, cal, p, c, f, fib}
-   - n: display name
-   - cal/p/c/f/fib: realistic one-serving values for that component
-   Partial-meal math now SUMS the macros of items you actually ate,
-   so skipping a 0-cal black coffee removes 0 cal (not a proportional share).
-   ---------------------------------------------------------------- */
 
 const MEAL_PLAN = {
   mon: {
@@ -2615,7 +2659,6 @@ const MEAL_PLAN = {
           { n:'Coffee + slim milk', cal:25, p:2, c:3, f:0, fib:0 },
           { n:'Chia water',         cal:30, p:1, c:2, f:2, fib:4 }
         ] },
-
       { id:'mon-2', time:'1–1:30pm · Meal 1', title:'Chicken + 1 dosa + salad',
         desc:'Chicken breast (120g raw, weigh before cooking) + 1 small dosa with pickle + cucumber-tomato-onion salad.',
         quantities:'Raw chicken breast (120g) · Dosa (100g cooked) · Sambar Cucumber (100g) · Tomato (60g) · Onion (30g) · Olive oil (5ml / 1 tsp) · Lemon · Salt + pepper',
@@ -2625,7 +2668,6 @@ const MEAL_PLAN = {
           { n:'Cucumber-tomato-onion', cal:50, p:2,  c:10, f:0, fib:3 },
           { n:'Olive oil + lemon',  cal:50,  p:0,  c:1,  f:5,  fib:0 }
         ] },
-
       { id:'mon-3', time:'4–5pm · Snack', title:'Aloo tikki + hung curd',
         desc:'1 air-fried or pan-fried aloo tikki with hung curd dip. Complex carbs for energy.',
         quantities:'Aloo tikki (1 / ~80g) · Hung curd (80g) · Cucumber (50g)',
@@ -2634,7 +2676,6 @@ const MEAL_PLAN = {
           { n:'Hung curd dip',   cal:70,  p:6,  c:3,  f:3, fib:0 },
           { n:'Cucumber sticks', cal:10,  p:1,  c:2,  f:0, fib:1 },
         ] },
-
       { id:'mon-4', time:'6–6:30pm · Pre-workout', title:'Protein + milk + banana',
         desc:'1 scoop plant protein + 50ml slim milk + 1 small banana.',
         quantities:'Plant protein (1 scoop / ~30g) · Slim milk (50ml) · Banana (1 small / 90g) · Water (200ml)',
@@ -2642,7 +2683,6 @@ const MEAL_PLAN = {
           { n:'Plant protein + milk', cal:140, p:27, c:4,  f:2, fib:1 },
           { n:'Banana',               cal:80,  p:1,  c:20, f:0, fib:2 }
         ] },
-
       { id:'mon-5', time:'8–8:30pm · Meal 2', title:'Moong dal chilla + paneer + salad',
         desc:'2 moong dal chillas (store-bought batter) with paneer-veggie filling + hung curd + cucumber-carrot side.',
         quantities:'Moong dal batter (140g, store-bought) · Paneer (70g, crumbled) · Onion (40g) · Capsicum (40g) · Hung curd (100g) · Cucumber (60g) · Carrot (30g, grated) · 1 tsp oil · Spices',
@@ -2655,7 +2695,6 @@ const MEAL_PLAN = {
     ],
     note:'Strength training day. B12 + multivitamin with meal 1.'
   },
-
   tue: {
     meals: [
       { id:'tue-1', time:'7–8am · Wake-up', title:'Coffee + protein shake + almonds',
@@ -2666,7 +2705,6 @@ const MEAL_PLAN = {
           { n:'Soaked almonds',     cal:60, p:3, c:2, f:5, fib:1 },
           { n:'Protein shake (1 scoop)', cal:120, p:25, c:3, f:1, fib:0 },
         ] },
-
       { id:'tue-2', time:'1–1:30pm · Meal 1', title:'Kala chana + paneer + salad',
         desc:'Boiled kala chana with paneer cubes, chopped cucumber-tomato-carrot salad, hung curd. No rice — protein-forward.',
         quantities:'Kala chana (40g dry / ~100g cooked) · Paneer (60g, cubed) · Cucumber (100g) · Tomato (50g) · Carrot (40g, grated) · Onion (30g) · Hung curd (100g) · Spinach (60g) · 1 tsp oil · Lemon · Spices',
@@ -2677,7 +2715,6 @@ const MEAL_PLAN = {
           { n:'Wilted spinach',     cal:30,  p:3,  c:3,  f:1,  fib:2 },
           { n:'Hung curd',          cal:85,  p:8,  c:4,  f:4,  fib:0 }
         ] },
-
       { id:'tue-3', time:'4–5pm · Snack', title:'Protein + milk + small fruit',
         desc:'1 scoop plant protein + 50ml slim milk + 1 small pear or apple.',
         quantities:'Plant protein (1 scoop / ~30g) · Slim milk (50ml) · Pear or apple (1 small / ~120g)',
@@ -2685,7 +2722,6 @@ const MEAL_PLAN = {
           { n:'Plant protein + milk', cal:140, p:27, c:4,  f:2, fib:1 },
           { n:'Small pear/apple',     cal:60,  p:1,  c:15, f:0, fib:3 }
         ] },
-
       { id:'tue-4', time:'5:30pm · Mini snack', title:'Cucumber + hung curd dip',
         desc:'Cucumber sticks with thick hung curd + mint + garlic + lemon dip.',
         quantities:'Cucumber (100g) · Hung curd (60g) · Mint leaves · Garlic (1 clove) · Lemon · Salt',
@@ -2693,7 +2729,6 @@ const MEAL_PLAN = {
           { n:'Cucumber sticks',     cal:15, p:1, c:3, f:0, fib:2 },
           { n:'Hung curd-mint dip',  cal:55, p:5, c:3, f:3, fib:0 }
         ] },
-
       { id:'tue-5', time:'8–8:30pm · Meal 2', title:'Paneer chilla + salad',
         desc:'1 large paneer chilla (store-bought moong dal batter) with cucumber-tomato salad.',
         quantities:'Moong dal batter (80g) · Paneer (80g, crumbled) · Onion (40g) · Tomato (50g) · Capsicum (40g) · Cucumber (80g) · 1 tsp oil · Lemon · Spices',
@@ -2706,7 +2741,6 @@ const MEAL_PLAN = {
     ],
     note:'All-vegetarian day. Pilates / light cardio. Paneer + chana carry protein.'
   },
-
   wed: {
     meals: [
       { id:'wed-1', time:'7–8am · Wake-up', title:'Coffee + protein shake',
@@ -2717,7 +2751,6 @@ const MEAL_PLAN = {
           { n:'Chia water',         cal:30, p:1, c:2, f:2, fib:4 },
           { n:'Protein shake (1 scoop)', cal:120, p:25, c:3, f:1, fib:0 },
         ] },
-
       { id:'wed-2', time:'1–1:30pm · Meal 1', title:'Chicken rice bowl + salad',
         desc:'Chicken breast (100g raw) + jeera rice + cucumber-tomato salad + pickle. Warm, filling, actually enjoyable.',
         quantities:'Raw chicken (100g, weigh before cooking) · Jeera rice (60g cooked) · Cucumber (80g) · Tomato (50g) · Onion (30g) · Pickle (small) · 1 tsp ghee · Lemon',
@@ -2728,7 +2761,6 @@ const MEAL_PLAN = {
           { n:'Ghee (1 tsp)',               cal:40,  p:0,  c:0,  f:5,  fib:0 },
           { n:'Pickle',                     cal:10,  p:0,  c:2,  f:0,  fib:0 }
         ] },
-
       { id:'wed-3', time:'4–5pm · Snack', title:'Hung curd + fruit',
         desc:'Hung curd with chopped orange or apple. Cool, light, high-protein.',
         quantities:'Hung curd (100g) · Orange or apple (1 small / 130g)',
@@ -2736,7 +2768,6 @@ const MEAL_PLAN = {
           { n:'Hung curd',  cal:85, p:8, c:4,  f:4, fib:0 },
           { n:'Fruit',      cal:60, p:1, c:14, f:0, fib:3 }
         ] },
-
       { id:'wed-4', time:'6–6:30pm · Pre-workout', title:'Protein + milk + banana',
         desc:'1 scoop plant protein + 50ml slim milk + 1 small banana.',
         quantities:'Plant protein (1 scoop / ~30g) · Slim milk (50ml) · Banana (1 small / 90g)',
@@ -2744,7 +2775,6 @@ const MEAL_PLAN = {
           { n:'Plant protein + milk', cal:140, p:27, c:4,  f:2, fib:1 },
           { n:'Banana',               cal:80,  p:1,  c:20, f:0, fib:2 }
         ] },
-
       { id:'wed-5', time:'8–8:30pm · Meal 2', title:'Paneer tikka + grilled veg',
         desc:'Hung-curd marinated paneer tikka (120g) with grilled mixed veggies.',
         quantities:'Paneer (120g, cubed) · Hung curd marinade (30g) · Capsicum (40g) · Broccoli (80g) · Mushroom (40g) · Onion (30g) · Olive oil (5ml) · Spices',
@@ -2756,7 +2786,6 @@ const MEAL_PLAN = {
     ],
     note:'Strength training day. Rajma soaked overnight. No rice — protein+veg load.'
   },
-
   thu: {
     meals: [
       { id:'thu-1', time:'7–8am · Wake-up', title:'Coffee with milk',
@@ -2766,7 +2795,6 @@ const MEAL_PLAN = {
           { n:'Coffee + slim milk', cal:25, p:2, c:3, f:0, fib:0 },
           { n:'Chia water',         cal:30, p:1, c:2, f:2, fib:4 }
         ] },
-
       { id:'thu-2', time:'1–1:30pm · Meal 1', title:'Chicken + small dosa + salad',
         desc:'Chicken breast (120g raw, weigh before cooking) + 1 small dosa with pickle + cucumber-tomato salad.',
         quantities:'Raw chicken (120g, grilled) · Dosa (100g cooked) · Cucumber (80g) · Tomato (50g) · Onion (30g) · Lemon · Spices',
@@ -2775,7 +2803,6 @@ const MEAL_PLAN = {
           { n:'Small dosa (1)',     cal:115, p:3,  c:23, f:1,  fib:1 },
           { n:'Cuc-tom-onion side', cal:50,  p:2,  c:10, f:0,  fib:3 }
         ] },
-
       { id:'thu-3', time:'4–5pm · Snack', title:'Aloo tikki + hung curd',
         desc:'1 air-fried or pan-fried aloo tikki with hung curd. Carbs for running energy.',
         quantities:'Aloo tikki (1 / ~80g) · Hung curd (100g)',
@@ -2783,7 +2810,6 @@ const MEAL_PLAN = {
           { n:'Aloo tikki (1)', cal:120, p:3,  c:18, f:4, fib:2 },
           { n:'Hung curd',      cal:85,  p:8,  c:4,  f:4, fib:0 },
         ] },
-
       { id:'thu-4', time:'6pm · Pre-dinner', title:'Protein + milk + apple',
         desc:'1 scoop plant protein + 50ml slim milk + 1 small apple.',
         quantities:'Plant protein (1 scoop / ~30g) · Slim milk (50ml) · Apple (1 small / 130g)',
@@ -2791,7 +2817,6 @@ const MEAL_PLAN = {
           { n:'Plant protein + milk', cal:140, p:27, c:4,  f:2, fib:1 },
           { n:'Apple',                cal:65,  p:1,  c:16, f:0, fib:3 }
         ] },
-
       { id:'thu-5', time:'8–8:30pm · Meal 2', title:'Chickpea + 2-egg omelette + roti',
         desc:'Boiled chickpeas + 2-egg omelette + roti + salad. Running day needs more carbs at dinner.',
         quantities:'Boiled chickpeas (80g) · Eggs (2, omelette) · Roti (1) · Cucumber (80g) · Tomato (60g) · Onion (30g) · Olive oil (5ml) · Pomegranate (30g)',
@@ -2806,7 +2831,6 @@ const MEAL_PLAN = {
     ],
     note:'Running day. Dosa portion halved — paneer carries the meal.'
   },
-
   fri: {
     meals: [
       { id:'fri-1', time:'7–8am · Wake-up', title:'Coffee + protein shake',
@@ -2817,7 +2841,6 @@ const MEAL_PLAN = {
           { n:'Chia water',         cal:30, p:1, c:2, f:2, fib:4 },
           { n:'Protein shake (1 scoop)', cal:120, p:25, c:3, f:1, fib:0 },
         ] },
-
       { id:'fri-2', time:'1–1:30pm · Meal 1', title:'Chicken tikka + veggie salad',
         desc:'Hung-curd marinated chicken tikka (120g) with cucumber-tomato-carrot salad.',
         quantities:'Raw chicken (120g) · Hung curd marinade (30g) · Cucumber (80g) · Tomato (60g) · Carrot (40g, grated) · Onion (30g) · 1 tsp oil · Lemon · Spices',
@@ -2827,7 +2850,6 @@ const MEAL_PLAN = {
           { n:'Cuc-tom-carrot salad',  cal:60,  p:2,  c:12, f:0, fib:4 },
           { n:'Olive oil + lemon',     cal:50,  p:0,  c:1,  f:5, fib:0 }
         ] },
-
       { id:'fri-3', time:'4–5pm · Snack', title:'Roasted makhana + hung curd',
         desc:'25g ghee-roasted makhana + 100g hung curd. Carbs + protein for satiety.',
         quantities:'Makhana (25g) · Ghee (3g / ½ tsp) · Hung curd (100g) · Rock salt',
@@ -2835,7 +2857,6 @@ const MEAL_PLAN = {
           { n:'Roasted makhana', cal:130, p:3,  c:22, f:4, fib:3 },
           { n:'Hung curd',       cal:85,  p:8,  c:4,  f:4, fib:0 }
         ] },
-
       { id:'fri-4', time:'6–6:30pm · Pre-workout', title:'Protein + milk + banana',
         desc:'1 scoop plant protein + 50ml slim milk + 1 small banana.',
         quantities:'Plant protein (1 scoop / ~30g) · Slim milk (50ml) · Banana (1 small / 90g)',
@@ -2843,7 +2864,6 @@ const MEAL_PLAN = {
           { n:'Plant protein + milk', cal:140, p:27, c:4,  f:2, fib:1 },
           { n:'Banana',               cal:80,  p:1,  c:20, f:0, fib:2 }
         ] },
-
       { id:'fri-5', time:'8–8:30pm · Meal 2', title:'Kala chana chaat + hung curd',
         desc:'Boiled kala chana + chopped cucumber/tomato/carrot/onion + thick hung curd + pickle.',
         quantities:'Kala chana (40g dry / ~100g boiled) · Cucumber (80g) · Tomato (60g) · Carrot (30g, grated) · Onion (40g) · Hung curd (80g, thick) · Lemon · Coriander',
@@ -2856,7 +2876,6 @@ const MEAL_PLAN = {
     ],
     note:'Dance day. Chana chaat with hung curd — no tikki.'
   },
-
   sat: {
     meals: [
       { id:'sat-1', time:'7–8am · Wake-up', title:'Coffee with milk',
@@ -2865,7 +2884,6 @@ const MEAL_PLAN = {
         items:[
           { n:'Coffee + slim milk', cal:25, p:2, c:3, f:0, fib:0 }
         ] },
-
       { id:'sat-2', time:'9am · Post-workout', title:'Protein + milk + banana',
         desc:'1 scoop plant protein + 50ml slim milk + 1 small banana.',
         quantities:'Plant protein (1 scoop / ~30g) · Slim milk (50ml) · Banana (1 small / 90g)',
@@ -2873,7 +2891,6 @@ const MEAL_PLAN = {
           { n:'Plant protein + milk', cal:140, p:27, c:4,  f:2, fib:1 },
           { n:'Banana',               cal:80,  p:1,  c:20, f:0, fib:2 }
         ] },
-
       { id:'sat-3', time:'1–1:30pm · Meal 1', title:'Dal + paneer + 1 dosa + hung curd',
         desc:'Tadka yellow dal + paneer cubes + 1 small dosa with pickle + hung curd side. Protein-forward.',
         quantities:'Arhar/toor dal (40g dry / ~100g cooked) · Paneer (60g, cubed) · Dosa (100g cooked) · Hung curd (80g) · 1 tsp ghee · Lemon',
@@ -2885,7 +2902,6 @@ const MEAL_PLAN = {
           { n:'Hung curd',      cal:70,  p:6,  c:3,  f:3,  fib:0 },
           { n:'Ghee + lemon',   cal:20,  p:0,  c:0,  f:2,  fib:0 }
         ] },
-
       { id:'sat-4', time:'5pm · Snack', title:'Hung curd + fruit + seeds',
         desc:'Hung curd + chopped seasonal fruit + chia & pumpkin seeds.',
         quantities:'Hung curd (100g) · Seasonal fruit (80g) · Chia seeds (5g) · Pumpkin seeds (5g)',
@@ -2894,19 +2910,18 @@ const MEAL_PLAN = {
           { n:'Seasonal fruit',  cal:40, p:1, c:10, f:0, fib:2 },
           { n:'Seeds mix',       cal:50, p:2, c:3,  f:4, fib:2 }
         ] },
-
-      { id:'sat-5', time:'8–8:30pm · Meal 2', title:'Moong dal chilla + paneer + salad',
-        desc:'2 moong dal chillas with paneer-capsicum filling + cucumber-tomato salad.',
-        quantities:'Moong dal batter (140g) · Paneer (80g, crumbled) · Capsicum (40g) · Onion (40g) · Cucumber (80g) · Tomato (60g) · 1 tsp oil · Lemon · Spices',
+      { id:'sat-5', time:'8–8:30pm · Meal 2', title:'Paneer tikka + dal + roti',
+        desc:'Hung-curd marinated paneer tikka with dal and a roti — different texture and flavor from the chilla dinners earlier in the week, same protein-forward profile.',
+        quantities:'Paneer (100g, cubed) · Hung curd marinade (20g) · Capsicum + broccoli (grilled) · Yellow dal (50g cooked) · Roti (1) · 1 tsp oil · Spices',
         items:[
-          { n:'Moong dal chilla (x2)',  cal:230, p:16, c:28, f:6,  fib:7 },
-          { n:'Paneer-capsicum filling',cal:200, p:16, c:5,  f:13, fib:2 },
-          { n:'Cucumber-tomato salad',  cal:40,  p:1,  c:6,  f:0,  fib:3 }
+          { n:'Paneer tikka',    cal:230, p:20, c:5,  f:15, fib:1 },
+          { n:'Small dal',       cal:70,  p:6,  c:9,  f:1,  fib:3 },
+          { n:'Roti (1)',        cal:100, p:3,  c:20, f:1,  fib:2 },
+          { n:'Grilled veggies', cal:110, p:5,  c:14, f:5,  fib:5 }
         ] }
     ],
     note:'Dance day. Paneer + dal carry protein. No rice today.'
   },
-
   sun: {
     meals: [
       { id:'sun-1', time:'7–8am · Wake-up', title:'Coffee + protein shake',
@@ -2916,7 +2931,6 @@ const MEAL_PLAN = {
           { n:'Coffee + slim milk', cal:25, p:2, c:3, f:0, fib:0 },
           { n:'Protein shake (1 scoop)', cal:120, p:25, c:3, f:1, fib:0 },
         ] },
-
       { id:'sun-2', time:'9am · Post-workout', title:'Avocado toast + 1 egg',
         desc:'1 multigrain toast + full avocado + 1 scrambled egg on top. High healthy fats + protein.',
         quantities:'Multigrain bread (1 slice / ~40g) · Avocado (1 whole / ~150g) · Egg (1, scrambled) · Salt + pepper + lemon',
@@ -2925,7 +2939,6 @@ const MEAL_PLAN = {
           { n:'Full avocado',        cal:240, p:3,  c:12, f:22, fib:10 },
           { n:'1 scrambled egg',     cal:90,  p:7,  c:1,  f:6,  fib:0 }
         ] },
-
       { id:'sun-3', time:'1–1:30pm · Meal 1', title:'Chicken + big salad bowl',
         desc:'Chicken breast (120g raw, weigh before cooking) with cucumber-cherry tomato-lettuce-onion salad + lemon.',
         quantities:'Raw chicken (120g) · Cucumber (80g) · Cherry tomato (40g) · Lettuce (40g) · Onion (30g) · Lemon · Salt + pepper',
@@ -2933,7 +2946,6 @@ const MEAL_PLAN = {
           { n:'Grilled chicken (120g raw)', cal:132, p:28, c:0, f:3, fib:0 },
           { n:'Big salad bowl',   cal:60,  p:2,  c:10, f:0, fib:4 }
         ] },
-
       { id:'sun-4', time:'5pm · Snack', title:'Hung curd + paneer cubes + veg sticks',
         desc:'Cucumber and carrot sticks with thick hung curd dip + 30g paneer cubes.',
         quantities:'Cucumber (100g) · Carrot (60g) · Hung curd (80g) · Paneer cubes (30g) · Lemon · Mint · Salt',
@@ -2942,7 +2954,6 @@ const MEAL_PLAN = {
           { n:'Hung curd dip',     cal:70, p:6, c:3, f:3, fib:0 },
           { n:'Paneer cubes',      cal:80, p:6, c:1, f:6, fib:0 }
         ] },
-
       { id:'sun-5', time:'8–8:30pm · Meal 2', title:'Egg curry + dal + palak',
         desc:'3-egg curry in tomato-onion gravy + small dal + sautéed palak.',
         quantities:'Boiled eggs (3) · Tomato (60g) · Onion (40g) · Ginger · Spinach (100g) · Yellow dal (20g dry / ~50g cooked) · 1 tsp oil · Spices',
@@ -2957,8 +2968,6 @@ const MEAL_PLAN = {
   }
 };
 
-
-/* ---------- derive meal-level totals from items (single source of truth) ---------- */
 function computeMealTotals(meal) {
   const t = { cal:0, p:0, c:0, f:0, fib:0 };
   (meal.items || []).forEach(it => {
@@ -2983,7 +2992,6 @@ function applyDerivedDayTotals(day) {
 
 DAY_ORDER.forEach(applyDerivedDayTotals);
 
-/* Deep-clone the original base plan so "Reset to original" can always restore. */
 const PRISTINE_PLAN = JSON.parse(JSON.stringify(MEAL_PLAN));
 
 let currentDay = 'mon';
@@ -3007,12 +3015,20 @@ function hasOverride(day, mealId) {
   return Object.prototype.hasOwnProperty.call(ov, mealId);
 }
 
-/* ---------- storage helpers ---------- */
 function getCustomMeals(day) {
   try { return JSON.parse(localStorage.getItem('mealPlan_custom_' + day) || '[]'); } catch { return []; }
 }
 function setCustomMeals(day, meals) {
   try { localStorage.setItem('mealPlan_custom_' + day, JSON.stringify(meals)); } catch {}
+}
+// Ingredients the user chose to permanently save from the "Add a meal" modal
+// toggle — these get merged into the regular INGREDIENTS/SNACK_INGREDIENTS
+// dropdown lists everywhere, on every future day, not just logged once.
+function getCustomIngredients() {
+  try { return JSON.parse(localStorage.getItem('mealPlan_customIngredients') || '[]'); } catch { return []; }
+}
+function setCustomIngredients(list) {
+  try { localStorage.setItem('mealPlan_customIngredients', JSON.stringify(list)); } catch {}
 }
 function getCheckedIds(day) {
   try { return JSON.parse(localStorage.getItem('mealPlan_checked_' + day) || '[]'); } catch { return []; }
@@ -3027,15 +3043,12 @@ function setSkippedItems(day, data) {
   try { localStorage.setItem('mealPlan_skipped_' + day, JSON.stringify(data)); } catch {}
 }
 
-/* ---------- activity storage ---------- */
 const ACTIVITY_PRESETS = [
   { name: 'Weight training (1hr)',       cal: 310, emoji: '🏋️' },
   { name: 'Badminton (1.5hr)',           cal: 560, emoji: '🏸' },
-  { name: 'Belly dance class (1hr)',     cal: 280, emoji: '💃' },
-  { name: 'Jazz dance class (1hr)',      cal: 310, emoji: '🎵' },
+  { name: 'Dance class (1hr)',           cal: 295, emoji: '💃' },
   { name: '10k steps walk',             cal: 290, emoji: '🚶' },
   { name: 'Running (30min)',            cal: 250, emoji: '🏃' },
-  { name: 'Running (45min)',            cal: 370, emoji: '🏃' },
   { name: 'Pilates (30min)',            cal: 150, emoji: '🧘' },
 ];
 function getActivities(day) {
@@ -3048,7 +3061,6 @@ function totalBurned(day) {
   return getActivities(day).reduce((a, x) => a + (parseInt(x.cal) || 0), 0);
 }
 
-/* ---------- lazy mode (PMS-friendly meal swaps) ---------- */
 function isPMSMode() {
   try { return localStorage.getItem('mealPlan_pms') === '1'; } catch { return false; }
 }
@@ -3076,7 +3088,6 @@ function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 }
 
-/* ---------- correct partial-meal math (sum actually-eaten item macros) ---------- */
 function computeEffectiveMacros(meal, skippedIdxs) {
   const items = meal.items || [];
   if (!skippedIdxs || skippedIdxs.length === 0 || items.length === 0) {
@@ -3086,14 +3097,12 @@ function computeEffectiveMacros(meal, skippedIdxs) {
   const t = { cal:0, p:0, c:0, f:0, fib:0 };
   items.forEach((it, idx) => {
     if (skipped.has(idx)) return;
-    // backward-compat: if an item is a plain string, treat as 0 macros
     if (typeof it !== 'object' || it === null) return;
     t.cal += it.cal || 0; t.p += it.p || 0; t.c += it.c || 0; t.f += it.f || 0; t.fib += it.fib || 0;
   });
   return t;
 }
 
-/* ---------- helpers that tolerate both object-items and legacy string-items ---------- */
 function itemLabel(it) {
   return typeof it === 'string' ? it : (it && it.n ? it.n : '');
 }
@@ -3103,9 +3112,14 @@ function itemCal(it) {
 
 function renderTabs() {
   const tabs = document.getElementById('tabs');
+  const target = isPMSMode() ? PMS_TARGETS.cal : TARGETS.cal;
   tabs.innerHTML = DAY_ORDER.map(day => {
+    const cal = getDayCalories(dateStrForDay(day));
+    // No dot on a day with nothing logged — an empty day isn't "on target".
+    const dotClass = cal === 0 ? '' : cal > target ? ' over' : ' ontrack';
     return `<button class="day-tab${day === currentDay ? ' active' : ''}" data-day="${day}">
       <span>${DAY_SHORT[day]}</span>
+      <span class="day-dot${dotClass}"></span>
     </button>`;
   }).join('');
   tabs.querySelectorAll('.day-tab').forEach(btn => {
@@ -3116,8 +3130,6 @@ function renderTabs() {
 function renderMealRow(m, checkedIds, skippedData) {
   const checked = checkedIds.includes(m.id);
   const items = m.items || [];
-  // Filter stored skip indices against the current items list so stale/invalid indices
-  // (e.g. from a custom meal that was migrated or edited) don't pollute the display.
   const rawSkippedIdxs = skippedData[m.id] || [];
   const skippedIdxs = rawSkippedIdxs.filter(idx => idx >= 0 && idx < items.length);
   const isPartial = skippedIdxs.length > 0 && !checked;
@@ -3192,7 +3204,6 @@ function renderPanel(day) {
 
   const pmsBanner = pms ? `<div class="pms-mode-banner">🌙 <strong>PMS mode</strong> — hormone-balanced meals. No chicken. More comfort carbs. Anti-bloat foods. Your body, your rules.</div>` : '';
 
-  // Weekly grocery list shown only on Sunday (end-of-week shopping prep)
   const groceryHtml = day === 'sun' ? `
     <details class="weekly-grocery">
       <summary class="weekly-grocery-head">
@@ -3240,8 +3251,6 @@ function renderPanels() {
 }
 
 function attachHandlers() {
-  // PMS mode toggle handled at top level (not per-day)
-
   document.querySelectorAll('input[type="checkbox"][data-meal-id]').forEach(cb => {
     cb.addEventListener('change', (e) => {
       const mealId = e.target.dataset.mealId;
@@ -3255,7 +3264,7 @@ function attachHandlers() {
         ids = ids.filter(i => i !== mealId);
       }
       setCheckedIds(currentDay, ids);
-            renderTracker();
+      renderTracker();
       renderTabs();
     });
   });
@@ -3311,13 +3320,11 @@ function attachHandlers() {
       const panel = document.getElementById('skip-' + mealId);
       const row = document.querySelector('.meal-row[data-meal-id="' + mealId + '"]');
 
-      // Always collapse the skip panel
       if (panel) panel.classList.remove('open');
 
       const hasSkips = skipped[mealId] && skipped[mealId].length > 0;
 
       if (hasSkips && row) {
-        // Apply the "partial" visual state in-place (no full re-render — that would re-open the panel)
         const allMeals = getMealsForDay(currentDay);
         const meal = allMeals.find(m => m.id === mealId);
         const checkedIds = getCheckedIds(currentDay);
@@ -3338,7 +3345,6 @@ function attachHandlers() {
           if (pills[2]) pills[2].textContent = eff.f + 'g F';
           if (pills[3]) pills[3].textContent = eff.fib + 'g fiber';
 
-          // Update the partial/edit button label
           const partialBtn = row.querySelector('[data-toggle-skip="' + mealId + '"]');
           if (partialBtn) partialBtn.textContent = 'Edit skipped';
         }
@@ -3346,7 +3352,6 @@ function attachHandlers() {
         renderTracker();
         renderTabs();
       } else if (!hasSkips && row) {
-        // No items were marked skipped — just clear the partial look
         row.classList.remove('partial');
         const check = row.querySelector('.check');
         if (check) check.classList.remove('partial-check');
@@ -3362,108 +3367,71 @@ function attachHandlers() {
   });
 }
 
-/* ---------- ADD MEAL MODAL ---------- */
 function openAddModal() {
   ['newMealTitle','newMealDesc','newMealTime','newMealCal','newMealP','newMealC','newMealF','newMealFib'].forEach(id => {
     document.getElementById(id).value = '';
   });
+  document.getElementById('newMealSaveToDropdown').checked = false;
   document.getElementById('aiStatus').textContent = '';
   document.getElementById('quickPickSearch').value = '';
   renderQuickPick('');
   document.getElementById('addMealModal').classList.add('open');
 }
 
-/* ---------- QUICK PICK (pick items from any day's meals) ---------- */
-// Builds a list of every item across all 7 days, grouped by day. Tap an item to expand
-// quantity buttons; tap a quantity to add it as a custom meal on the current day.
 function renderQuickPick(searchTerm) {
   const term = (searchTerm || '').trim().toLowerCase();
   const container = document.getElementById('quickPickList');
   if (!container) return;
 
-  // Build a flat list of (day, mealTitle, item) triples from MEAL_PLAN.
-  // We iterate the base plan (not lazy) since users probably know meals by their regular names.
+  // Group 1 — every ingredient from the slot dropdowns (deduped by name, since
+  // several appear in both the main and snack lists).
+  const seen = new Set();
+  const ingItems = [];
+  [...INGREDIENTS, ...SNACK_INGREDIENTS, ...getCustomIngredients()].forEach(ing => {
+    const key = ing.name.toLowerCase();
+    if (seen.has(key)) return;
+    seen.add(key);
+    if (!term || key.includes(term)) {
+      ingItems.push({
+        item: { n: ing.name, cal: ing.cal, p: ing.p, c: ing.c, f: ing.f, fib: ing.fib || 0 },
+        mealTitle: ing.unit
+      });
+    }
+  });
+
+  // Groups 2..n — items from each day's planned meals.
   const byDay = {};
-  const DAYS_ORDER = ['mon','tue','wed','thu','fri','sat','sun'];
-  DAYS_ORDER.forEach(d => {
+  DAY_ORDER.forEach(d => {
     byDay[d] = [];
     MEAL_PLAN[d].meals.forEach(meal => {
       (meal.items || []).forEach(it => {
-        const haystack = it.n.toLowerCase();
-        if (!term || haystack.includes(term)) {
+        if (!term || it.n.toLowerCase().includes(term)) {
           byDay[d].push({ item: it, mealTitle: meal.title });
         }
       });
     });
   });
 
-  // Also surface the dropdown ingredients themselves (INGREDIENTS +
-  // SNACK_INGREDIENTS + any custom ones), deduped by name, so Quick Pick can
-  // add a raw ingredient — not just items that happen to appear in the weekly
-  // plan. This is the "include the dropdown ingredients too" ask.
-  const ingSeen = new Set();
-  const ingredientPicks = [];
-  INGREDIENTS.concat(SNACK_INGREDIENTS).concat(getCustomIngredients()).forEach(ing => {
-    const key = ing.name.toLowerCase();
-    if (ingSeen.has(key)) return;
-    ingSeen.add(key);
-    const haystack = key;
-    if (!term || haystack.includes(term)) {
-      ingredientPicks.push(ing);
-    }
-  });
-
-  // If everything is empty, show "no matches"
-  const totalCount = DAYS_ORDER.reduce((s,d) => s + byDay[d].length, 0) + ingredientPicks.length;
+  const totalCount = ingItems.length + DAY_ORDER.reduce((s2,d) => s2 + byDay[d].length, 0);
   if (totalCount === 0) {
     container.innerHTML = `<p class="quick-pick-empty">No items match "${escapeHtml(term)}". Try a different word — or enter manually below.</p>`;
     return;
   }
 
-  let html = '';
-
-  // Ingredients group first
-  if (ingredientPicks.length > 0) {
-    html += `<div class="quick-pick-day">
-      <p class="quick-pick-day-label">Ingredients</p>`;
-    ingredientPicks.forEach(ing => {
-      const macros = `
-        <span class="pill pill-p">P ${ing.p}g</span>
-        <span class="pill pill-c">C ${ing.c}g</span>
-        <span class="pill pill-f">F ${ing.f}g</span>
-        ${ing.fib ? `<span class="pill pill-fib">Fib ${ing.fib}g</span>` : ''}`;
-      html += `<button type="button" class="quick-pick-item" data-meal-title="${escapeHtml(ing.unit)}" data-item-name="${escapeHtml(ing.name)}" data-cal="${ing.cal}" data-p="${ing.p}" data-c="${ing.c}" data-f="${ing.f}" data-fib="${ing.fib || 0}">
-        <span class="quick-pick-item-top">
-          <span class="quick-pick-item-name">${escapeHtml(ing.name)}</span>
-          <span class="quick-pick-item-cal">${ing.cal} cal · ${escapeHtml(ing.unit)}</span>
-        </span>
-        <span class="quick-pick-item-macros">${macros}</span>
-        <span class="quick-pick-qty">
-          <button type="button" class="quick-pick-qty-btn" data-qty="0.5">½×</button>
-          <button type="button" class="quick-pick-qty-btn" data-qty="1">+1</button>
-          <button type="button" class="quick-pick-qty-btn" data-qty="2">+2</button>
-          <button type="button" class="quick-pick-qty-btn" data-qty="3">+3</button>
-        </span>
-      </button>`;
-    });
-    html += `</div>`;
-  }
-
-  DAYS_ORDER.forEach(d => {
-    if (byDay[d].length === 0) return;
-    html += `<div class="quick-pick-day">
-      <p class="quick-pick-day-label">${DAY_NAMES[d]}</p>`;
-    byDay[d].forEach(({item, mealTitle}, idx) => {
+  const renderGroup = (label, arr) => {
+    if (arr.length === 0) return '';
+    let h = `<div class="quick-pick-day"><p class="quick-pick-day-label">${escapeHtml(label)}</p>`;
+    arr.forEach(({item, mealTitle}) => {
       const cal = itemCal(item);
       const macros = `
         <span class="pill pill-p">P ${item.p}g</span>
         <span class="pill pill-c">C ${item.c}g</span>
         <span class="pill pill-f">F ${item.f}g</span>
         ${item.fib ? `<span class="pill pill-fib">Fib ${item.fib}g</span>` : ''}`;
-      html += `<button type="button" class="quick-pick-item" data-day="${d}" data-meal-title="${escapeHtml(mealTitle)}" data-item-name="${escapeHtml(item.n)}" data-cal="${cal}" data-p="${item.p}" data-c="${item.c}" data-f="${item.f}" data-fib="${item.fib || 0}">
+      h += `<button type="button" class="quick-pick-item" data-meal-title="${escapeHtml(mealTitle)}" data-item-name="${escapeHtml(item.n)}" data-cal="${cal}" data-p="${item.p}" data-c="${item.c}" data-f="${item.f}" data-fib="${item.fib || 0}">
         <span class="quick-pick-item-top">
           <span class="quick-pick-item-name">${escapeHtml(item.n)}</span>
-          <span class="quick-pick-item-cal">${cal} cal · ${mealTitle}</span>
+          <span class="quick-pick-item-cal">${cal} cal · ${escapeHtml(mealTitle)}</span>
         </span>
         <span class="quick-pick-item-macros">${macros}</span>
         <span class="quick-pick-qty">
@@ -3474,22 +3442,21 @@ function renderQuickPick(searchTerm) {
         </span>
       </button>`;
     });
-    html += `</div>`;
-  });
+    return h + `</div>`;
+  };
+
+  let html = renderGroup('Ingredients', ingItems);
+  DAY_ORDER.forEach(d => { html += renderGroup(DAY_NAMES[d], byDay[d]); });
   container.innerHTML = html;
 
-  // Wire item-tap → expand quantity row
   container.querySelectorAll('.quick-pick-item').forEach(btn => {
     btn.addEventListener('click', (e) => {
-      // If a qty button was clicked, don't expand/collapse — let the qty handler fire
       if (e.target.classList.contains('quick-pick-qty-btn')) return;
-      // Collapse any other expanded items
       container.querySelectorAll('.quick-pick-item.expanded').forEach(o => { if (o !== btn) o.classList.remove('expanded'); });
       btn.classList.toggle('expanded');
     });
   });
 
-  // Wire qty button → add as custom meal
   container.querySelectorAll('.quick-pick-qty-btn').forEach(qbtn => {
     qbtn.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -3497,27 +3464,21 @@ function renderQuickPick(searchTerm) {
       const qty = parseFloat(qbtn.dataset.qty);
       const itemName = itemBtn.dataset.itemName;
       const mealTitle = itemBtn.dataset.mealTitle;
-      const baseCal = parseFloat(itemBtn.dataset.cal);
-      const baseP = parseFloat(itemBtn.dataset.p);
-      const baseC = parseFloat(itemBtn.dataset.c);
-      const baseF = parseFloat(itemBtn.dataset.f);
-      const baseFib = parseFloat(itemBtn.dataset.fib);
-      const cal = Math.round(baseCal * qty);
-      const p = Math.round(baseP * qty * 10) / 10;
-      const c = Math.round(baseC * qty * 10) / 10;
-      const f = Math.round(baseF * qty * 10) / 10;
-      const fib = Math.round(baseFib * qty * 10) / 10;
+      const r1 = (n) => Math.round(n * 10) / 10;
+      const cal = Math.round(parseFloat(itemBtn.dataset.cal) * qty);
+      const p = r1(parseFloat(itemBtn.dataset.p) * qty);
+      const c = r1(parseFloat(itemBtn.dataset.c) * qty);
+      const f = r1(parseFloat(itemBtn.dataset.f) * qty);
+      const fib = r1(parseFloat(itemBtn.dataset.fib) * qty);
 
-      // Build a sensible title and time
       const qtyLabel = qty === 1 ? '' : qty === 0.5 ? '½ ' : `${qty}× `;
       const niceTitle = `${qtyLabel}${itemName}`;
-      const niceTime = `Added · ${mealTitle}`;
 
       const newMeal = {
         id: 'custom-' + Date.now(),
-        time: niceTime,
+        time: `Added · ${mealTitle}`,
         title: niceTitle,
-        desc: `${mealTitle} · auto-calculated for ${qty}× portion.`,
+        desc: `${mealTitle} — ${qty}× portion.`,
         cal, p, c, f, fib,
         items: [{ n: niceTitle, cal, p, c, f, fib }],
         isCustom: true
@@ -3529,6 +3490,7 @@ function renderQuickPick(searchTerm) {
       document.getElementById('addMealModal').classList.remove('open');
       renderSlotSection();
       renderTracker();
+      renderWeeklyTracker();
       renderTabs();
     });
   });
@@ -3576,12 +3538,6 @@ document.getElementById('addMealSave').addEventListener('click', () => {
     return;
   }
 
-  // For a custom meal, the user entered TOTAL macros — we don't know how to distribute
-  // them across named ingredients without per-item knowledge (e.g. water has 0 protein,
-  // whey has all of it). So we store one atomic item that carries the full macros.
-  // This means custom meals behave as "check/uncheck whole thing" — no partial skipping,
-  // which is honest: we can't guess what fraction of the user's 100g protein belongs
-  // to each ingredient they typed.
   const items = [{ n: title, cal, p, c, f, fib }];
 
   const newMeal = {
@@ -3595,6 +3551,17 @@ document.getElementById('addMealSave').addEventListener('click', () => {
   customs.push(newMeal);
   setCustomMeals(currentDay, customs);
 
+  if (document.getElementById('newMealSaveToDropdown').checked) {
+    const customIngs = getCustomIngredients();
+    customIngs.push({
+      id: 'custom-ing-' + Date.now(),
+      name: title,
+      unit: '1 serving',
+      cal, p, c, f, fib
+    });
+    setCustomIngredients(customIngs);
+  }
+
   document.getElementById('addMealModal').classList.remove('open');
   renderSlotSection();
   renderTracker();
@@ -3602,7 +3569,6 @@ document.getElementById('addMealSave').addEventListener('click', () => {
   renderTabs();
 });
 
-/* ---------- EDIT MEAL MODAL ---------- */
 function openEditModal(mealId) {
   editingMealId = mealId;
   const allMeals = getMealsForDay(currentDay);
@@ -3620,7 +3586,6 @@ function openEditModal(mealId) {
   document.getElementById('editMealFib').value = meal.fib || '';
   document.getElementById('editAiStatus').textContent = '';
 
-  // Show "Reset to original" only when this is a base meal with a saved override
   const resetBtn = document.getElementById('editMealResetOriginal');
   if (isBaseMeal(currentDay, mealId) && hasOverride(currentDay, mealId)) {
     resetBtn.style.display = 'flex';
@@ -3642,22 +3607,19 @@ document.getElementById('editMealResetOriginal').addEventListener('click', () =>
   if (!pristine) return;
   if (!confirm('Reset "' + pristine.title + '" back to its original values? Your edits to this meal will be discarded.')) return;
 
-  // Remove the override for this meal
   const ov = getOverrides(currentDay);
   delete ov[editingMealId];
   setOverrides(currentDay, ov);
 
-  // Restore the in-memory base meal from the pristine snapshot (deep clone so future edits don't mutate it)
   const idx = MEAL_PLAN[currentDay].meals.findIndex(m => m.id === editingMealId);
   if (idx !== -1) {
     MEAL_PLAN[currentDay].meals[idx] = JSON.parse(JSON.stringify(pristine));
   }
 
-  // Re-derive day totals and refresh UI
   applyDerivedDayTotals(currentDay);
   document.getElementById('editMealModal').classList.remove('open');
   editingMealId = null;
-    renderTracker();
+  renderTracker();
   renderWeeklyTracker();
   renderTabs();
 });
@@ -3693,7 +3655,6 @@ document.getElementById('editMealSave').addEventListener('click', () => {
   const f = parseInt(document.getElementById('editMealF').value) || 0;
   const fib = parseInt(document.getElementById('editMealFib').value) || 0;
 
-  // Find existing meal so we can preserve its items if possible
   const allMeals = getMealsForDay(currentDay);
   const existing = allMeals.find(m => m.id === editingMealId);
   const prevItems = existing && existing.items ? existing.items : [];
@@ -3701,24 +3662,18 @@ document.getElementById('editMealSave').addEventListener('click', () => {
 
   let newItems;
   if (isCustom) {
-    // Custom meals: user-entered totals, no per-item knowledge. Store atomically
-    // so partial-skipping never silently loses macros. See addMealSave for rationale.
     newItems = [{ n: title, cal, p, c, f, fib }];
   } else {
-    // Base meals have real per-item macros. Rebuild items from new description,
-    // keeping per-item macros when names match; otherwise fall back to even distribution.
     const parts = desc ? desc.split(',').map(s => s.trim()).filter(Boolean) : [];
     if (parts.length === 0) {
       newItems = [{ n: title, cal, p, c, f, fib }];
     } else {
-      // Try to preserve prev items if same count and all names still line up
       const sameCount = parts.length === prevItems.length;
       const prevMatched = sameCount && parts.every((name, i) => {
         const prev = prevItems[i];
         return prev && itemLabel(prev).toLowerCase() === name.toLowerCase();
       });
       if (prevMatched) {
-        // user didn't rewrite description — keep per-item macros but scale to new totals
         const scale = (key, newVal) => {
           const prevSum = prevItems.reduce((a, it) => a + (it[key] || 0), 0);
           return prevSum > 0 ? (newVal / prevSum) : 0;
@@ -3736,7 +3691,6 @@ document.getElementById('editMealSave').addEventListener('click', () => {
         const share = (v) => Math.round(v / parts.length);
         newItems = parts.map(n => ({ n, cal: share(cal), p: share(p), c: share(c), f: share(f), fib: share(fib) }));
       }
-      // Fix rounding drift
       const sum = k => newItems.reduce((a, it) => a + it[k], 0);
       newItems[0].cal += (cal - sum('cal'));
       newItems[0].p   += (p   - sum('p'));
@@ -3762,15 +3716,16 @@ document.getElementById('editMealSave').addEventListener('click', () => {
     if (baseMeal) Object.assign(baseMeal, patch);
   }
 
-  // Re-derive day totals in case macros changed
   applyDerivedDayTotals(currentDay);
 
   document.getElementById('editMealModal').classList.remove('open');
   editingMealId = null;
-    renderTracker();
+  // FIX: was missing renderSlotSection(), so editing a custom meal wouldn't
+  // update the Custom meal card until something else triggered a re-render.
+  renderSlotSection();
+  renderTracker();
 });
 
-/* ---------- AI ESTIMATION ---------- */
 async function runAiEstimate(title, desc, btnId, statusId, fields) {
   const btn = document.getElementById(btnId);
   const status = document.getElementById(statusId);
@@ -3821,22 +3776,18 @@ Use realistic Indian home-cooked or restaurant portions.`;
   }
 }
 
-/* ---------- TRACKER ---------- */
 function computeConsumed(day) {
   const totals = { cal:0, p:0, c:0, f:0, fib:0 };
 
-  // ── New slot system ──
-  const ds = todayStr(); // slots are stored by today's date, not day name
+  const ds = selectedDateStr();
   const slotLog = getSlotLog(ds);
 
-  // Wake-up: only count if checked
   const wakeupChecked = localStorage.getItem('wakeup_checked_' + ds) === 'true';
   if (wakeupChecked) {
     const w = MEAL_SLOTS[0].meal;
     totals.cal += w.cal; totals.p += w.p; totals.c += w.c; totals.f += w.f; totals.fib += w.fib;
   }
 
-  // Other slots: count all selected meals (now arrays)
   Object.values(slotLog).forEach(meals => {
     if (!Array.isArray(meals)) meals = [meals];
     meals.forEach(meal => {
@@ -3861,7 +3812,6 @@ function renderTracker() {
 
   document.getElementById('trackerDayLabel').textContent = DAY_NAMES[currentDay] + "'s progress";
 
-  // --- Calorie equation: consumed − burned = net (of target) ---
   const netDisplay = isDeficit ? `−${fmt(Math.abs(netCal))}` : fmt(netCal);
   const netClass = isOver ? ' over' : (isDeficit ? ' deficit' : '');
   let netSub = `of ${fmt(target)}`;
@@ -3886,7 +3836,6 @@ function renderTracker() {
     </div>
   `;
 
-  // --- Macro grid below: protein, carbs, fat, fiber ---
   const macros = [
     { key:'p',   label:'Protein', cls:'p',   value:consumed.p,   target:TARGETS.p   },
     { key:'c',   label:'Carbs',   cls:'c',   value:consumed.c,   target:TARGETS.c   },
@@ -3907,12 +3856,10 @@ function renderTracker() {
   }).join('');
 }
 
-/* ---------- activity rendering ---------- */
 function renderActivity() {
   const list = getActivities(currentDay);
   const burned = totalBurned(currentDay);
 
-  // Summary line in the collapsed header
   const sumEl = document.getElementById('activitySummaryText');
   if (list.length === 0) {
     sumEl.textContent = 'No activity logged';
@@ -3922,7 +3869,6 @@ function renderActivity() {
     sumEl.classList.add('has-burn');
   }
 
-  // Presets
   const presetsEl = document.getElementById('activityPresets');
   presetsEl.innerHTML = ACTIVITY_PRESETS.map((p, i) =>
     `<button type="button" class="activity-preset" data-preset-idx="${i}">${p.emoji || ''} ${escapeHtml(p.name)}<span class="preset-cal">−${p.cal} cal</span></button>`
@@ -3934,7 +3880,6 @@ function renderActivity() {
     });
   });
 
-  // Logged entries
   const listEl = document.getElementById('activityList');
   listEl.innerHTML = list.map((a, i) =>
     `<li class="activity-item">
@@ -3967,26 +3912,21 @@ function addActivity(name, cal) {
   renderTracker();
 }
 
-/* ---------- fitness goals (weekly tracker) ---------- */
 const FITNESS_GOALS = [
   { key: 'strength',  name: 'Weight training', emoji: '🏋️', min: 3, max: 4, note: '3–4× week · 1hr each' },
   { key: 'badminton', name: 'Badminton',        emoji: '🏸', min: 2, max: 3, note: '2× week min · 1.5hr each' },
-  { key: 'bellydance',name: 'Belly dance',      emoji: '💃', min: 1, max: 1, note: 'Saturdays · intermediate' },
-  { key: 'jazz',      name: 'Jazz class',       emoji: '🎵', min: 1, max: 1, note: 'Sundays · intermediate' },
+  { key: 'dance',     name: 'Dance',            emoji: '💃', min: 2, max: 2, note: 'Sat + Sun · ~295 cal/class' },
   { key: 'steps10k',  name: '10k steps',        emoji: '🚶', min: 5, max: 7, note: 'Daily goal' },
   { key: 'running',   name: 'Running',          emoji: '🏃', min: 1, max: 3, note: 'When you can' },
   { key: 'pilates',   name: 'Pilates',          emoji: '🧘', min: 1, max: 2, note: 'When you can' },
 ];
 
-// Week starts Monday. Returns a stable string like "2026-W18" so counts auto-reset on Monday rollover.
 function currentWeekKey() {
   const d = new Date();
   d.setHours(0, 0, 0, 0);
-  // Find Monday of this week (treat Sunday as end of prior week)
-  const day = d.getDay();             // 0=Sun, 1=Mon, … 6=Sat
+  const day = d.getDay();
   const daysFromMonday = day === 0 ? 6 : day - 1;
   d.setDate(d.getDate() - daysFromMonday);
-  // Build YYYY-MM-DD of that Monday
   const y = d.getFullYear();
   const m = String(d.getMonth() + 1).padStart(2, '0');
   const dd = String(d.getDate()).padStart(2, '0');
@@ -3996,7 +3936,6 @@ function currentWeekKey() {
 function getFitnessCounts() {
   try {
     const stored = JSON.parse(localStorage.getItem('mealPlan_fitness') || '{}');
-    // If stored data is from a different week, ignore it (auto-reset)
     if (stored.week !== currentWeekKey()) return {};
     return stored.counts || {};
   } catch { return {}; }
@@ -4026,14 +3965,9 @@ function renderFitness() {
     const isMet = count >= g.min;
     const targetText = g.min === g.max ? `${g.min}×/wk` : `${g.min}–${g.max}×/wk`;
 
-    // Build `g.max` stubs. A stub at index i is "filled" if count > i.
-    // For ranges where min < max, mark the in-range stubs (indices min-1 through max-1)
-    // with a subtle dashed border so user sees where "good enough" begins.
     const stubsHtml = Array.from({ length: g.max }, (_, i) => {
       const filled = count > i;
       const inRange = (g.min < g.max) && (i >= g.min - 1);
-      // Click target: if currently the last filled stub, unfill (count = i).
-      // Otherwise fill up through this stub (count = i + 1).
       const targetCount = (filled && count === i + 1) ? i : i + 1;
       const cls = `stub${filled ? ' filled' : ''}${inRange ? ' in-range-marker' : ''}`;
       return `<button type="button" class="${cls}" data-fitness-set="${g.key}" data-count="${targetCount}" aria-label="${escapeHtml(g.name)} session ${i+1}"></button>`;
@@ -4056,7 +3990,6 @@ function renderFitness() {
     });
   });
 
-  // Header summary: count goals met (within range)
   const metCount = FITNESS_GOALS.filter(g => (counts[g.key] || 0) >= g.min).length;
   if (metCount === 0 && Object.keys(counts).length === 0) {
     sumEl.textContent = 'Tap to track this week';
@@ -4068,7 +4001,6 @@ function renderFitness() {
   }
 }
 
-/* ---------- weight & goal (simple) ---------- */
 const WEIGHT_KEY = 'mealPlan_weight';
 const LB_PER_KG = 2.20462;
 
@@ -4087,18 +4019,15 @@ function renderWeight() {
   const w = getWeight();
   const unit = w.unit || 'kg';
 
-  // Unit toggle active state
   document.querySelectorAll('.weight-unit-btn').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.unit === unit);
   });
 
-  // Populate inputs from storage (unless user is currently typing in them)
   const curEl = document.getElementById('weightCurrent');
   const goalEl = document.getElementById('weightGoal');
   if (curEl && document.activeElement !== curEl) curEl.value = w.current || '';
   if (goalEl && document.activeElement !== goalEl) goalEl.value = w.goal || '';
 
-  // Header summary line
   const sumEl = document.getElementById('weightSummaryText');
   if (w.current && w.goal) {
     const curTxt = formatWeight(parseFloat(w.current), unit);
@@ -4113,7 +4042,6 @@ function renderWeight() {
     sumEl.classList.remove('has-burn');
   }
 
-  // Delta line — just the arithmetic difference, no projections
   const deltaEl = document.getElementById('weightDelta');
   if (w.current && w.goal) {
     const cur = parseFloat(w.current);
@@ -4141,12 +4069,12 @@ function saveWeightFromInputs() {
   renderWeight();
 }
 
-
 function switchDay(day) {
   currentDay = day;
   renderTabs();
-    renderTracker();
+  renderTracker();
   renderActivity();
+  renderSlotSection();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -4160,10 +4088,18 @@ document.getElementById('resetBtn').addEventListener('click', () => {
   setSkippedItems(currentDay, {});
   setActivities(currentDay, []);
   setCustomMeals(currentDay, []);
-    renderTracker();
+  // Every day tab now maps to its own real calendar date (see
+  // selectedDateStr()), so reset always clears that date's actual log —
+  // no more special-casing "only if this tab happens to be today."
+  const ds = selectedDateStr();
+  localStorage.removeItem(getSlotLogKey(ds));
+  localStorage.removeItem('wakeup_checked_' + ds);
+  clearSlotEatenForDate(ds);
+  renderTracker();
   renderWeeklyTracker();
   renderTabs();
   renderActivity();
+  renderSlotSection();
 });
 
 (function initDay() {
@@ -4172,7 +4108,6 @@ document.getElementById('resetBtn').addEventListener('click', () => {
   currentDay = DAY_ORDER[map[todayIdx]];
 })();
 
-/* Load overrides (may include items[] for correct partial math) */
 DAY_ORDER.forEach(day => {
   try {
     const overrides = getOverrides(day);
@@ -4184,12 +4119,6 @@ DAY_ORDER.forEach(day => {
   } catch {}
 });
 
-/* ---------- one-time migration for custom meals ---------- */
-/* Older custom meals stored with even-distributed per-item macros (e.g. 100g protein
-   split across 6 ingredients) could silently lose macros when items were skipped.
-   Collapse any multi-item custom meal into a single atomic item carrying the stored
-   totals. The stored `p`, `c`, `f`, `fib`, `cal` on the meal were always correct —
-   they came straight from the user's input at add time. */
 DAY_ORDER.forEach(day => {
   try {
     const customs = getCustomMeals(day);
@@ -4206,9 +4135,6 @@ DAY_ORDER.forEach(day => {
     if (changed) setCustomMeals(day, customs);
   } catch {}
 
-  // Clean stale skip indices: if a meal no longer has the items that were skipped
-  // (e.g. items count shrank due to migration or edits), drop indices that point
-  // past the end. This keeps the tracker honest.
   try {
     const skipped = getSkippedItems(day);
     const allMeals = [...MEAL_PLAN[day].meals, ...getCustomMeals(day)];
@@ -4218,7 +4144,6 @@ DAY_ORDER.forEach(day => {
     Object.keys(skipped).forEach(mealId => {
       const meal = mealById[mealId];
       if (!meal || !Array.isArray(meal.items)) {
-        // Meal no longer exists — nuke its skip entry
         delete skipped[mealId];
         skipChanged = true;
         return;
@@ -4237,11 +4162,7 @@ DAY_ORDER.forEach(day => {
   } catch {}
 });
 
-/* ═══════════════════════════════════════════════════════
-   CYCLE TRACKER
-   ═══════════════════════════════════════════════════════ */
-
-const CYCLE_LENGTH = 28; // default
+const CYCLE_LENGTH = 28;
 
 function getCycleStart() {
   try { return localStorage.getItem('mealPlan_cycleStart') || null; } catch { return null; }
@@ -4254,7 +4175,6 @@ function clearCycleStart() {
 }
 
 function getCyclePhase(dayNum) {
-  // dayNum = 1-based day of cycle
   if (dayNum <= 5)  return 'menstrual';
   if (dayNum <= 13) return 'follicular';
   if (dayNum <= 16) return 'ovulation';
@@ -4267,7 +4187,7 @@ function getPhaseForDate(dateStr, cycleStartStr) {
   start.setHours(0,0,0,0);
   date.setHours(0,0,0,0);
   const diffDays = Math.round((date - start) / 86400000);
-  if (diffDays < 0) return null; // before cycle started
+  if (diffDays < 0) return null;
   const dayInCycle = (diffDays % CYCLE_LENGTH) + 1;
   return { phase: getCyclePhase(dayInCycle), dayNum: dayInCycle };
 }
@@ -4330,12 +4250,10 @@ function renderCycleCalendar() {
     return;
   }
 
-  // Build 5-week window centred on today
   const today = new Date();
   today.setHours(0,0,0,0);
-  const todayStr = dateToStr(today);
+  const todayStrLocal = dateToStr(today);
 
-  // Start from 3 cycles back so past is always coloured
   const windowStart = new Date(today);
   windowStart.setDate(today.getDate() - 21);
 
@@ -4348,7 +4266,7 @@ function renderCycleCalendar() {
 
   const cells = days.map(d => {
     const ds = dateToStr(d);
-    const isToday = ds === todayStr;
+    const isToday = ds === todayStrLocal;
     const info = getPhaseForDate(ds, cycleStart);
     const meta = info ? PHASE_META[info.phase] : null;
     const dotClass = meta ? meta.dot : '';
@@ -4366,26 +4284,21 @@ function renderCycleCalendar() {
     </div>
     <button class="cycle-reset-btn" onclick="resetCycle()">Change period start date</button>`;
 
-  // Scroll so today is roughly centred
   requestAnimationFrame(() => {
     const wrap = document.getElementById('cycleCalWrap');
     if (!wrap) return;
-    const todayIdx = 21; // today is 21st cell (0-indexed)
+    const todayIdx = 21;
     const cellW = 46;
     const offset = todayIdx * cellW - (wrap.clientWidth / 2) + cellW / 2;
     wrap.scrollLeft = Math.max(0, offset);
   });
-
-  // Insight now only shows in popup — not on main screen
 }
 
-function renderInsight(cycleStart, todayStr) {
-  // Clear the insight section — insight now lives only in the calendar dot popup
+function renderInsight(cycleStart, todayStrArg) {
   const section = document.getElementById('insightSection');
   if (section) section.innerHTML = '';
 
-  // Still handle auto-mode switching
-  const info = getPhaseForDate(todayStr, cycleStart);
+  const info = getPhaseForDate(todayStrArg, cycleStart);
   if (!info) return;
   const { phase } = info;
   const ins = PHASE_INSIGHTS[phase];
@@ -4409,8 +4322,6 @@ function resetCycle() {
   renderCycleCalendar();
 }
 
-
-
 function showPhasePopup(dateStr, cycleStart) {
   const info = getPhaseForDate(dateStr, cycleStart);
   if (!info) return;
@@ -4418,7 +4329,6 @@ function showPhasePopup(dateStr, cycleStart) {
   const meta = PHASE_META[phase];
   const ins  = PHASE_INSIGHTS[phase];
 
-  // Parse date for display
   const d = new Date(dateStr + 'T00:00:00');
   const MONTH_NAMES_SHORT = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   const dateLabel = `${WEEK_DAYS[d.getDay()]} ${d.getDate()} ${MONTH_NAMES_SHORT[d.getMonth()]}`;
@@ -4448,20 +4358,15 @@ function showPhasePopup(dateStr, cycleStart) {
       <button class="phase-popup-close" onclick="this.closest('.phase-popup-overlay').remove()">Done</button>
     </div>`;
 
-  // Close on overlay tap
   overlay.addEventListener('click', e => { if (e.target === overlay) overlay.remove(); });
   document.body.appendChild(overlay);
 }
 
-
-/* ── Supplement drawer ── */
-// Supplement tracker — weekly targets
 const SUPPLEMENTS = [
   { key:'electrolytes', emoji:'⚡', name:'Electrolytes',    target:7, timing:'🌅 Before coffee',          detail:'Drop in water, drink before anything else. Replenishes sodium, potassium, magnesium lost during sleep.',  brand:'Electral sachets or any electrolyte tab' },
   { key:'iron',         emoji:'🩸', name:'Iron (Ferrolic-XT)', target:3, timing:'🌅 Mon · Wed · Fri only', detail:'Alternate day dosing — higher absorption than daily. Take with water 30 min before coffee. NEVER with dairy or coffee.',                      brand:'Ferrolic-XT (Ferrous Ascorbate + Folic Acid + Zinc)' },
   { key:'b12',          emoji:'🧠', name:'B12 (Mebacol-OD)', target:3, timing:'🌅 Mon · Wed · Fri only',    detail:'Alternate day dosing. Dissolve under tongue — do NOT swallow. Body stores B12 so every other day is enough.',                    brand:'Mebacol-OD (Methylcobalamin 1500mcg by UNO Organics)' },
   { key:'vitd',         emoji:'☀️', name:'Vitamin D3 + K2', target:1, timing:'🍽️ With fattiest meal',     detail:'Fat-soluble — needs fat to absorb. Take with paneer, ghee, or avocado. Once a week is enough.',        brand:'Wellbeing Nutrition D3+K2 or HealthKart D3' },
-
 ];
 
 const DRAWER_SNACKS = [
@@ -4470,10 +4375,8 @@ const DRAWER_SNACKS = [
   { emoji:'🌰', name:'Almonds',       note:'10 pieces' },
 ];
 
-// Supplement tracking storage
 function getSuppWeekKey() {
   const d = new Date();
-  // Week key: YYYY-WW (ISO week)
   const jan1 = new Date(d.getFullYear(), 0, 1);
   const week = Math.ceil(((d - jan1) / 86400000 + jan1.getDay() + 1) / 7);
   return `supp_${d.getFullYear()}_${week}`;
@@ -4489,13 +4392,11 @@ function toggleSuppDose(key) {
   const supp = SUPPLEMENTS.find(s => s.key === key);
   if (!supp) return;
   const cur = log[key] || 0;
-  // Tap to increment, tap again at max to reset to 0
   log[key] = cur >= supp.target ? 0 : cur + 1;
   setSuppLog(log);
   renderSupplements();
 }
 
-// Popup with supplement detail
 function showSuppDetail(key) {
   const s = SUPPLEMENTS.find(s => s.key === key);
   if (!s) return;
@@ -4525,7 +4426,6 @@ function renderSupplements() {
 
   const suppRows = SUPPLEMENTS.map(s => {
     const count = getSuppCount(s.key);
-    const pct = Math.min(count / s.target, 1);
     const dots = Array.from({length: s.target}, (_,i) => {
       const filled = i < count;
       return `<span class="supp-dot${filled ? ' filled' : ''}" onclick="toggleSuppDose('${s.key}')"></span>`;
@@ -4557,7 +4457,6 @@ function renderSupplements() {
     <div class="supp-drawer">${drawerItems}</div>`;
 }
 
-/* ── Meal prep jars ── */
 const MEAL_PREP_RECIPES = [
   {
     emoji: '🫙',
@@ -4668,21 +4567,6 @@ function renderMealPrep() {
     <div class="prep-grid">${cards}</div>`;
 }
 
-
-/* ═══════════════════════════════════════════════════════
-   DAILY MESSAGE
-   ═══════════════════════════════════════════════════════ */
-
-
-
-/* ═══════════════════════════════════════════════════════
-   TALK TO ME
-   ═══════════════════════════════════════════════════════ */
-
-/* ═══════════════════════════════════════════════════════
-   CRAVING REDIRECTOR
-   ═══════════════════════════════════════════════════════ */
-
 const CRAVING_MAP = [
   {
     tags: ['sweet','sugar','chocolate','dessert','ice cream','candy','mithai','gulab','halwa'],
@@ -4742,7 +4626,7 @@ const CRAVING_MAP = [
     label: 'Comfort / pasta craving',
     options: [
       { food: 'Dal + rice + 1 tsp ghee', why: 'Same warmth, same heaviness, same comfort. Your serotonin is low — this fixes it.', cal: '310 cal' },
-      { food: 'Dalia with paneer + tomato masala', why: 'Same soft chewy texture as pasta. Tomato masala = pasta sauce.', cal: '500 cal' },
+      { food: 'Kala chana rice + ghee', why: 'Warm, heavy, magnesium-rich. Same comfort hit as a pasta bowl.', cal: '350 cal' },
       { food: 'Rajma rice + ghee', why: 'The ultimate comfort bowl. Iron + magnesium + serotonin boost.', cal: '365 cal' },
     ]
   },
@@ -4798,7 +4682,6 @@ function handleCraving() {
   input.blur();
 }
 
-// Also trigger on Enter
 document.addEventListener('DOMContentLoaded', () => {
   const inp = document.getElementById('cravingInput');
   if (inp) inp.addEventListener('keydown', e => { if (e.key === 'Enter') handleCraving(); });
@@ -4808,7 +4691,6 @@ function renderCravingResult(query) {
   const el = document.getElementById('cravingResult');
   if (!el) return;
 
-  // Find best match
   let best = null;
   let bestScore = 0;
   CRAVING_MAP.forEach(c => {
@@ -4816,7 +4698,6 @@ function renderCravingResult(query) {
     if (score > bestScore) { bestScore = score; best = c; }
   });
 
-  // Fallback — hungry
   if (!best) best = CRAVING_MAP.find(c => c.tags.includes('hungry'));
 
   const optionsHtml = best.options.map(o => `
@@ -4841,10 +4722,6 @@ function clearCraving() {
   document.getElementById('cravingResult').innerHTML = '';
 }
 
-/* ═══════════════════════════════════════════════════════
-   PMS SURVIVAL BADGE
-   ═══════════════════════════════════════════════════════ */
-
 function getPMSSurvivalData() {
   try { return JSON.parse(localStorage.getItem('mealPlan_pmsSurvival') || '{}'); } catch { return {}; }
 }
@@ -4859,19 +4736,15 @@ function checkAndRenderSurvivalBadge() {
   if (!cycleStart) { el.innerHTML = ''; return; }
 
   const today = new Date();
-  const todayStr = dateToStr(today);
-  const info = getPhaseForDate(todayStr, cycleStart);
+  const todayStrLocal = dateToStr(today);
+  const info = getPhaseForDate(todayStrLocal, cycleStart);
   if (!info) { el.innerHTML = ''; return; }
 
   const data = getPMSSurvivalData();
 
-  // Check if we just transitioned FROM luteal TO menstrual (period just started)
-  // That means yesterday was luteal and today is menstrual, day 1
   if (info.phase === 'menstrual' && info.dayNum === 1) {
-    // Check if we haven't shown the badge for this cycle yet
     const cycleKey = cycleStart;
     if (data.lastBadgeCycle !== cycleKey) {
-      // Show the badge!
       el.innerHTML = `
         <div class="survival-badge" id="survivalBadge">
           <span class="survival-badge-trophy">🏆</span>
@@ -4885,7 +4758,6 @@ function checkAndRenderSurvivalBadge() {
     }
   }
 
-  // Also show badge if we're in early menstrual (day 2-3) and haven't dismissed yet
   if (info.phase === 'menstrual' && info.dayNum <= 3) {
     const cycleKey = cycleStart;
     if (data.lastBadgeCycle !== cycleKey) {
@@ -4913,55 +4785,6 @@ function dismissSurvivalBadge(cycleKey) {
   if (badge) badge.closest('.survival-badge').remove();
 }
 
-/* ═══════════════════════════════════════════════════════
-   WEEKLY CALORIE TRACKER
-   ═══════════════════════════════════════════════════════ */
-
-function getWeeklyCalLog() {
-  // Returns { mon: 0, tue: 0, ... } — calories logged per day this week
-  // We derive from checked meals + skipped items stored in localStorage
-  const days = ['mon','tue','wed','thu','fri','sat','sun'];
-  const pms = isPMSMode();
-  const log = {};
-
-  days.forEach(day => {
-    const plan = pms ? PMS_MEAL_PLAN[day] : MEAL_PLAN[day];
-    const checked = getCheckedIds(day);
-    const skipped = getSkippedItems(day);
-    const custom = getCustomMeals(day);
-
-    let cal = 0;
-    // Sum checked meals
-    [...plan.meals, ...custom].forEach(m => {
-      if (checked.includes(m.id)) {
-        // Subtract skipped items
-        m.items.forEach(it => {
-          const skipData = skipped[m.id] || {};
-          if (!skipData[it.n]) cal += it.cal;
-        });
-      }
-    });
-    log[day] = cal;
-  });
-  return log;
-}
-
-function getWeeklyTarget() {
-  const pms = isPMSMode();
-  const dailyTarget = pms ? PMS_TARGETS.cal : TARGETS.cal;
-  return dailyTarget * 7;
-}
-
-// NOTE: an earlier, dead renderWeeklyTracker() lived here — it read stale
-// MEAL_PLAN-based totals via getWeeklyCalLog() and was silently shadowed by
-// the real slot-based definition further down. Removed to avoid confusion.
-// The single source of truth is the renderWeeklyTracker() near the bottom.
-
-/* ═══════════════════════════════════════════════════════
-   MEAL SLOT SYSTEM
-   ═══════════════════════════════════════════════════════ */
-
-// ── Slot log storage (by date key YYYY-MM-DD) ──
 function getSlotLogKey(dateStr) { return 'slots_' + dateStr; }
 function getSlotLog(dateStr) {
   try { return JSON.parse(localStorage.getItem(getSlotLogKey(dateStr)) || '{}'); } catch { return {}; }
@@ -4974,32 +4797,48 @@ function todayStr() {
   return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
 }
 
-function getMonthKey() {
+// FIX: the meal-slot section always read todayStr() (today's real date) no
+// matter which day tab (Mon..Sun) was selected, so every tab showed identical
+// content and clicking a different tab did nothing. selectedDateStr() maps
+// the active tab to that weekday's actual date within the current week, so
+// each tab now has its own real, distinct log.
+function getMondayOfThisWeek() {
   const d = new Date();
-  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+  d.setHours(0, 0, 0, 0);
+  const day = d.getDay(); // 0=Sun..6=Sat
+  const diff = day === 0 ? 6 : day - 1; // days since Monday
+  d.setDate(d.getDate() - diff);
+  return d;
+}
+function dateStrForDay(day) {
+  const monday = getMondayOfThisWeek();
+  const idx = DAY_ORDER.indexOf(day); // 0=mon..6=sun
+  const d = new Date(monday);
+  d.setDate(monday.getDate() + (idx < 0 ? 0 : idx));
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+function selectedDateStr() {
+  return dateStrForDay(currentDay);
 }
 
-function getMonthSlotData() {
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = now.getMonth();
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-  let totalCal = 0, totalDays = 0;
-  for (let d = 1; d <= daysInMonth; d++) {
-    const ds = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-    const log = getSlotLog(ds);
-    const dayTotal = Object.values(log).reduce((sum, meals) => {
-      if (!Array.isArray(meals)) meals = [meals];
-      return sum + meals.reduce((s,m) => s + (m && m.cal ? m.cal : 0), 0);
-    }, 0);
-    if (dayTotal > 0) { totalCal += dayTotal; totalDays++; }
-  }
-  const tdee = 2072;
-  const daysInMonthFull = daysInMonth;
-  const monthlyBurn = tdee * totalDays;
-  const deficit = monthlyBurn - totalCal;
-  return { totalCal, totalDays, daysInMonth: daysInMonthFull, deficit };
+// Total calories actually logged against a given date (slot log + wake-up).
+function getDayCalories(ds) {
+  let cal = 0;
+  const log = getSlotLog(ds);
+  Object.values(log).forEach(meals => {
+    if (!Array.isArray(meals)) meals = [meals];
+    meals.forEach(m => { if (m && m.cal) cal += m.cal; });
+  });
+  try {
+    if (localStorage.getItem('wakeup_checked_' + ds) === 'true') {
+      const slots = isPMSMode() ? PMS_MEAL_SLOTS : MEAL_SLOTS;
+      cal += slots[0].meal.cal;
+    }
+  } catch {}
+  return cal;
 }
+
+
 
 let currentViewWeek = getCurrentWeekOfMonth();
 
@@ -5009,61 +4848,74 @@ function getCurrentWeekOfMonth() {
 }
 
 const INGREDIENTS = [
-  // id, name, unit, cal, p, c, f, fib, ask_qty
-  { id:'dosa',        name:'Dosa (incl. oil)',           unit:'100g',      cal:150, p:3,  c:26, f:3,  fib:1, ask_qty:false },
-  { id:'chilla',      name:'Moong dal chilla (incl. oil)', unit:'100g',   cal:170, p:9,  c:20, f:5,  fib:4, ask_qty:false },
-  { id:'egg_boiled',  name:'Boiled egg',                unit:'per egg',   cal:70,  p:6,  c:0,  f:5,  fib:0, ask_qty:true  },
-  { id:'egg_scram',   name:'Scrambled egg / omelette (incl. oil)', unit:'per egg', cal:90, p:6, c:1, f:7, fib:0, ask_qty:true },
-  { id:'avocado',     name:'Avocado',                   unit:'1 whole',   cal:234, p:3,  c:12, f:21, fib:10,ask_qty:false },
-  { id:'roti',        name:'Roti (1 standard)',         unit:'~35g dough',cal:110, p:4,  c:22, f:1,  fib:2, ask_qty:true  },
-  { id:'rice',        name:'Rice (cooked)',             unit:'100g',      cal:130, p:3,  c:28, f:0,  fib:0, ask_qty:false },
-  { id:'dal',         name:'Dal (cooked)',              unit:'200g',      cal:190, p:11, c:28, f:4,  fib:8, ask_qty:false },
-  { id:'chicken',     name:'Chicken breast (grilled)',  unit:'100g raw',  cal:120, p:23, c:0,  f:2,  fib:0, ask_qty:false },
-  { id:'paneer',      name:'Paneer',                   unit:'100g',      cal:265, p:18, c:4,  f:20, fib:0, ask_qty:false },
-  { id:'salad',       name:'Salad (cucumber + tomato)', unit:'1 of each', cal:40,  p:1,  c:8,  f:0,  fib:3, ask_qty:false },
-  { id:'tikki',       name:'Aloo tikki',               unit:'100g',      cal:190, p:4,  c:28, f:7,  fib:3, ask_qty:false },
-  { id:'chana',       name:'Kala chana (cooked)',       unit:'100g',      cal:165, p:9,  c:27, f:3,  fib:8, ask_qty:false },
-  { id:'hung_curd',   name:'Hung curd',                unit:'100g',      cal:90,  p:8,  c:4,  f:4,  fib:0, ask_qty:false },
-  { id:'avo_toast',   name:'Avo toast + skyr 🥑',          unit:'1 plate',   cal:440, p:18, c:47, f:24, fib:7, ask_qty:false,
-    qty:'Avocado (1 medium / ~150g, mashed) · Brown bread (2 slices / ~60g) · Skyr Milky Mist (60g) · Lemon (½) · Oregano (pinch)' },
-  { id:'skyr_bowl',   name:'Skyr dessert bowl 🍫',     unit:'1 bowl',    cal:304, p:19, c:23, f:16, fib:4, ask_qty:false,
-    qty:'Skyr (100g) · Blueberries or fruit (50g) · Pumpkin seeds (10g) · MyFitness choco crunchy PB (1 tbsp / 15g) · Cocoa powder (1 tsp / 3g) · Amul 70% dark chocolate (2 cubes / 10g) · Cinnamon powder (pinch)' },
+  // Carb bracket — rice / roti / paratha are all portioned to ~150 cal so they
+  // swap 1:1 without changing the day's maths.
+  // One combined carb entry: all three portions land on ~150 cal, so this is a
+  // straight swap — pick whichever you're actually eating and log the same line.
+  // Macros are the average of the three (they differ only slightly: protein
+  // 3-5g, carbs 23-32g, fat 0-5g). Calories — the number that drives the
+  // tracker — are exact for all three.
+  { id:'carb_150', name:'Carb — roti / paratha / rice (150 cal)',
+    unit:'Roti 55g (~1⅓) · Paratha 52g (~1) · Rice 115g',
+    cal:150, p:4, c:28, f:2, fib:2,
+    qty:'Pick one to hit 150 cal → Roti: 55g cooked (~1⅓ roti) · Paratha: 52g cooked (~1 paratha) · Rice: 115g cooked' },
+  { id:'dosa',        name:'Dosa (incl. oil)',                     unit:'100g',      cal:150, p:3,  c:26, f:3,  fib:1 },
+  { id:'chilla',      name:'Moong dal chilla (incl. oil)',         unit:'100g',      cal:170, p:9,  c:20, f:5,  fib:4 },
+  { id:'egg_boiled',  name:'Boiled egg',                           unit:'1 egg',     cal:70,  p:6,  c:0,  f:5,  fib:0 },
+  { id:'egg_scram',   name:'Scrambled egg / omelette (incl. oil)', unit:'1 egg',     cal:90,  p:6,  c:1,  f:7,  fib:0 },
+  { id:'chana',       name:'Kala chana (cooked)',                  unit:'100g',      cal:165, p:9,  c:27, f:3,  fib:8 },
+  { id:'dal',         name:'Dal (cooked)',                         unit:'100g',      cal:95,  p:6,  c:14, f:2,  fib:4 },
+  { id:'chicken',     name:'Chicken breast (grilled)',             unit:'100g raw',  cal:120, p:23, c:0,  f:2,  fib:0 },
+  { id:'paneer',      name:'Paneer',                               unit:'100g',      cal:265, p:18, c:4,  f:20, fib:0 },
+  { id:'hung_curd',   name:'Hung curd',                            unit:'100g',      cal:90,  p:8,  c:4,  f:4,  fib:0 },
+  { id:'salad',       name:'Salad (cucumber + tomato)',            unit:'1 bowl',    cal:40,  p:1,  c:8,  f:0,  fib:3 },
+  { id:'sweetcorn',   name:'Sweet corn',                           unit:'70g',       cal:67,  p:2,  c:15, f:1,  fib:2 },
+  { id:'tikki',       name:'Aloo tikki',                           unit:'100g',      cal:190, p:4,  c:28, f:7,  fib:3 },
+  { id:'cali_ques',   name:'Cali burrito quesadilla',              unit:'1 quesadilla', cal:460, p:14, c:42, f:26, fib:3 },
+  { id:'hc_bowl',     name:'Hung curd dessert bowl',               unit:'1 bowl',    cal:330, p:16, c:23, f:20, fib:4,
+    qty:'Hung curd (100g) · Blueberries or fruit (50g) · Pumpkin seeds (10g) · MyFitness choco crunchy PB (1 tbsp / 15g) · Cocoa powder (1 tsp / 3g) · Amul 70% dark chocolate (2 cubes / 10g) · Cinnamon powder (pinch)' },
 ];
 
-// Snack dropdown trimmed to exactly the items requested — protein and coffee
-// now live in their own dedicated components below since they're logged at
-// different times of day, not tied to the 4-5pm snack slot.
 const SNACK_INGREDIENTS = [
-  { id:'hung_curd_s', name:'Hung curd',                   unit:'100g',   cal:90,  p:8,  c:4,  f:4,  fib:0, ask_qty:false },
-  { id:'hc_bowl_s',   name:'Hung curd dessert bowl',       unit:'1 bowl', cal:330, p:16, c:26, f:19, fib:4, ask_qty:false,
+  // Coffee and protein shakes intentionally NOT here — they have their own
+  // Coffee / Protein components since they're logged at any time of day.
+  { id:'hung_curd_s',  name:'Hung curd',                           unit:'100g',      cal:90,  p:8,  c:4,  f:4,  fib:0 },
+  { id:'hc_bowl_s',    name:'Hung curd dessert bowl',              unit:'1 bowl',    cal:330, p:16, c:23, f:20, fib:4,
     qty:'Hung curd (100g) · Blueberries or fruit (50g) · Pumpkin seeds (10g) · MyFitness choco crunchy PB (1 tbsp / 15g) · Cocoa powder (1 tsp / 3g) · Amul 70% dark chocolate (2 cubes / 10g) · Cinnamon powder (pinch)' },
-  { id:'veg_sticks',  name:'Cucumber / carrot / tomato sticks salad', unit:'100g', cal:35, p:1, c:7, f:0, fib:3, ask_qty:false },
-  { id:'fruit',       name:'Fruit (1 small — apple / orange / pear / plum)', unit:'~100g', cal:60, p:1, c:15, f:0, fib:2, ask_qty:false },
-  { id:'sweetcorn_s', name:'Sweet corn',                   unit:'70g',    cal:67,  p:2,  c:15, f:1,  fib:2, ask_qty:false },
-  { id:'minus30',     name:'Minus 30 roasted hazelnut ice cream sandwich', unit:'1 sandwich', cal:140, p:2, c:18, f:6, fib:1, ask_qty:false,
-    qty:'18g carbs, of which ~6g sugar' },
-  { id:'cali_ques_s', name:'California burrito quesadilla', unit:'1 quesadilla', cal:460, p:14, c:42, f:26, fib:3, ask_qty:false },
+  { id:'veg_sticks',   name:'Cucumber / carrot / tomato sticks',   unit:'100g',      cal:35,  p:1,  c:7,  f:0,  fib:3 },
+  { id:'fruit_small',  name:'Fruit (1 small — apple / orange / pear / plum)', unit:'~100g', cal:60, p:1, c:15, f:0, fib:2 },
+  { id:'banana',       name:'Banana (1 small)',                    unit:'~90g',      cal:80,  p:1,  c:20, f:0,  fib:2 },
+  { id:'almonds5',     name:'Almonds',                             unit:'5 pieces',  cal:35,  p:1,  c:1,  f:3,  fib:1 },
+  { id:'walnuts',      name:'Walnuts',                             unit:'2 halves',  cal:26,  p:1,  c:1,  f:3,  fib:0 },
+  { id:'dates',        name:'Dates',                               unit:'1 date',    cal:23,  p:0,  c:6,  f:0,  fib:1 },
+  { id:'makhana',      name:'Makhana (roasted)',                   unit:'25g (1 bowl)', cal:88, p:3, c:18, f:0,  fib:1 },
+  { id:'sweetcorn_s',  name:'Sweet corn',                          unit:'70g',       cal:67,  p:2,  c:15, f:1,  fib:2 },
+  { id:'peanut_butter',name:'Peanut butter',                       unit:'1 tsp (8g)',cal:48,  p:2,  c:2,  f:4,  fib:0 },
+  { id:'minus30',      name:'Minus 30 roasted hazelnut ice cream sandwich', unit:'1 sandwich', cal:139, p:2.2, c:18.2, f:6.4, fib:1,
+    qty:'Per sandwich · 139.3 kcal · 18.2g carbs (6.6g total sugars, 4.9g added) · 60.6mg sodium · NOTE: the label prints 16.4g fat, but that would make the sandwich ~229 kcal, not 139.3 — 6.4g is the figure that matches the stated energy, so that is what is used here. Worth re-checking the pack.' },
+  { id:'aloo_tikki_s', name:'Aloo tikki',                          unit:'100g',      cal:190, p:4,  c:28, f:7,  fib:3 },
+  { id:'cali_ques_s',  name:'California burrito quesadilla',       unit:'1 quesadilla', cal:460, p:14, c:42, f:26, fib:3 },
 ];
 
 // Coffee — its own component. Always available, not tied to a fixed time,
 // since it can be had with breakfast, mid-morning, or whenever.
 const COFFEE_OPTIONS = [
-  { id:'coffee_black',   name:'Black coffee',                              unit:'1 cup', cal:5,  p:0, c:1, f:0, fib:0, ask_qty:false },
-  { id:'coffee_milk',    name:'Black coffee + slim milk',                  unit:'1 cup (60ml milk)', cal:25, p:2, c:3, f:0, fib:0, ask_qty:false },
-  { id:'coffee_jaggery', name:'Black coffee + slim milk + jaggery',        unit:'1 cup (60ml milk + 1 tsp jaggery)', cal:45, p:2, c:8, f:0, fib:0, ask_qty:false },
+  { id:'coffee_black',   name:'Black coffee',                          unit:'1 cup', cal:5,  p:0, c:1,  f:0, fib:0 },
+  { id:'coffee_milk',    name:'Black coffee + slim milk',              unit:'1 cup (60ml milk)', cal:25, p:2, c:3, f:0, fib:0 },
+  { id:'coffee_jaggery', name:'Black coffee + slim milk + jaggery',    unit:'1 cup (60ml milk + 1 tsp jaggery)', cal:45, p:2, c:8, f:0, fib:0 },
+  { id:'coffee_lf',      name:'Coffee + lactose-free milk + jaggery',  unit:'1 cup (250ml Amul LF + 1 tsp jaggery)', cal:170, p:8, c:17, f:8, fib:0,
+    qty:'Black coffee · Amul lactose-free milk (250ml) · Jaggery (1 tsp) — estimated, verify with nutritionist' },
 ];
 
-// Protein — its own component, completely separate from wake-up. Logged
-// whenever it actually happens: morning, after lunch, or late at night.
+// Protein — its own component, separate from wake-up. Logged whenever it
+// actually happens: morning, after lunch, or late at night.
 const PROTEIN_OPTIONS = [
-  { id:'protein_1scoop', name:'Protein (1 scoop) + water',                 unit:'1 scoop',  cal:120, p:25, c:3,  f:1, fib:0, ask_qty:false },
-  { id:'protein_2scoop', name:'Protein (2 scoops) + water',                unit:'2 scoops', cal:240, p:50, c:6,  f:2, fib:0, ask_qty:false },
-  { id:'protein_shake',  name:'Protein shake (banana, cocoa, milk)',       unit:'1 shake',  cal:425, p:59, c:38, f:5, fib:3, ask_qty:false,
+  { id:'protein_1scoop', name:'Protein (1 scoop) + water',            unit:'1 scoop',  cal:120, p:25, c:3,  f:1, fib:0 },
+  { id:'protein_2scoop', name:'Protein (2 scoops) + water',           unit:'2 scoops', cal:240, p:50, c:6,  f:2, fib:0 },
+  { id:'protein_shake',  name:'Protein shake (banana, cocoa, milk)',  unit:'1 shake',  cal:425, p:59, c:38, f:5, fib:3,
     qty:'Banana (1) · Slim milk (200ml) · Protein powder (2 scoops) · Unsweetened cocoa powder (1 tsp)' },
 ];
 
-// Universal slot structure — all slots use INGREDIENTS, snack uses SNACK_INGREDIENTS
-// Each slot has a `defaultMeal` = the structured suggestion (can be replaced)
 const MEAL_SLOTS = [
   {
     id: 'wakeup', emoji: '☀️', name: 'Wake up', time: '7–8am',
@@ -5071,18 +4923,17 @@ const MEAL_SLOTS = [
     meal: { name: 'Chia seeds + lemon water + electrolytes', cal: 40, p: 1, c: 5, f: 2, fib: 4,
       desc: 'Chia seeds (5g) soaked overnight in water · Fresh lemon juice · Water (250ml) · Electrolyte tablet (1)' }
   },
-  { id:'coffee', emoji:'☕', name:'Coffee', time:'Anytime', targetP:2, targetCal:25, ingredientList:'coffee' },
-  { id:'protein', emoji:'🥤', name:'Protein', time:'Anytime', targetP:25, targetCal:150, ingredientList:'protein' },
-  { id:'breakfast', emoji:'🍳', name:'Breakfast', time:'9–10am', targetP:28, targetCal:380, ingredientList:'main',
+  { id:'coffee',    emoji:'☕', name:'Coffee',    time:'Anytime', targetP:2,  targetCal:25,  ingredientList:'coffee' },
+  { id:'protein',   emoji:'🥤', name:'Protein',   time:'Anytime', targetP:25, targetCal:150, ingredientList:'protein' },
+  { id:'breakfast', emoji:'🍳', name:'Breakfast', time:'9–10am',  targetP:28, targetCal:380, ingredientList:'main',
     defaultMeal: { name:'Moong dal chilla (2) + boiled eggs (2)', qty:'Moong dal chilla (2 / 100g each, incl. oil) · Boiled eggs (2)', cal:370, p:27, c:20, f:16, fib:8 } },
-  { id:'lunch',     emoji:'🍚', name:'Lunch',     time:'1–2pm',  targetP:28, targetCal:400, ingredientList:'main',
-    defaultMeal: { name:'Chicken + rice + salad', qty:'Chicken breast grilled (100g raw) · Rice cooked (100g) · Salad (cucumber + tomato)', cal:390, p:28, c:36, f:5, fib:3 } },
-  { id:'snack',     emoji:'🥔', name:'Snack',     time:'4–5pm',  targetP:16, targetCal:330, ingredientList:'snack',
-    defaultMeal: { name:'Hung curd dessert bowl', qty:'Hung curd (100g) · Blueberries (50g) · Pumpkin seeds (10g) · Choco PB (1 tbsp) · Cocoa · Dark chocolate (2 cubes)', cal:330, p:16, c:26, f:19, fib:4 } },
-  { id:'dinner',    emoji:'🌙', name:'Dinner',    time:'7–9pm',  targetP:30, targetCal:450, ingredientList:'main',
-    defaultMeal: { name:'Chicken + roti (2) + dal', qty:'Chicken breast grilled (100g raw) · Roti (2) · Dal cooked (200g)', cal:430, p:34, c:44, f:5, fib:8 } },
+  { id:'lunch',     emoji:'🍚', name:'Lunch',     time:'1–2pm',   targetP:28, targetCal:400, ingredientList:'main',
+    defaultMeal: { name:'Chicken + rice + salad', qty:'Chicken breast grilled (100g raw) · Rice cooked (115g ≈150 cal) · Salad (1 bowl)', cal:310, p:27, c:40, f:3, fib:3 } },
+  { id:'snack',     emoji:'🥔', name:'Snack',     time:'4–5pm',   targetP:16, targetCal:330, ingredientList:'snack',
+    defaultMeal: { name:'Hung curd dessert bowl', qty:'Hung curd (100g) · Blueberries or fruit (50g) · Pumpkin seeds (10g) · MyFitness choco crunchy PB (1 tbsp / 15g) · Cocoa powder (1 tsp / 3g) · Amul 70% dark chocolate (2 cubes / 10g) · Cinnamon powder (pinch)', cal:330, p:16, c:23, f:20, fib:4 } },
+  { id:'dinner',    emoji:'🌙', name:'Dinner',    time:'7–9pm',   targetP:30, targetCal:450, ingredientList:'main',
+    defaultMeal: { name:'Chicken + roti + dal', qty:'Chicken breast grilled (100g raw) · Roti (55g cooked ≈150 cal) · Dal cooked (100g)', cal:365, p:34, c:44, f:5, fib:8 } },
 ];
-
 
 const PMS_MEAL_SLOTS = [
   {
@@ -5091,17 +4942,53 @@ const PMS_MEAL_SLOTS = [
     meal: { name: 'Chia seeds + lemon water + electrolytes', cal: 40, p: 1, c: 5, f: 2, fib: 4,
       desc: 'Chia seeds (5g) soaked overnight in water · Fresh lemon juice · Water (250ml) · Electrolyte tablet (1)' }
   },
-  { id:'coffee', emoji:'☕', name:'Coffee', time:'Anytime', targetP:2, targetCal:25, ingredientList:'coffee' },
-  { id:'protein', emoji:'🥤', name:'Protein', time:'Anytime', targetP:25, targetCal:150, ingredientList:'protein' },
-  { id:'breakfast', emoji:'🍳', name:'Breakfast', time:'9–10am', targetP:28, targetCal:300, ingredientList:'main',
+  { id:'coffee',    emoji:'☕', name:'Coffee',    time:'Anytime', targetP:2,  targetCal:25,  ingredientList:'coffee' },
+  { id:'protein',   emoji:'🥤', name:'Protein',   time:'Anytime', targetP:25, targetCal:150, ingredientList:'protein' },
+  { id:'breakfast', emoji:'🍳', name:'Breakfast', time:'9–10am',  targetP:28, targetCal:300, ingredientList:'main',
     defaultMeal: { name:'2 boiled eggs + paneer', qty:'Boiled eggs (2) · High protein paneer (100g)', cal:305, p:29, c:4, f:25, fib:0 } },
-  { id:'lunch',     emoji:'🍕', name:'Junk / Lunch', time:'1–3pm', targetP:0, targetCal:400, ingredientList:'junk',
-    defaultMeal: { name:'Not craving junk — skip', qty:'No junk today.', cal:0, p:0, c:0, f:0, fib:0 } },
-  { id:'snack',     emoji:'🥔', name:'Snack',     time:'4–5pm',  targetP:16, targetCal:330, ingredientList:'snack',
-    defaultMeal: { name:'Hung curd dessert bowl', qty:'Hung curd (100g) · Blueberries (50g) · Pumpkin seeds (10g) · Choco PB (1 tbsp) · Cocoa · Dark chocolate (2 cubes)', cal:330, p:16, c:26, f:19, fib:4 } },
-  { id:'dinner',    emoji:'🌙', name:'Dinner',    time:'7–9pm',  targetP:28, targetCal:520, ingredientList:'main',
-    defaultMeal: { name:'Paneer + roti (2) + dal', qty:'High protein paneer (100g) · Roti (2) · Dal cooked (200g)', cal:485, p:29, c:48, f:20, fib:8 } },
+  // includeJunk: junk options sit in this slot's dropdown alongside real food,
+  // so PMS lunch is still a real lunch you can log — it used to be junk-only,
+  // which left no way to log an actual midday meal.
+  { id:'lunch',     emoji:'🍕', name:'Lunch',     time:'1–3pm',   targetP:25, targetCal:450, ingredientList:'main', includeJunk:true,
+    defaultMeal: { name:'Paneer paratha + hung curd + pickle', qty:'Paneer paratha (1 medium, 70g paneer inside) · Hung curd (100g) · Cucumber (60g) · Pickle (small)', cal:410, p:28, c:40, f:16, fib:4 } },
+  { id:'snack',     emoji:'🥔', name:'Snack',     time:'4–5pm',   targetP:16, targetCal:330, ingredientList:'snack',
+    defaultMeal: { name:'Hung curd dessert bowl', qty:'Hung curd (100g) · Blueberries or fruit (50g) · Pumpkin seeds (10g) · MyFitness choco crunchy PB (1 tbsp / 15g) · Cocoa powder (1 tsp / 3g) · Amul 70% dark chocolate (2 cubes / 10g) · Cinnamon powder (pinch)', cal:330, p:16, c:23, f:20, fib:4 } },
+  { id:'dinner',    emoji:'🌙', name:'Dinner',    time:'7–9pm',   targetP:28, targetCal:520, ingredientList:'main',
+    defaultMeal: { name:'Paneer + roti + dal', qty:'High protein paneer (100g) · Roti (55g cooked ≈150 cal) · Dal cooked (100g)', cal:510, p:29, c:48, f:23, fib:8 } },
 ];
+
+// FIX ("same meal every day"): MEAL_SLOTS/PMS_MEAL_SLOTS each hold exactly
+// ONE generic defaultMeal per slot type, used no matter which day tab is
+// open — that's why every day looked identical. The original day-specific
+// weekly menu (MEAL_PLAN / PMS_MEAL_PLAN, still fully intact) was never
+// deleted, just no longer wired into the slot suggestions after the switch
+// to the ingredient-dropdown system. This maps it back in per day.
+// PMS's "lunch" slot is intentionally the junk/skip decision point, not a
+// real meal slot, so it's left out here and keeps its own defaultMeal.
+function getEffectiveDefaultMeal(slot, day, pms) {
+  if (slot.ingredientList === 'junk') return slot.defaultMeal;
+  const plan = pms ? PMS_MEAL_PLAN : MEAL_PLAN;
+  const dayPlan = plan[day];
+  if (!dayPlan) return slot.defaultMeal;
+  const timePatterns = {
+    breakfast: /breakfast|post-workout/i,
+    lunch: /lunch|meal 1/i,
+    snack: /snack/i,
+    dinner: /dinner|meal 2/i,
+  };
+  const pattern = timePatterns[slot.id];
+  if (!pattern) return slot.defaultMeal;
+  const match = dayPlan.meals.find(m => pattern.test(m.time));
+  // Normal-mode weekdays have no distinct "breakfast" meal in the original
+  // plan (the day started with wake-up then lunch) — fall back to the
+  // generic default rather than showing nothing.
+  if (!match) return slot.defaultMeal;
+  return {
+    name: match.title,
+    qty: match.quantities || match.desc,
+    cal: match.cal, p: match.p, c: match.c, f: match.f, fib: match.fib
+  };
+}
 
 const JUNK_OPTIONS = [
   { name:'Not craving junk — skip',              qty:'No junk today.',          cal:0,   p:0,  c:0,  f:0,  fib:0 },
@@ -5115,14 +5002,7 @@ const JUNK_OPTIONS = [
   { name:'Samosa (2)',                           qty:'2 medium with pickle',    cal:260, p:5,  c:34, f:12, fib:3 },
 ];
 
-
-
-
-// ── Week navigator state ──
-
 function getWeekDates(weekNum, year, month) {
-  // Returns array of date strings for that week of the month
-  const firstDay = new Date(year, month, 1);
   const start = (weekNum - 1) * 7 + 1;
   const dates = [];
   for (let d = start; d < start + 7; d++) {
@@ -5139,33 +5019,51 @@ function getWeekCalTotal(weekNum) {
   const dates = getWeekDates(weekNum, now.getFullYear(), now.getMonth());
   return dates.reduce((sum, ds) => {
     const log = getSlotLog(ds);
-    return sum + Object.values(log).reduce((s, m) => s + (m.cal || 0), 0);
+    return sum + Object.values(log).reduce((s, m) => {
+      if (!Array.isArray(m)) m = [m];
+      return s + m.reduce((s2, mm) => s2 + (mm && mm.cal ? mm.cal : 0), 0);
+    }, 0);
   }, 0);
 }
 
-// ── Render slot section (today's meal logging) ──
 const replaceModeSlots = new Set();
 
 function acceptDefault(slotId, dateStr) {
-  const allS = isPMSMode() ? PMS_MEAL_SLOTS : MEAL_SLOTS;
+  const pms = isPMSMode();
+  const allS = pms ? PMS_MEAL_SLOTS : MEAL_SLOTS;
   const slot = allS.find(s => s.id === slotId);
-  if (!slot || !slot.defaultMeal) return;
+  if (!slot) return;
+  const effectiveDefault = getEffectiveDefaultMeal(slot, currentDay, pms);
+  if (!effectiveDefault) return;
   const log = getSlotLog(dateStr);
-  log[slotId] = [{ ...slot.defaultMeal, eaten: true }];
+  log[slotId] = [{ ...effectiveDefault }];
   setSlotLog(dateStr, log);
-  renderSlotSection(); renderTracker(); renderWeeklyTracker(); renderMonthlyDeficit();
+  setSlotEaten(dateStr, slotId, true);
+  renderSlotSection(); renderTracker(); renderWeeklyTracker();
 }
 
-// Replaces the old per-item toggleMealEaten — one checkbox per slot now
-// marks every logged item in that slot as eaten together, instead of
-// requiring a tick per ingredient.
+function getSlotEaten(dateStr, slotId) {
+  try { return localStorage.getItem('slotEaten_' + dateStr + '_' + slotId) === 'true'; } catch { return false; }
+}
+function setSlotEaten(dateStr, slotId, val) {
+  try {
+    if (val) localStorage.setItem('slotEaten_' + dateStr + '_' + slotId, 'true');
+    else localStorage.removeItem('slotEaten_' + dateStr + '_' + slotId);
+  } catch {}
+}
+function clearSlotEatenForDate(dateStr) {
+  try {
+    const prefix = 'slotEaten_' + dateStr + '_';
+    Object.keys(localStorage)
+      .filter(k => k.indexOf(prefix) === 0)
+      .forEach(k => localStorage.removeItem(k));
+  } catch {}
+}
 function toggleSlotEaten(slotId, checked, dateStr) {
-  const log = getSlotLog(dateStr);
-  if (!Array.isArray(log[slotId])) return;
-  log[slotId].forEach(m => { m.eaten = checked; });
-  setSlotLog(dateStr, log);
+  setSlotEaten(dateStr, slotId, checked);
   renderSlotSection();
 }
+
 
 function enterReplaceMode(slotId) {
   replaceModeSlots.add(slotId);
@@ -5177,21 +5075,19 @@ function restoreDefault(slotId, dateStr) {
   const log = getSlotLog(dateStr);
   delete log[slotId];
   setSlotLog(dateStr, log);
-  renderSlotSection(); renderTracker(); renderWeeklyTracker(); renderMonthlyDeficit();
+  setSlotEaten(dateStr, slotId, false);
+  renderSlotSection(); renderTracker(); renderWeeklyTracker();
 }
 
 function renderSlotSection() {
   const el = document.getElementById('slotSection');
   if (!el) return;
 
-  const ds = todayStr();
+  const ds = selectedDateStr();
   const log = getSlotLog(ds);
   const pms = isPMSMode();
   const activeSlots = pms ? PMS_MEAL_SLOTS : MEAL_SLOTS;
 
-  renderProteinCheck(log);
-
-  // Compute day total — log[slotId] is now an ARRAY of meals
   let dayTotal = { cal:0, p:0, c:0, f:0 };
   const wakeChecked = localStorage.getItem('wakeup_checked_' + ds) === 'true';
   if (wakeChecked) {
@@ -5199,7 +5095,7 @@ function renderSlotSection() {
     dayTotal.cal += w.cal; dayTotal.p += w.p; dayTotal.c += w.c; dayTotal.f += w.f;
   }
   Object.entries(log).forEach(([slotId, meals]) => {
-    if (!Array.isArray(meals)) meals = [meals]; // backwards compat
+    if (!Array.isArray(meals)) meals = [meals];
     meals.forEach(m => {
       if (m && m.cal) { dayTotal.cal += m.cal; dayTotal.p += m.p; dayTotal.c += m.c; dayTotal.f += (m.f||0); }
     });
@@ -5208,7 +5104,7 @@ function renderSlotSection() {
   const slots = activeSlots.map(slot => {
     if (slot.fixed) {
       const m = slot.meal;
-      const wakeChecked = localStorage.getItem('wakeup_checked_' + ds) === 'true';
+      const wakeChecked2 = localStorage.getItem('wakeup_checked_' + ds) === 'true';
       return `
         <div class="slot-card">
           <div class="slot-header">
@@ -5219,8 +5115,8 @@ function renderSlotSection() {
                 <div class="slot-target">${m.name}</div>
               </div>
             </div>
-            <input type="checkbox" style="width:20px;height:20px;accent-color:var(--accent);flex-shrink:0;cursor:pointer"
-              ${wakeChecked ? 'checked' : ''}
+            <input type="checkbox" class="slot-check"
+              ${wakeChecked2 ? 'checked' : ''}
               onchange="toggleWakeup(this.checked, '${ds}')">
           </div>
           <div class="slot-macros-row">
@@ -5233,18 +5129,15 @@ function renderSlotSection() {
         </div>`;
     }
 
-    // Get logged meals for this slot (array)
     let loggedMeals = log[slot.id];
     const hasLog = loggedMeals !== undefined && loggedMeals !== null;
     if (!loggedMeals) loggedMeals = [];
     if (!Array.isArray(loggedMeals)) loggedMeals = [loggedMeals];
 
-    // Is this slot in "replace mode"? (dropdown showing)
     const inReplaceMode = replaceModeSlots.has(slot.id);
 
-    // ── STRUCTURED VIEW: show default meal if nothing logged and not replacing ──
     if (!hasLog && slot.defaultMeal && !inReplaceMode) {
-      const d = slot.defaultMeal;
+      const d = getEffectiveDefaultMeal(slot, currentDay, pms);
       return `
         <div class="slot-card">
           <div class="slot-header">
@@ -5254,8 +5147,7 @@ function renderSlotSection() {
                 <div class="slot-name">${slot.name} <span style="font-weight:400;color:var(--text-tertiary);font-size:11px">${slot.time}</span></div>
               </div>
             </div>
-            <input type="checkbox" title="Mark as eaten"
-              style="width:22px;height:22px;accent-color:var(--accent);flex-shrink:0;cursor:pointer"
+            <input type="checkbox" class="slot-check" title="Mark as eaten"
               onchange="acceptDefault('${slot.id}', '${ds}')">
           </div>
           <div class="slot-macros-row">
@@ -5268,26 +5160,22 @@ function renderSlotSection() {
             ${d.qty ? `<div style="font-size:11px;color:var(--text-tertiary);margin-top:2px;line-height:1.6">${d.qty}</div>` : ''}
           </div>
           <div style="padding:0 14px 12px">
-            <button onclick="enterReplaceMode('${slot.id}')"
-              style="width:100%;padding:11px;border-radius:9px;border:1px solid var(--border-tertiary);background:none;font-size:12px;color:var(--text-secondary);font-family:inherit;cursor:pointer;min-height:44px">
-              🔄 Replace / Add
+            <button onclick="enterReplaceMode('${slot.id}')" class="replace-btn">
+              Replace / Add
             </button>
           </div>
         </div>`;
     }
 
-    // Slot total
     const slotTotal = loggedMeals.reduce((s,m) => ({cal:s.cal+(m.cal||0), p:s.p+(m.p||0)}), {cal:0,p:0});
 
-    // One checkbox per slot (not per item) — checking it marks every logged
-    // item in this slot as eaten in one tap, instead of ticking each ingredient.
-    const allEaten = loggedMeals.length > 0 && loggedMeals.every(m => m.eaten);
-
-    // Logged items list — no per-item checkbox anymore
+    // One checkbox per slot (in the header) rather than one per ingredient —
+    // adding 4 things to lunch shouldn't mean ticking 4 boxes.
+    const slotEaten = getSlotEaten(ds, slot.id);
     const loggedHtml = loggedMeals.map((m, idx) => `
       <div style="display:flex;align-items:center;gap:8px;padding:6px 14px;border-top:1px solid var(--border-tertiary)">
         <div style="flex:1">
-          <div style="font-size:13px;font-weight:500;${allEaten ? 'opacity:0.6' : ''}">${m.name}</div>
+          <div style="font-size:13px;font-weight:500;${slotEaten ? 'opacity:0.6' : ''}">${m.name}</div>
           ${m.qty ? `<div style="font-size:11px;color:var(--text-tertiary);margin-top:2px;line-height:1.6">${m.qty}</div>` : ''}
         </div>
         <div style="text-align:right;flex-shrink:0">
@@ -5298,16 +5186,16 @@ function renderSlotSection() {
           style="background:none;border:none;font-size:16px;cursor:pointer;color:var(--text-tertiary);padding:4px;flex-shrink:0">✕</button>
       </div>`).join('');
 
-    // Build dropdown from ingredients
     const ingList = getIngredientListForSlot(slot.id);
 
-    let optionsHtml;
-    if (slot.ingredientList === 'junk') {
-      optionsHtml = `<option value="">+ Add junk or skip...</option>` +
-        JUNK_OPTIONS.map((o,i) => `<option value="j${i}">${o.name}${o.cal > 0 ? ' — ' + o.cal + ' cal' : ''}</option>`).join('');
-    } else {
-      optionsHtml = `<option value="">+ Add ingredient to ${slot.name.toLowerCase()}...</option>` +
-        ingList.map((ing,i) => `<option value="i${i}">${ing.name} (${ing.unit}) — ${ing.cal} cal · ${ing.p}g P</option>`).join('');
+    // Ingredient options use an 'i' prefix and junk options a 'j' prefix, so a
+    // slot can offer both in one dropdown without the indexes clashing.
+    let optionsHtml = `<option value="">+ Add ingredient to ${slot.name.toLowerCase()}...</option>` +
+      ingList.map((ing,i) => `<option value="i${i}">${ing.name} (${ing.unit}) — ${ing.cal} cal · ${ing.p}g P</option>`).join('');
+    if (slot.includeJunk) {
+      optionsHtml += JUNK_OPTIONS.map((o,i) =>
+        o.cal > 0 ? `<option value="j${i}">🍕 ${o.name} — ${o.cal} cal</option>` : ''
+      ).join('');
     }
 
     const headerMacros = loggedMeals.length > 0 ? `
@@ -5329,13 +5217,18 @@ function renderSlotSection() {
               <div class="slot-name">${slot.name} <span style="font-weight:400;color:var(--text-tertiary);font-size:11px">${slot.time}</span></div>
             </div>
           </div>
-          ${loggedMeals.length > 0 ? `<input type="checkbox" title="Mark whole ${slot.name.toLowerCase()} as eaten"
-            style="width:22px;height:22px;accent-color:var(--accent);flex-shrink:0;cursor:pointer"
-            ${allEaten ? 'checked' : ''}
+          ${loggedMeals.length > 0 ? `<input type="checkbox" class="slot-check" title="Mark whole ${slot.name.toLowerCase()} as eaten"
+            ${slotEaten ? 'checked' : ''}
             onchange="toggleSlotEaten('${slot.id}', this.checked, '${ds}')">` : ''}
         </div>
         ${headerMacros}
         ${loggedHtml}
+        ${(hasLog && slot.defaultMeal) ? `<div style="padding:6px 14px 0">
+          <button onclick="restoreDefault('${slot.id}', '${ds}')"
+            style="width:100%;padding:8px;border:none;background:none;font-size:11px;color:var(--text-tertiary);font-family:inherit;cursor:pointer;text-decoration:underline;text-decoration-style:dotted;text-underline-offset:3px;min-height:36px">
+            ↺ Back to planned meal
+          </button>
+        </div>` : ''}
         <div style="padding:0 14px 12px">
           <select class="slot-select" onchange="promptIngredientQty('${slot.id}', this.value, '${ds}'); this.value=''">
             ${optionsHtml}
@@ -5344,12 +5237,14 @@ function renderSlotSection() {
       </div>`;
   }).join('');
 
-  // Custom meals for today
   const customs = getCustomMeals(currentDay);
   const customTotal = customs.reduce((s,m) => s + (m.cal||0), 0);
-  // FIX: custom meals are stored with `title`, not `name` — reading `m.name`
-  // rendered the literal text "undefined" for every custom meal. Also added
-  // the same "mark as eaten" checkbox every other slot has.
+
+  // FIX (custom-meal card bug): meals saved via the Add Meal modal / Quick Pick
+  // are stored with `title`, not `name` — reading `m.name` here rendered the
+  // literal text "undefined". Also added the same "mark as eaten" checkbox
+  // every other slot row has, and an explicit text color, so the row lines up
+  // with the rest of the list instead of looking collapsed/shifted.
   const customHtml = customs.length > 0 ? customs.map((m,i) => `
     <div style="display:flex;align-items:center;gap:8px;padding:8px 14px;border-top:1px solid var(--border-tertiary)">
       <input type="checkbox" title="Mark as eaten"
@@ -5357,7 +5252,7 @@ function renderSlotSection() {
         ${m.eaten ? 'checked' : ''}
         onchange="toggleCustomMealEaten(${i}, this.checked)">
       <div style="flex:1">
-        <div style="font-size:13px;font-weight:500;${m.eaten ? 'opacity:0.6' : ''}">${escapeHtml(m.title || m.name || 'Custom meal')}</div>
+        <div style="font-size:13px;font-weight:500;color:var(--text-primary);${m.eaten ? 'opacity:0.6' : ''}">${escapeHtml(m.title || m.name || 'Custom meal')}</div>
         <div style="font-size:11px;color:var(--text-tertiary)">${m.cal||0} cal · ${m.p||0}g P · ${m.c||0}g C · ${m.f||0}g F</div>
       </div>
       <button onclick="deleteCustomMealSlot(${i})" style="background:none;border:none;font-size:16px;cursor:pointer;color:var(--text-tertiary);padding:4px">✕</button>
@@ -5378,27 +5273,7 @@ function renderSlotSection() {
       </div>
     </div>`;
 
-  // Day total bar
-  const wakeupCal = wakeChecked ? activeSlots[0].meal.cal : 0;
-  const grandTotal = dayTotal.cal + customTotal;
-  const grandP = dayTotal.p + customs.reduce((s,m)=>s+(m.p||0),0);
-  const target = pms ? PMS_TARGETS.cal : TARGETS.cal;
-  const remaining = target - grandTotal;
-
-  const totalBar = `
-    <div class="slot-card" style="padding:14px;background:var(--bg-secondary)">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-        <span style="font-size:13px;font-weight:700">Today total</span>
-        <span style="font-size:12px;color:${remaining >= 0 ? 'var(--success)' : 'var(--danger)'};font-weight:600">${remaining >= 0 ? remaining + ' cal left' : Math.abs(remaining) + ' cal over'}</span>
-      </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <span class="slot-macro highlight" style="font-size:13px">${grandTotal} cal</span>
-        <span class="slot-macro highlight" style="font-size:13px">${grandP}g P</span>
-        <span class="slot-macro">of ${target} cal target</span>
-      </div>
-    </div>`;
-
-  el.innerHTML = `<div class="slot-section">${slots}${customCard}${totalBar}</div>`;
+  el.innerHTML = `<div class="slot-section">${slots}${customCard}</div>`;
 }
 
 function toggleWakeup(checked, dateStr) {
@@ -5406,56 +5281,58 @@ function toggleWakeup(checked, dateStr) {
   renderSlotSection();
   renderTracker();
   renderWeeklyTracker();
-  renderMonthlyDeficit();
 }
 
-
-// Single source of truth for which ingredient list a slot's dropdown uses.
-// promptIngredientQty / confirmIngredientAdd MUST resolve against this exact
-// same list or the option index points at the wrong item (this was the
-// snack-slot bug: dropdown built from SNACK_INGREDIENTS, resolver read
-// INGREDIENTS.concat(SNACK_INGREDIENTS)).
 function getIngredientListForSlot(slotId) {
   const allSlots = isPMSMode() ? PMS_MEAL_SLOTS : MEAL_SLOTS;
   const slot = allSlots.find(s => s.id === slotId);
-  if (!slot) return INGREDIENTS;
-  if (slot.ingredientList === 'snack') return SNACK_INGREDIENTS;
-  if (slot.ingredientList === 'coffee') return COFFEE_OPTIONS;
-  if (slot.ingredientList === 'protein') return PROTEIN_OPTIONS;
-  return INGREDIENTS;
+  // Coffee/protein have their own fixed lists (no custom ingredients merged in —
+  // they're their own component, not a general food slot).
+  if (slot && slot.ingredientList === 'coffee')  return COFFEE_OPTIONS;
+  if (slot && slot.ingredientList === 'protein') return PROTEIN_OPTIONS;
+  const base = (!slot || slot.ingredientList !== 'snack') ? INGREDIENTS : SNACK_INGREDIENTS;
+  // Must stay identical to the list renderSlotSection built the dropdown
+  // options from, or the option index (i0, i1...) points at the wrong item —
+  // same class of bug as the earlier INGREDIENTS/SNACK_INGREDIENTS mismatch.
+  return base.concat(getCustomIngredients());
 }
 
 function promptIngredientQty(slotId, val, dateStr) {
   if (!val) return;
 
-  // Junk option
   if (val.startsWith('j')) {
     const junk = JUNK_OPTIONS[parseInt(val.slice(1))];
     if (!junk) return;
-    if (junk.cal === 0) { // skip
+    if (junk.cal === 0) {
       renderSlotSection(); return;
     }
     const log = getSlotLog(dateStr);
     if (!Array.isArray(log[slotId])) log[slotId] = [];
     log[slotId].push({ name: junk.name, qty: junk.qty, cal: junk.cal, p: junk.p, c: junk.c, f: junk.f, fib: junk.fib });
     setSlotLog(dateStr, log);
-    renderSlotSection(); renderTracker(); renderWeeklyTracker(); renderMonthlyDeficit();
+    renderSlotSection(); renderTracker(); renderWeeklyTracker();
     return;
   }
 
-  // Ingredient — resolve against the SAME list the dropdown was built from
+  // FIX: was indexing into INGREDIENTS.concat(SNACK_INGREDIENTS), but the
+  // dropdown's option value is an index into whichever single list built it
+  // (INGREDIENTS for meal slots, SNACK_INGREDIENTS for the snack slot). For
+  // any snack-slot pick, that mismatch silently resolved to a different item
+  // from INGREDIENTS instead. getIngredientListForSlot() picks the same list
+  // renderSlotSection used to build the options, so the index always lines up.
   const ing = getIngredientListForSlot(slotId)[parseInt(val.slice(1))];
   if (!ing) return;
 
-  // Always show the qty drawer for consistency — every ingredient goes
-  // through the same "How much?" step, whether it's eggs, a bowl, or 100g.
+  // Every ingredient is now defined per 100g or per 1 unit, so every add asks
+  // for a quantity (defaults to 1). Previously only `ask_qty` items did, which
+  // meant e.g. 200g of rice had to be added twice.
   const overlay = document.createElement('div');
   overlay.className = 'talk-popup-overlay';
   overlay.id = 'ingQtyOverlay';
 
-  const r1 = n => Math.round(n * 10) / 10;
-  const steps = [0.5, 1, 1.5, 2, 3, 4];
-  const qtyOpts = steps.map(n =>
+  const QTY_STEPS = [0.5, 1, 1.5, 2, 2.5, 3, 4];
+  const r1 = (n) => Math.round(n * 10) / 10;
+  const qtyOpts = QTY_STEPS.map(n =>
     `<option value="${n}"${n === 1 ? ' selected' : ''}>${n} × ${ing.unit} — ${Math.round(ing.cal * n)} cal · ${r1(ing.p * n)}g P</option>`
   ).join('');
 
@@ -5464,7 +5341,7 @@ function promptIngredientQty(slotId, val, dateStr) {
       <div class="talk-popup-handle"></div>
       <div class="talk-popup-title">${ing.name}</div>
       <div class="talk-popup-sub" style="margin-bottom:14px">How much? (1 × ${ing.unit} = ${ing.cal} cal)</div>
-      <select id="ingQtySelect" class="qty-select" style="width:100%;padding:12px;border-radius:10px;border:1.5px solid var(--border-secondary);background:var(--bg-secondary);color:var(--text-primary);font-size:14px;font-family:inherit;margin-bottom:14px">
+      <select id="ingQtySelect" class="qty-select">
         ${qtyOpts}
       </select>
       <button class="talk-open-claude" onclick="confirmIngredientAdd('${slotId}', '${val}', '${dateStr}')">Add →</button>
@@ -5475,27 +5352,28 @@ function promptIngredientQty(slotId, val, dateStr) {
 }
 
 function confirmIngredientAdd(slotId, val, dateStr) {
-  const ing = getIngredientListForSlot(slotId)[parseInt(val.slice(1))];
+  // Resolve against the same list the dropdown was built from (see
+  // getIngredientListForSlot) so the option index never points at a wrong item.
+  const allIng = getIngredientListForSlot(slotId);
+  const ing = allIng[parseInt(val.slice(1))];
   if (!ing) return;
   const qty = parseFloat(document.getElementById('ingQtySelect').value) || 1;
-  const r1 = n => Math.round(n * 10) / 10;
+  const r1 = (n) => Math.round(n * 10) / 10;
   const meal = {
     name: qty === 1 ? ing.name : `${qty}× ${ing.name}`,
-    // At 1× keep the ingredient's own detailed breakdown (e.g. the dessert
-    // bowl components) if it has one; otherwise show the multiplied unit.
+    // At 1× keep the ingredient's own detailed breakdown if it has one;
+    // otherwise show the multiplied unit.
     qty: (qty === 1 && ing.qty) ? ing.qty : `${qty} × ${ing.unit}`,
-    cal: Math.round(ing.cal * qty), p: r1(ing.p * qty), c: r1(ing.c * qty), f: r1(ing.f * qty), fib: r1((ing.fib || 0) * qty)
+    cal: Math.round(ing.cal * qty),
+    p: r1(ing.p * qty), c: r1(ing.c * qty), f: r1(ing.f * qty), fib: r1((ing.fib || 0) * qty)
   };
   const log = getSlotLog(dateStr);
   if (!Array.isArray(log[slotId])) log[slotId] = log[slotId] ? [log[slotId]] : [];
   log[slotId].push(meal);
   setSlotLog(dateStr, log);
   document.getElementById('ingQtyOverlay').remove();
-  renderSlotSection(); renderTracker(); renderWeeklyTracker(); renderMonthlyDeficit();
+  renderSlotSection(); renderTracker(); renderWeeklyTracker();
 }
-
-
-
 
 function removeSlotMeal(slotId, idx, dateStr) {
   const log = getSlotLog(dateStr);
@@ -5506,7 +5384,6 @@ function removeSlotMeal(slotId, idx, dateStr) {
   renderSlotSection();
   renderTracker();
   renderWeeklyTracker();
-  renderMonthlyDeficit();
 }
 
 function deleteCustomMealSlot(idx) {
@@ -5517,6 +5394,8 @@ function deleteCustomMealSlot(idx) {
   renderTracker();
 }
 
+// FIX: paired with the "Custom meal" card checkbox added above — this was
+// entirely missing before, so the checkbox had nothing to call.
 function toggleCustomMealEaten(idx, checked) {
   const customs = getCustomMeals(currentDay);
   if (!customs[idx]) return;
@@ -5530,76 +5409,12 @@ function openAddMeal() {
 }
 
 
-// ── Protein checkpoint ──
-function renderProteinCheck(log) {
-  // Protein checkpoint card removed. Kept as a no-op so the existing call sites
-  // don't error.
-  const el = document.getElementById('proteinCheckSection');
-  if (el) el.innerHTML = '';
-  return;
-  // eslint-disable-next-line no-unreachable
-  const now = new Date();
-  const hour = now.getHours();
-
-  // Sum protein logged so far
-  const totalP = Object.values(log).reduce((s, m) => s + (m.p || 0), 0);
-
-  // Fixed wake-up protein
-  const wakeP = MEAL_SLOTS[0].meal.p;
-  const totalIncWakeup = totalP + wakeP;
-
-  // Only show between 12pm and 9pm
-  if (hour < 12 || hour > 21) { el.innerHTML = ''; return; }
-
-  const target7pm = 85; // should have this by 7pm
-  const remaining = target7pm - totalIncWakeup;
-
-  let cls, emoji, title, sub;
-  if (hour < 19) {
-    if (remaining <= 0) {
-      cls = 'good'; emoji = '💪';
-      title = `${totalIncWakeup}g protein logged — you're on track for 7pm`;
-      sub = `${120 - totalIncWakeup}g left for dinner. You're good.`;
-    } else if (remaining <= 20) {
-      cls = 'warn'; emoji = '⚡';
-      title = `${totalIncWakeup}g logged — ${remaining}g short of your 7pm target`;
-      sub = `Have a snack with protein before you work out.`;
-    } else {
-      cls = 'low'; emoji = '⚠️';
-      title = `${totalIncWakeup}g logged — need ${remaining}g more before 7pm`;
-      sub = `Have a protein shake now (25g) to catch up.`;
-    }
-  } else {
-    // After 7pm — show dinner guidance
-    if (totalIncWakeup >= 85) {
-      cls = 'good'; emoji = '🌙';
-      title = `${totalIncWakeup}g done — dinner just needs 25-30g more`;
-      sub = `Hit 120g total. Keep dinner protein moderate for easy digestion.`;
-    } else {
-      cls = 'warn'; emoji = '🌙';
-      title = `${totalIncWakeup}g logged — dinner needs 30-35g to hit target`;
-      sub = `Grilled chicken, eggs, or paneer for dinner tonight.`;
-    }
-  }
-
-  el.innerHTML = `
-    <div class="protein-check-card ${cls}">
-      <span class="protein-check-emoji">${emoji}</span>
-      <div class="protein-check-body">
-        <div class="protein-check-title">${title}</div>
-        <div class="protein-check-sub">${sub}</div>
-      </div>
-    </div>`;
-}
-
-// Monthly deficit bar removed — it wasn't adding value. Function kept as a
-// no-op so the many existing renderMonthlyDeficit() calls don't error.
-function renderMonthlyDeficit() {
-  const el = document.getElementById('monthlyDeficitSection');
-  if (el) el.innerHTML = '';
-}
-
-// ── Weekly tracker with Week 1/2/3/4 nav ──
+// NOTE: this is the ONLY renderWeeklyTracker in the file now. The earlier
+// build had a second, dead copy under a "WEEKLY CALORIE TRACKER" comment
+// that read stale MEAL_PLAN-based totals (getWeeklyCalLog / getWeeklyTarget)
+// — it was silently shadowed by this later definition since both were plain
+// `function` declarations in the same scope, so it never actually ran, but
+// it was confusing dead code and has been removed.
 function renderWeeklyTracker() {
   const el = document.getElementById('weeklyTrackerSection');
   if (!el) return;
@@ -5609,31 +5424,32 @@ function renderWeeklyTracker() {
   if (currentViewWeek > maxWeek) currentViewWeek = maxWeek;
   if (currentViewWeek < 1) currentViewWeek = 1;
 
-  const weekCal = getWeekCalTotal(currentViewWeek);
-
-  // Also add wake-up fixed cals for days that have any slot logged
   const dates = getWeekDates(currentViewWeek, now.getFullYear(), now.getMonth());
-  const loggedDays = dates.filter(ds => {
-    const log = getSlotLog(ds);
-    return Object.keys(log).length > 0;
-  }).length;
-  const wakeupCal = MEAL_SLOTS[0].meal.cal * loggedDays;
-  const totalWeekCal = weekCal + wakeupCal;
+  let totalWeekCal = 0, daysLogged = 0;
+  dates.forEach(ds => {
+    const c = getDayCalories(ds);
+    if (c > 0) { totalWeekCal += c; daysLogged++; }
+  });
 
   const pms = isPMSMode();
   const dailyTarget = pms ? PMS_TARGETS.cal : TARGETS.cal;
-  const weeklyTarget = dailyTarget * 7;       // e.g. 1,550 × 7 = 10,850 — the weekly eating budget
-  const tdee = 2072;
-  const weeklyBurn = tdee * 7;                // maintenance for the week
-  // Deficit vs *maintenance* — this is the real fat-loss number, and it grows
-  // as the week goes. Shown small + green because it's the "earned" reward.
-  const weeklyDeficit = weeklyBurn - totalWeekCal;
+  const weeklyTarget = dailyTarget * 7;
+  const TDEE = 2072;
+  const weeklyMaintenance = TDEE * 7;
+
+  // Deficit counts ONLY the days actually logged. The old version did
+  // (TDEE × 7) − eaten, so an un-logged week reported the entire weekly burn
+  // as a deficit you'd "earned".
+  const deficitSoFar = (TDEE * daysLogged) - totalWeekCal;
+
+  const fmt = n => n >= 1000 ? (n/1000).toFixed(1) + 'k' : String(Math.round(n));
   const pct = Math.min(100, Math.round((totalWeekCal / weeklyTarget) * 100));
-  const overBudget = totalWeekCal > weeklyTarget;
-  const fmtFull = n => Math.round(n).toLocaleString();
-  const nothingLogged = totalWeekCal === 0;
-  const barColor = overBudget ? 'var(--danger)' : 'var(--accent)';
-  const remaining = weeklyTarget - totalWeekCal;
+  const overTarget = totalWeekCal > weeklyTarget;
+
+  let deficitVal, deficitCls;
+  if (daysLogged === 0) { deficitVal = '—'; deficitCls = 'muted'; }
+  else if (deficitSoFar > 0) { deficitVal = fmt(deficitSoFar) + ' cal'; deficitCls = 'green'; }
+  else { deficitVal = '+' + fmt(Math.abs(deficitSoFar)) + ' cal over'; deficitCls = 'red'; }
 
   el.innerHTML = `
     <div class="week-nav">
@@ -5642,32 +5458,26 @@ function renderWeeklyTracker() {
       <button class="week-nav-btn" onclick="changeWeek(1)" ${currentViewWeek >= maxWeek ? 'disabled' : ''}>›</button>
       <button class="week-reset-ghost" onclick="resetWeek(${currentViewWeek})" title="Reset Week ${currentViewWeek}">Reset</button>
     </div>
-    <div class="weekly-budget">
-      <div class="weekly-budget-head">
-        <div>
-          <div class="weekly-budget-label">Weekly calorie budget</div>
-          <div class="weekly-budget-nums">
-            <span class="weekly-budget-eaten">${fmtFull(totalWeekCal)}</span>
-            <span class="weekly-budget-of">/ ${fmtFull(weeklyTarget)} cal</span>
-          </div>
-        </div>
-        <div class="weekly-deficit-chip ${nothingLogged ? 'empty' : overBudget ? 'over' : ''}">
-          ${nothingLogged
-            ? '<span class="wd-sub">log meals to earn deficit</span>'
-            : overBudget
-              ? `<span class="wd-num over">+${fmtFull(totalWeekCal - weeklyTarget)}</span><span class="wd-sub">over budget</span>`
-              : `<span class="wd-num">−${fmtFull(weeklyDeficit)}</span><span class="wd-sub">deficit so far</span>`}
-        </div>
+    <div class="week-card">
+      <span class="week-card-label">Eaten this week</span>
+      <div class="week-card-row">
+        <span class="week-card-val">${fmt(totalWeekCal)}</span>
+        <span class="week-card-sub">of ${fmt(weeklyTarget)} to eat</span>
       </div>
-      <div class="weekly-budget-bar">
-        <div class="weekly-budget-fill" style="width:${pct}%;background:${barColor}"></div>
-      </div>
-      <div class="weekly-budget-foot">
-        ${nothingLogged
-          ? `${fmtFull(weeklyTarget)} cal to spend this week · ${dailyTarget.toLocaleString()}/day`
-          : overBudget
-            ? `You've gone ${fmtFull(totalWeekCal - weeklyTarget)} over — ease up the rest of the week`
-            : `${fmtFull(remaining)} cal left this week · a bad day is fine, the week is what counts`}
+      <div class="week-bar"><div class="week-bar-fill${overTarget ? ' over' : ''}" style="width:${pct}%"></div></div>
+      <div class="week-rows">
+        <div class="week-row">
+          <span class="week-row-label">To eat this week</span>
+          <span class="week-row-val">${fmt(weeklyTarget)} cal</span>
+        </div>
+        <div class="week-row">
+          <span class="week-row-label">Maintenance burn</span>
+          <span class="week-row-val muted">${fmt(weeklyMaintenance)} cal</span>
+        </div>
+        <div class="week-row">
+          <span class="week-row-label">Deficit so far · ${daysLogged} ${daysLogged === 1 ? 'day' : 'days'} logged</span>
+          <span class="week-row-val ${deficitCls}">${deficitVal}</span>
+        </div>
       </div>
     </div>`;
 }
@@ -5700,13 +5510,12 @@ function confirmResetWeek(weekNum) {
   dates.forEach(ds => {
     localStorage.removeItem(getSlotLogKey(ds));
     localStorage.removeItem('wakeup_checked_' + ds);
+    clearSlotEatenForDate(ds);
   });
   renderSlotSection();
   renderWeeklyTracker();
-  renderMonthlyDeficit();
   renderTracker();
 }
-
 
 function setMode(pms) {
   setPMSMode(pms);
@@ -5722,7 +5531,6 @@ function setMode(pms) {
   renderSlotSection();
 }
 
-// Sync toggle on load
 (function syncModeToggle() {
   const pms = isPMSMode();
   document.body.classList.toggle('pms-mode', pms);
@@ -5734,7 +5542,6 @@ function setMode(pms) {
 
 renderCycleCalendar();
 renderWeeklyTracker();
-renderMonthlyDeficit();
 renderSlotSection();
 checkAndRenderSurvivalBadge();
 renderSupplements();
@@ -5743,7 +5550,6 @@ renderTabs();
 renderTracker();
 renderWeeklyTracker();
 
-/* ---------- activity handlers ---------- */
 document.getElementById('activityAddBtn').addEventListener('click', () => {
   const name = document.getElementById('activityName').value;
   const cal = document.getElementById('activityCal').value;
@@ -5759,18 +5565,14 @@ document.getElementById('activityAddBtn').addEventListener('click', () => {
 });
 
 renderActivity();
-
-/* ---------- fitness goals init ---------- */
 renderFitness();
 
-/* ---------- weight handlers ---------- */
 document.querySelectorAll('.weight-unit-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     const newUnit = btn.dataset.unit;
     const current = getWeight();
     const oldUnit = current.unit || 'kg';
     if (newUnit === oldUnit) return;
-    // Convert existing values between units so the numbers make sense
     const convert = (val) => {
       if (!val) return val;
       const num = parseFloat(val);
@@ -5789,7 +5591,6 @@ document.querySelectorAll('.weight-unit-btn').forEach(btn => {
   });
 });
 
-// Live-save as user types in the two weight inputs
 ['weightCurrent', 'weightGoal'].forEach(id => {
   const el = document.getElementById(id);
   el.addEventListener('input', saveWeightFromInputs);
@@ -5800,5 +5601,6 @@ document.querySelectorAll('.weight-unit-btn').forEach(btn => {
 
 renderWeight();
 </script>
+</div>
 </body>
 </html>
