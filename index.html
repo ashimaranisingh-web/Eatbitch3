@@ -3563,6 +3563,14 @@ document.getElementById('addMealSave').addEventListener('click', () => {
   }
 
   document.getElementById('addMealModal').classList.remove('open');
+  // Clear the form so the next custom meal starts blank instead of inheriting
+  // this one's values.
+  ['newMealTitle','newMealDesc','newMealTime','newMealCal','newMealP','newMealC','newMealF','newMealFib'].forEach(id => {
+    const el = document.getElementById(id); if (el) el.value = '';
+  });
+  const saveToggle = document.getElementById('newMealSaveToDropdown');
+  if (saveToggle) saveToggle.checked = false;
+  const st = document.getElementById('aiStatus'); if (st) { st.textContent=''; st.className='ai-status'; }
   renderSlotSection();
   renderTracker();
   renderWeeklyTracker();
@@ -4900,8 +4908,7 @@ const SNACK_INGREDIENTS = [
   { id:'makhana',      name:'Makhana (roasted)',                   unit:'25g (1 bowl)', cal:88, p:3, c:18, f:0,  fib:1 },
   { id:'sweetcorn_s',  name:'Sweet corn',                          unit:'70g',       cal:67,  p:2,  c:15, f:1,  fib:2 },
   { id:'peanut_butter',name:'Peanut butter',                       unit:'1 tsp (8g)',cal:48,  p:2,  c:2,  f:4,  fib:0 },
-  { id:'minus30',      name:'Minus 30 roasted hazelnut ice cream sandwich', unit:'1 sandwich', cal:139, p:2.2, c:18.2, f:6.4, fib:1,
-    qty:'Per sandwich · 139.3 kcal · 18.2g carbs (6.6g total sugars, 4.9g added) · 60.6mg sodium · NOTE: the label prints 16.4g fat, but that would make the sandwich ~229 kcal, not 139.3 — 6.4g is the figure that matches the stated energy, so that is what is used here. Worth re-checking the pack.' },
+  { id:'minus30',      name:'Hazelnut ice cream sandwich',           unit:'1 sandwich', cal:139, p:2.2, c:18.2, f:6.4, fib:1 },
   { id:'aloo_tikki_s', name:'Aloo tikki',                          unit:'100g',      cal:190, p:4,  c:28, f:7,  fib:3 },
   { id:'cali_ques_s',  name:'California burrito quesadilla',       unit:'1 quesadilla', cal:460, p:14, c:42, f:26, fib:3 },
 ];
