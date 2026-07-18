@@ -3483,9 +3483,9 @@ function renderQuickPick(searchTerm) {
         items: [{ n: niceTitle, cal, p, c, f, fib }],
         isCustom: true
       };
-      const customs = getCustomMeals(currentDay);
+      const customs = getCustomMeals(selectedDateStr());
       customs.push(newMeal);
-      setCustomMeals(currentDay, customs);
+      setCustomMeals(selectedDateStr(), customs);
 
       document.getElementById('addMealModal').classList.remove('open');
       renderSlotSection();
@@ -3547,9 +3547,9 @@ document.getElementById('addMealSave').addEventListener('click', () => {
     isCustom: true
   };
 
-  const customs = getCustomMeals(currentDay);
+  const customs = getCustomMeals(selectedDateStr());
   customs.push(newMeal);
-  setCustomMeals(currentDay, customs);
+  setCustomMeals(selectedDateStr(), customs);
 
   if (document.getElementById('newMealSaveToDropdown').checked) {
     const customIngs = getCustomIngredients();
@@ -3700,14 +3700,14 @@ document.getElementById('editMealSave').addEventListener('click', () => {
     }
   }
 
-  const customs = getCustomMeals(currentDay);
+  const customs = getCustomMeals(selectedDateStr());
   const customIdx = customs.findIndex(m => m.id === editingMealId);
 
   const patch = { title, desc, time, cal, p, c, f, fib, items: newItems };
 
   if (customIdx !== -1) {
     customs[customIdx] = { ...customs[customIdx], ...patch };
-    setCustomMeals(currentDay, customs);
+    setCustomMeals(selectedDateStr(), customs);
   } else {
     const overrides = getOverrides(currentDay);
     overrides[editingMealId] = patch;
@@ -3784,7 +3784,7 @@ function computeConsumed(day) {
 
   const wakeupChecked = localStorage.getItem('wakeup_checked_' + ds) === 'true';
   if (wakeupChecked) {
-    const w = MEAL_SLOTS[0].meal;
+    const w = (isPMSMode() ? PMS_MEAL_SLOTS : MEAL_SLOTS)[0].meal;
     totals.cal += w.cal; totals.p += w.p; totals.c += w.c; totals.f += w.f; totals.fib += w.fib;
   }
 
@@ -3796,6 +3796,14 @@ function computeConsumed(day) {
         totals.f += meal.f; totals.fib += (meal.fib || 0);
       }
     });
+  });
+
+  // FIX: custom meals were never added here — they showed a total on their own
+  // card and then silently vanished from the day's tracker, the day dots and
+  // the weekly numbers.
+  getCustomMeals(ds).forEach(m => {
+    totals.cal += (m.cal||0); totals.p += (m.p||0); totals.c += (m.c||0);
+    totals.f += (m.f||0); totals.fib += (m.fib||0);
   });
 
   return totals;
@@ -4079,7 +4087,7 @@ function switchDay(day) {
 }
 
 document.getElementById('resetBtn').addEventListener('click', () => {
-  const customCount = getCustomMeals(currentDay).length;
+  const customCount = getCustomMeals(selectedDateStr()).length;
   const customNote = customCount > 0
     ? `\n\nThis will also delete ${customCount} added meal${customCount > 1 ? 's' : ''}.`
     : '';
@@ -4087,7 +4095,7 @@ document.getElementById('resetBtn').addEventListener('click', () => {
   setCheckedIds(currentDay, []);
   setSkippedItems(currentDay, {});
   setActivities(currentDay, []);
-  setCustomMeals(currentDay, []);
+  setCustomMeals(selectedDateStr(), []);
   // Every day tab now maps to its own real calendar date (see
   // selectedDateStr()), so reset always clears that date's actual log —
   // no more special-casing "only if this tab happens to be today."
@@ -4835,6 +4843,7 @@ function getDayCalories(ds) {
       cal += slots[0].meal.cal;
     }
   } catch {}
+  getCustomMeals(ds).forEach(m => { cal += (m.cal||0); });
   return cal;
 }
 
@@ -4986,7 +4995,10 @@ function getEffectiveDefaultMeal(slot, day, pms) {
   return {
     name: match.title,
     qty: match.quantities || match.desc,
-    cal: match.cal, p: match.p, c: match.c, f: match.f, fib: match.fib
+    cal: match.cal, p: match.p, c: match.c, f: match.f, fib: match.fib,
+    // items[] carries per-component macros — needed by "Ate part of this"
+    // so skipping the dosa removes the dosa's calories, not a proportional share.
+    items: match.items || null
   };
 }
 
@@ -5059,11 +5071,48 @@ function clearSlotEatenForDate(dateStr) {
       .forEach(k => localStorage.removeItem(k));
   } catch {}
 }
-function toggleSlotEaten(slotId, checked, dateStr) {
-  setSlotEaten(dateStr, slotId, checked);
+
+
+// ── "Ate part of this" ──────────────────────────────────────────────
+// Brought back from the old meal-row UI. The planned meal knows its
+// components (items[]) with real per-component macros, so skipping the dosa
+// subtracts the dosa's actual calories — not a proportional guess.
+const partialMode = new Set();   // slots currently showing the skip panel
+const partialSkips = {};         // slotId -> [skipped item indices]
+
+function togglePartialMode(slotId) {
+  if (partialMode.has(slotId)) { partialMode.delete(slotId); delete partialSkips[slotId]; }
+  else { partialMode.add(slotId); replaceModeSlots.delete(slotId); }
   renderSlotSection();
 }
-
+function togglePartialItem(slotId, idx) {
+  if (!partialSkips[slotId]) partialSkips[slotId] = [];
+  const a = partialSkips[slotId];
+  const at = a.indexOf(idx);
+  if (at === -1) a.push(idx); else a.splice(at, 1);
+  renderSlotSection();
+}
+function partialKept(slot, pms) {
+  const d = getEffectiveDefaultMeal(slot, currentDay, pms);
+  if (!d || !d.items) return [];
+  const skipped = partialSkips[slot.id] || [];
+  return d.items.filter((_, i) => !skipped.includes(i));
+}
+function logPartial(slotId, dateStr) {
+  const pms = isPMSMode();
+  const slot = (pms ? PMS_MEAL_SLOTS : MEAL_SLOTS).find(s => s.id === slotId);
+  if (!slot) return;
+  const kept = partialKept(slot, pms);
+  partialMode.delete(slotId); delete partialSkips[slotId];
+  if (kept.length === 0) { renderSlotSection(); return; } // skipped everything = ate nothing
+  // Log each component separately so the ✕ can remove them individually.
+  const log = getSlotLog(dateStr);
+  log[slotId] = kept.map(it => ({
+    name: it.n, qty: '', cal: it.cal, p: it.p, c: it.c, f: it.f, fib: it.fib || 0
+  }));
+  setSlotLog(dateStr, log);
+  renderSlotSection(); renderTracker(); renderWeeklyTracker(); renderTabs();
+}
 
 function enterReplaceMode(slotId) {
   replaceModeSlots.add(slotId);
@@ -5159,8 +5208,28 @@ function renderSlotSection() {
             <div style="font-size:13px;font-weight:500">${d.name}</div>
             ${d.qty ? `<div style="font-size:11px;color:var(--text-tertiary);margin-top:2px;line-height:1.6">${d.qty}</div>` : ''}
           </div>
-          <div style="padding:0 14px 12px">
-            <button onclick="enterReplaceMode('${slot.id}')" class="replace-btn">
+          ${(d.items && partialMode.has(slot.id)) ? (() => {
+            const skipped = partialSkips[slot.id] || [];
+            const kept = d.items.filter((_, i) => !skipped.includes(i));
+            const eff = kept.reduce((a,it) => ({
+              cal:a.cal+(it.cal||0), p:a.p+(it.p||0)
+            }), {cal:0,p:0});
+            return `<div class="skip-panel open" style="margin:0 14px 10px">
+              <div class="skip-panel-title">Tap what you skipped</div>
+              <div class="skip-items">
+                ${d.items.map((it,i) => `<button type="button" class="skip-item${skipped.includes(i) ? ' skipped' : ''}"
+                  onclick="togglePartialItem('${slot.id}', ${i})">${escapeHtml(it.n)}<span class="item-cal">${it.cal} cal</span></button>`).join('')}
+              </div>
+              <button type="button" class="skip-done-btn" onclick="logPartial('${slot.id}', '${ds}')">
+                ${kept.length === 0 ? 'Skipped the whole meal' : `Log what I ate — ${eff.cal} cal · ${eff.p}g P`}
+              </button>
+            </div>`;
+          })() : ''}
+          <div style="padding:0 14px 12px;display:flex;gap:4px">
+            ${d.items ? `<button onclick="togglePartialMode('${slot.id}')" class="replace-btn" style="flex:1">
+              ${partialMode.has(slot.id) ? 'Cancel' : 'Ate part of this'}
+            </button>` : ''}
+            <button onclick="enterReplaceMode('${slot.id}')" class="replace-btn" style="flex:1">
               Replace / Add
             </button>
           </div>
@@ -5169,13 +5238,10 @@ function renderSlotSection() {
 
     const slotTotal = loggedMeals.reduce((s,m) => ({cal:s.cal+(m.cal||0), p:s.p+(m.p||0)}), {cal:0,p:0});
 
-    // One checkbox per slot (in the header) rather than one per ingredient —
-    // adding 4 things to lunch shouldn't mean ticking 4 boxes.
-    const slotEaten = getSlotEaten(ds, slot.id);
     const loggedHtml = loggedMeals.map((m, idx) => `
       <div style="display:flex;align-items:center;gap:8px;padding:6px 14px;border-top:1px solid var(--border-tertiary)">
         <div style="flex:1">
-          <div style="font-size:13px;font-weight:500;${slotEaten ? 'opacity:0.6' : ''}">${m.name}</div>
+          <div style="font-size:13px;font-weight:500">${m.name}</div>
           ${m.qty ? `<div style="font-size:11px;color:var(--text-tertiary);margin-top:2px;line-height:1.6">${m.qty}</div>` : ''}
         </div>
         <div style="text-align:right;flex-shrink:0">
@@ -5217,9 +5283,6 @@ function renderSlotSection() {
               <div class="slot-name">${slot.name} <span style="font-weight:400;color:var(--text-tertiary);font-size:11px">${slot.time}</span></div>
             </div>
           </div>
-          ${loggedMeals.length > 0 ? `<input type="checkbox" class="slot-check" title="Mark whole ${slot.name.toLowerCase()} as eaten"
-            ${slotEaten ? 'checked' : ''}
-            onchange="toggleSlotEaten('${slot.id}', this.checked, '${ds}')">` : ''}
         </div>
         ${headerMacros}
         ${loggedHtml}
@@ -5237,7 +5300,7 @@ function renderSlotSection() {
       </div>`;
   }).join('');
 
-  const customs = getCustomMeals(currentDay);
+  const customs = getCustomMeals(selectedDateStr());
   const customTotal = customs.reduce((s,m) => s + (m.cal||0), 0);
 
   // FIX (custom-meal card bug): meals saved via the Add Meal modal / Quick Pick
@@ -5247,12 +5310,8 @@ function renderSlotSection() {
   // with the rest of the list instead of looking collapsed/shifted.
   const customHtml = customs.length > 0 ? customs.map((m,i) => `
     <div style="display:flex;align-items:center;gap:8px;padding:8px 14px;border-top:1px solid var(--border-tertiary)">
-      <input type="checkbox" title="Mark as eaten"
-        style="width:20px;height:20px;accent-color:var(--accent);flex-shrink:0;cursor:pointer"
-        ${m.eaten ? 'checked' : ''}
-        onchange="toggleCustomMealEaten(${i}, this.checked)">
       <div style="flex:1">
-        <div style="font-size:13px;font-weight:500;color:var(--text-primary);${m.eaten ? 'opacity:0.6' : ''}">${escapeHtml(m.title || m.name || 'Custom meal')}</div>
+        <div style="font-size:13px;font-weight:500;color:var(--text-primary)">${escapeHtml(m.title || m.name || 'Custom meal')}</div>
         <div style="font-size:11px;color:var(--text-tertiary)">${m.cal||0} cal · ${m.p||0}g P · ${m.c||0}g C · ${m.f||0}g F</div>
       </div>
       <button onclick="deleteCustomMealSlot(${i})" style="background:none;border:none;font-size:16px;cursor:pointer;color:var(--text-tertiary);padding:4px">✕</button>
@@ -5387,22 +5446,15 @@ function removeSlotMeal(slotId, idx, dateStr) {
 }
 
 function deleteCustomMealSlot(idx) {
-  const customs = getCustomMeals(currentDay);
+  const customs = getCustomMeals(selectedDateStr());
   customs.splice(idx, 1);
-  setCustomMeals(currentDay, customs);
+  setCustomMeals(selectedDateStr(), customs);
   renderSlotSection();
   renderTracker();
 }
 
 // FIX: paired with the "Custom meal" card checkbox added above — this was
 // entirely missing before, so the checkbox had nothing to call.
-function toggleCustomMealEaten(idx, checked) {
-  const customs = getCustomMeals(currentDay);
-  if (!customs[idx]) return;
-  customs[idx].eaten = checked;
-  setCustomMeals(currentDay, customs);
-  renderSlotSection();
-}
 
 function openAddMeal() {
   document.getElementById('addMealModal').classList.add('open');
