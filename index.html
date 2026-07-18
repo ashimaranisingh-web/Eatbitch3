@@ -145,16 +145,34 @@
 
   /* Activity section */
   .activity {
-    background: var(--bg-primary);
-    border: 0.5px solid var(--border-tertiary);
-    border-radius: var(--radius-lg);
-    margin-bottom: 1rem;
+    /* Closed = a quiet row: transparent, no lift, tight spacing. The eye can
+       skim past these to reach the meals. They only become "cards" when open. */
+    background: transparent;
+    border: none;
+    border-bottom: 0.5px solid var(--border-tertiary);
+    border-radius: 0;
+    margin-bottom: 0;
     overflow: hidden;
   }
+  .activity[open] {
+    background: var(--bg-primary);
+    border: 0.5px solid var(--border-secondary);
+    border-radius: var(--radius-lg);
+    margin: 10px 0;
+  }
+  /* Group the secondary drawers with one shared frame instead of many. */
+  .drawer-group {
+    border: 0.5px solid var(--border-tertiary);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-bottom: 1rem;
+  }
+  .drawer-group .activity:last-child { border-bottom: none; }
+  .drawer-group .activity[open] { margin: 0; border-radius: 0; border-left: none; border-right: none; }
   .activity[open] { border-color: var(--border-secondary); }
   .activity-summary {
     display: flex; justify-content: space-between; align-items: center;
-    padding: 12px 16px; cursor: pointer; list-style: none;
+    padding: 13px 14px; cursor: pointer; list-style: none;
     user-select: none; gap: 10px;
   }
   .activity-summary::-webkit-details-marker { display: none; }
@@ -166,8 +184,8 @@
     flex: 0 0 auto;
   }
   .activity-label {
-    font-size: 11px; color: var(--text-tertiary);
-    text-transform: uppercase; letter-spacing: 0.5px;
+    font-size: 13px; color: var(--text-primary);
+    letter-spacing: 0; text-transform: none;
     font-weight: 500; display: block; margin-bottom: 1px;
   }
   .activity-summary-text {
@@ -2020,103 +2038,118 @@
 </div>
 
 <div id="insightSection"></div>
-<div class="craving-wrap" id="cravingWrap">
-  <div class="craving-row">
-    <input type="text" class="craving-input" id="cravingInput" placeholder="What are you craving? e.g. sweet, spicy, crunchy..." autocomplete="off" autocorrect="off">
-    <button class="craving-btn" onclick="handleCraving()">→</button>
+<details class="activity" id="cravingBlock">
+  <summary class="activity-summary">
+    <span class="activity-left">
+      <span class="activity-icon">🍫</span>
+      <span>
+        <span class="activity-label">Craving something?</span>
+        <span class="activity-summary-text">Get a smart swap</span>
+      </span>
+    </span>
+    <span class="activity-caret">▾</span>
+  </summary>
+  <div class="activity-body">
+    <div class="craving-wrap" id="cravingWrap" style="margin:12px 0 0">
+      <div class="craving-row">
+        <input type="text" class="craving-input" id="cravingInput" placeholder="e.g. sweet, spicy, crunchy..." autocomplete="off" autocorrect="off">
+        <button class="craving-btn" onclick="handleCraving()">→</button>
+      </div>
+      <div id="cravingResult"></div>
+    </div>
   </div>
-  <div id="cravingResult"></div>
-</div>
+</details>
 <div id="survivalBadgeSection"></div>
 
 <!-- 2. Weekly component + reset week -->
 <div id="weeklyTrackerSection"></div>
 
 <!-- 3-6. SUPER DROPDOWN: Activity + Fitness Goals + Weight & Goal + Supplement Drawer -->
-<details class="activity super-block" id="fitnessSuperBlock">
+<div class="drawer-group">
+<details class="activity" id="activityBlock">
   <summary class="activity-summary">
     <span class="activity-left">
       <span class="activity-icon">
         <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M13 4a3 3 0 11-6 0 3 3 0 016 0zm-3 5.5c-2.2 0-4 1-4 2.5v.5h1.5l.8 5h3.4l.8-5H14v-.5c0-1.5-1.8-2.5-4-2.5z"/></svg>
       </span>
       <span>
-        <span class="activity-label">Fitness &amp; Health</span>
-        <span class="activity-summary-text" id="superSummaryText">Activity · goals · weight · supplements</span>
+        <span class="activity-label">Activity</span>
+        <span class="activity-summary-text" id="activitySummaryText">No activity logged</span>
       </span>
     </span>
     <span class="activity-caret">▾</span>
   </summary>
   <div class="activity-body">
-
-    <!-- Sub: Activity -->
-    <details class="sub-block" id="activityBlock" open>
-      <summary class="sub-summary">
-        <span class="sub-label">Activity</span>
-        <span class="sub-summary-text" id="activitySummaryText">No activity logged</span>
-        <span class="sub-caret">▾</span>
-      </summary>
-      <div class="sub-body">
-        <p class="activity-hint">Quick log — tap a preset or add your own. Calories burned subtract from today's net.</p>
-        <div class="activity-presets" id="activityPresets"></div>
-        <div class="activity-custom">
-          <input type="text" class="activity-input activity-input-name" id="activityName" placeholder="Activity name">
-          <input type="number" class="activity-input activity-input-cal" id="activityCal" placeholder="Cal" min="0">
-          <button type="button" class="activity-add-btn" id="activityAddBtn">Add</button>
-        </div>
-        <ul class="activity-list" id="activityList"></ul>
-      </div>
-    </details>
-
-    <!-- Sub: Fitness goals -->
-    <details class="sub-block" id="fitnessBlock">
-      <summary class="sub-summary">
-        <span class="sub-label">Fitness goals</span>
-        <span class="sub-summary-text" id="fitnessSummaryText">Tap to track this week</span>
-        <span class="sub-caret">▾</span>
-      </summary>
-      <div class="sub-body">
-        <p class="activity-hint">Weekly targets — tap + when you do one. Resets every Monday. Independent of daily activity log.</p>
-        <div class="fitness-list" id="fitnessList"></div>
-      </div>
-    </details>
-
-    <!-- Sub: Weight & goal -->
-    <details class="sub-block" id="weightBlock">
-      <summary class="sub-summary">
-        <span class="sub-label">Weight &amp; goal</span>
-        <span class="sub-summary-text" id="weightSummaryText">Not set</span>
-        <span class="sub-caret">▾</span>
-      </summary>
-      <div class="sub-body">
-        <div class="weight-unit-toggle">
-          <button type="button" class="weight-unit-btn" data-unit="kg">kg</button>
-          <button type="button" class="weight-unit-btn" data-unit="lb">lb</button>
-        </div>
-        <div class="weight-inputs">
-          <div class="weight-input-group">
-            <label class="weight-input-label" for="weightCurrent">Current</label>
-            <input type="number" class="activity-input weight-input" id="weightCurrent" placeholder="0" step="0.1">
-          </div>
-          <div class="weight-input-group">
-            <label class="weight-input-label" for="weightGoal">Goal</label>
-            <input type="number" class="activity-input weight-input" id="weightGoal" placeholder="0" step="0.1">
-          </div>
-        </div>
-        <div class="weight-delta" id="weightDelta"></div>
-      </div>
-    </details>
-
-    <!-- Sub: Supplement drawer -->
-    <details class="sub-block" id="supplementBlock">
-      <summary class="sub-summary">
-        <span class="sub-label">💊 Supplement drawer</span>
-        <span class="sub-summary-text">Bedside stack · timing guide</span>
-        <span class="sub-caret">▾</span>
-      </summary>
-      <div class="sub-body" id="supplementBody"></div>
-    </details>
-
+    <p class="activity-hint">Quick log — tap a preset or add your own. Calories burned subtract from today's net.</p>
+    <div class="activity-presets" id="activityPresets"></div>
+    <div class="activity-custom">
+      <input type="text" class="activity-input activity-input-name" id="activityName" placeholder="Activity name">
+      <input type="number" class="activity-input activity-input-cal" id="activityCal" placeholder="Cal" min="0">
+      <button type="button" class="activity-add-btn" id="activityAddBtn">Add</button>
+    </div>
+    <ul class="activity-list" id="activityList"></ul>
   </div>
+</details>
+
+<details class="activity" id="fitnessBlock">
+  <summary class="activity-summary">
+    <span class="activity-left">
+      <span class="activity-icon">🏋️</span>
+      <span>
+        <span class="activity-label">Fitness goals</span>
+        <span class="activity-summary-text" id="fitnessSummaryText">Tap to track this week</span>
+      </span>
+    </span>
+    <span class="activity-caret">▾</span>
+  </summary>
+  <div class="activity-body">
+    <p class="activity-hint">Weekly targets — tap + when you do one. Resets every Monday. Independent of daily activity log.</p>
+    <div class="fitness-list" id="fitnessList"></div>
+  </div>
+</details>
+
+<details class="activity" id="weightBlock">
+  <summary class="activity-summary">
+    <span class="activity-left">
+      <span class="activity-icon">⚖️</span>
+      <span>
+        <span class="activity-label">Weight &amp; goal</span>
+        <span class="activity-summary-text" id="weightSummaryText">Not set</span>
+      </span>
+    </span>
+    <span class="activity-caret">▾</span>
+  </summary>
+  <div class="activity-body">
+    <div class="weight-unit-toggle">
+      <button type="button" class="weight-unit-btn" data-unit="kg">kg</button>
+      <button type="button" class="weight-unit-btn" data-unit="lb">lb</button>
+    </div>
+    <div class="weight-inputs">
+      <div class="weight-input-group">
+        <label class="weight-input-label" for="weightCurrent">Current</label>
+        <input type="number" class="activity-input weight-input" id="weightCurrent" placeholder="0" step="0.1">
+      </div>
+      <div class="weight-input-group">
+        <label class="weight-input-label" for="weightGoal">Goal</label>
+        <input type="number" class="activity-input weight-input" id="weightGoal" placeholder="0" step="0.1">
+      </div>
+    </div>
+    <div class="weight-delta" id="weightDelta"></div>
+  </div>
+</details>
+
+<details class="activity" id="supplementBlock">
+  <summary class="activity-summary">
+    <span class="activity-left">
+      <span class="activity-icon">💊</span>
+      <span>
+        <span class="activity-label">Supplement drawer</span>
+        <span class="activity-summary-text">Bedside stack · timing guide</span>
+      </span>
+    </span>
+    <span class="activity-caret">▾</span>
+  </summary>
+  <div class="activity-body" id="supplementBody"></div>
 </details>
 
 <!-- 7. Meal Prep Jars -->
@@ -2133,6 +2166,7 @@
   </summary>
   <div class="activity-body" id="mealPrepBody"></div>
 </details>
+</div>
 
 <!-- 8. Normal & PMS tabs -->
 <div class="mode-toggle-bar" id="modeToggleBar">
