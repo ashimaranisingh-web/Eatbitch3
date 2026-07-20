@@ -73,11 +73,13 @@
   .subtitle { font-size: 13px; color: var(--text-secondary); margin: 0; }
 
   .tracker {
-    position: sticky; top: 8px; z-index: 10;
-    background: var(--bg-primary);
+    position: sticky; top: 0; z-index: 30;
+    background: var(--bg-page);
     border: 0.5px solid var(--border-tertiary);
     border-radius: var(--radius-lg);
     padding: 14px 16px; margin-bottom: 1rem;
+    /* opaque bg + shadow so scrolling content doesn't bleed through */
+    box-shadow: 0 6px 16px -8px rgba(0,0,0,0.9);
   }
   .tracker-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
   .tracker-label { font-size: 11px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 500; }
@@ -1923,6 +1925,31 @@
   }
   .slot-replace-btn:active { color: var(--text-primary); }
 
+  /* ── Custom-meal slot picker ── */
+  .slot-picker {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .slot-chip {
+    padding: 11px 10px;
+    border-radius: 10px;
+    border: 1px solid var(--border-secondary);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .slot-chip.selected {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+
   /* ── Day tab status dot ── */
   .day-dot {
     width: 5px; height: 5px;
@@ -2038,31 +2065,24 @@
 </div>
 
 <div id="insightSection"></div>
-<details class="activity" id="cravingBlock">
-  <summary class="activity-summary">
-    <span class="activity-left">
-      <span class="activity-icon">🍫</span>
-      <span>
-        <span class="activity-label">Craving something?</span>
-        <span class="activity-summary-text">Get a smart swap</span>
-      </span>
-    </span>
-    <span class="activity-caret">▾</span>
-  </summary>
-  <div class="activity-body">
-    <div class="craving-wrap" id="cravingWrap" style="margin:12px 0 0">
-      <div class="craving-row">
-        <input type="text" class="craving-input" id="cravingInput" placeholder="e.g. sweet, spicy, crunchy..." autocomplete="off" autocorrect="off">
-        <button class="craving-btn" onclick="handleCraving()">→</button>
-      </div>
-      <div id="cravingResult"></div>
-    </div>
-  </div>
-</details>
+
 <div id="survivalBadgeSection"></div>
 
 <!-- 2. Weekly component + reset week -->
 <div id="weeklyTrackerSection"></div>
+
+<!-- 9. Day's progress -->
+<div class="tracker" id="tracker">
+  <div class="tracker-head">
+    <span class="tracker-label" id="trackerDayLabel">Monday's progress</span>
+    <button class="reset-btn" id="resetBtn">Reset day</button>
+  </div>
+
+  <div class="cal-equation" id="calEquation"></div>
+
+  <div class="tracker-grid" id="trackerGrid"></div>
+</div>
+
 
 <!-- 3-6. SUPER DROPDOWN: Activity + Fitness Goals + Weight & Goal + Supplement Drawer -->
 <div class="drawer-group">
@@ -2168,22 +2188,33 @@
 </details>
 </div>
 
+<!-- Craving (moved below meal prep) -->
+<details class="activity" id="cravingBlock">
+  <summary class="activity-summary">
+    <span class="activity-left">
+      <span class="activity-icon">🍫</span>
+      <span>
+        <span class="activity-label">Craving something?</span>
+        <span class="activity-summary-text">Get a smart swap</span>
+      </span>
+    </span>
+    <span class="activity-caret">▾</span>
+  </summary>
+  <div class="activity-body">
+    <div class="craving-wrap" id="cravingWrap" style="margin:12px 0 0">
+      <div class="craving-row">
+        <input type="text" class="craving-input" id="cravingInput" placeholder="e.g. sweet, spicy, crunchy..." autocomplete="off" autocorrect="off">
+        <button class="craving-btn" onclick="handleCraving()">→</button>
+      </div>
+      <div id="cravingResult"></div>
+    </div>
+  </div>
+</details>
+
 <!-- 8. Normal & PMS tabs -->
 <div class="mode-toggle-bar" id="modeToggleBar">
   <button type="button" class="mode-btn active" id="btnNormal" onclick="setMode(false)">Normal</button>
   <button type="button" class="mode-btn" id="btnPMS" onclick="setMode(true)">PMS</button>
-</div>
-
-<!-- 9. Day's progress -->
-<div class="tracker" id="tracker">
-  <div class="tracker-head">
-    <span class="tracker-label" id="trackerDayLabel">Monday's progress</span>
-    <button class="reset-btn" id="resetBtn">Reset day</button>
-  </div>
-
-  <div class="cal-equation" id="calEquation"></div>
-
-  <div class="tracker-grid" id="trackerGrid"></div>
 </div>
 
 <!-- 10. Meals -->
@@ -2213,11 +2244,15 @@
     <p class="modal-label">Description (ingredients)</p>
     <input type="text" class="modal-input" id="newMealDesc" placeholder="e.g. Yellow dal, brown rice, cucumber raita">
 
-    <p class="modal-label">Time / label</p>
-    <div class="modal-row">
-      <input type="text" class="modal-input" id="newMealTime" placeholder="e.g. 3pm · Snack">
-      <input type="number" class="modal-input" id="newMealCal" placeholder="Calories">
+    <p class="modal-label">When did you eat it?</p>
+    <div class="slot-picker" id="newMealSlotPicker">
+      <button type="button" class="slot-chip" data-slot="breakfast">🍳 Breakfast</button>
+      <button type="button" class="slot-chip" data-slot="lunch">🍚 Lunch</button>
+      <button type="button" class="slot-chip" data-slot="snack">🥔 Snack</button>
+      <button type="button" class="slot-chip" data-slot="dinner">🌙 Dinner</button>
     </div>
+    <p class="modal-label">Calories</p>
+    <input type="number" class="modal-input" id="newMealCal" placeholder="Calories">
 
     <button class="ai-estimate-btn" id="aiEstimateBtn">
       <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 100 16A8 8 0 0010 2zm0 1.5a6.5 6.5 0 110 13 6.5 6.5 0 010-13zm0 2a1 1 0 00-1 1v3.586L7.707 8.793a1 1 0 10-1.414 1.414l2 2a1 1 0 001.414 0l2-2a1 1 0 10-1.414-1.414L11 10.086V6.5a1 1 0 00-1-1z"/></svg>
@@ -3086,10 +3121,14 @@ const ACTIVITY_PRESETS = [
   { name: 'Pilates (30min)',            cal: 150, emoji: '🧘' },
 ];
 function getActivities(day) {
-  try { return JSON.parse(localStorage.getItem('mealPlan_activities_' + day) || '[]'); } catch { return []; }
+  // `day` may be a day-name (legacy callers) or already a date string. Always
+  // resolve to the selected tab's real date so activity is per-calendar-day.
+  const ds = (day && /^\d{4}-\d{2}-\d{2}$/.test(day)) ? day : selectedDateStr();
+  try { return JSON.parse(localStorage.getItem('mealPlan_activities_' + ds) || '[]'); } catch { return []; }
 }
 function setActivities(day, list) {
-  try { localStorage.setItem('mealPlan_activities_' + day, JSON.stringify(list)); } catch {}
+  const ds = (day && /^\d{4}-\d{2}-\d{2}$/.test(day)) ? day : selectedDateStr();
+  try { localStorage.setItem('mealPlan_activities_' + ds, JSON.stringify(list)); } catch {}
 }
 function totalBurned(day) {
   return getActivities(day).reduce((a, x) => a + (parseInt(x.cal) || 0), 0);
@@ -3401,14 +3440,19 @@ function attachHandlers() {
   });
 }
 
-function openAddModal() {
-  ['newMealTitle','newMealDesc','newMealTime','newMealCal','newMealP','newMealC','newMealF','newMealFib'].forEach(id => {
-    document.getElementById(id).value = '';
+function openAddModal(preSlot) {
+  ['newMealTitle','newMealDesc','newMealCal','newMealP','newMealC','newMealF','newMealFib'].forEach(id => {
+    const el = document.getElementById(id); if (el) el.value = '';
   });
   document.getElementById('newMealSaveToDropdown').checked = false;
   document.getElementById('aiStatus').textContent = '';
   document.getElementById('quickPickSearch').value = '';
   renderQuickPick('');
+  // Pre-select the slot chip if opened from a specific slot's "+ Add a meal".
+  selectedCustomSlot = (preSlot && typeof preSlot === 'string') ? preSlot : null;
+  document.querySelectorAll('#newMealSlotPicker .slot-chip').forEach(ch => {
+    ch.classList.toggle('selected', ch.dataset.slot === selectedCustomSlot);
+  });
   document.getElementById('addMealModal').classList.add('open');
 }
 
@@ -3559,7 +3603,6 @@ document.getElementById('aiEstimateBtn').addEventListener('click', async () => {
 document.getElementById('addMealSave').addEventListener('click', () => {
   const title = document.getElementById('newMealTitle').value.trim();
   const desc = document.getElementById('newMealDesc').value.trim();
-  const time = document.getElementById('newMealTime').value.trim() || 'Added meal';
   const cal = parseInt(document.getElementById('newMealCal').value) || 0;
   const p = parseInt(document.getElementById('newMealP').value) || 0;
   const c = parseInt(document.getElementById('newMealC').value) || 0;
@@ -3571,37 +3614,34 @@ document.getElementById('addMealSave').addEventListener('click', () => {
     document.getElementById('aiStatus').className = 'ai-status error';
     return;
   }
+  if (!selectedCustomSlot) {
+    document.getElementById('aiStatus').textContent = 'Pick when you ate it (breakfast / lunch / snack / dinner).';
+    document.getElementById('aiStatus').className = 'ai-status error';
+    return;
+  }
 
-  const items = [{ n: title, cal, p, c, f, fib }];
-
-  const newMeal = {
-    id: 'custom-' + Date.now(),
-    time, title, desc, cal, p, c, f, fib,
-    items,
-    isCustom: true
-  };
-
-  const customs = getCustomMeals(selectedDateStr());
-  customs.push(newMeal);
-  setCustomMeals(selectedDateStr(), customs);
+  // Custom meals now log into the chosen slot, exactly like an ingredient, so
+  // an added breakfast shows UNDER breakfast — not in a separate bottom card.
+  const ds = selectedDateStr();
+  const meal = { name: title, qty: desc || '', cal, p, c, f, fib };
+  const log = getSlotLog(ds);
+  if (!Array.isArray(log[selectedCustomSlot])) log[selectedCustomSlot] = log[selectedCustomSlot] ? [log[selectedCustomSlot]] : [];
+  log[selectedCustomSlot].push(meal);
+  setSlotLog(ds, log);
 
   if (document.getElementById('newMealSaveToDropdown').checked) {
     const customIngs = getCustomIngredients();
-    customIngs.push({
-      id: 'custom-ing-' + Date.now(),
-      name: title,
-      unit: '1 serving',
-      cal, p, c, f, fib
-    });
+    customIngs.push({ id: 'custom-ing-' + Date.now(), name: title, unit: '1 serving', cal, p, c, f, fib });
     setCustomIngredients(customIngs);
   }
 
   document.getElementById('addMealModal').classList.remove('open');
-  // Clear the form so the next custom meal starts blank instead of inheriting
-  // this one's values.
-  ['newMealTitle','newMealDesc','newMealTime','newMealCal','newMealP','newMealC','newMealF','newMealFib'].forEach(id => {
+  // Clear the form so the next custom meal starts blank.
+  ['newMealTitle','newMealDesc','newMealCal','newMealP','newMealC','newMealF','newMealFib'].forEach(id => {
     const el = document.getElementById(id); if (el) el.value = '';
   });
+  selectedCustomSlot = null;
+  document.querySelectorAll('#newMealSlotPicker .slot-chip').forEach(ch => ch.classList.remove('selected'));
   const saveToggle = document.getElementById('newMealSaveToDropdown');
   if (saveToggle) saveToggle.checked = false;
   const st = document.getElementById('aiStatus'); if (st) { st.textContent=''; st.className='ai-status'; }
@@ -3609,6 +3649,16 @@ document.getElementById('addMealSave').addEventListener('click', () => {
   renderTracker();
   renderWeeklyTracker();
   renderTabs();
+});
+
+// Which slot a new custom meal will be filed under.
+let selectedCustomSlot = null;
+document.querySelectorAll('#newMealSlotPicker .slot-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    selectedCustomSlot = chip.dataset.slot;
+    document.querySelectorAll('#newMealSlotPicker .slot-chip').forEach(c => c.classList.remove('selected'));
+    chip.classList.add('selected');
+  });
 });
 
 function openEditModal(mealId) {
@@ -3843,7 +3893,15 @@ function computeConsumed(day) {
   // FIX: custom meals were never added here — they showed a total on their own
   // card and then silently vanished from the day's tracker, the day dots and
   // the weekly numbers.
+  // Legacy custom meals only. New ones live in the slot log above (already
+  // counted), so dedupe to avoid the double-count that inflated the total.
+  const loggedSig = new Set();
+  Object.values(slotLog).forEach(meals => {
+    if (!Array.isArray(meals)) meals = [meals];
+    meals.forEach(m => { if (m) loggedSig.add((m.name||'') + '|' + (m.cal||0)); });
+  });
   getCustomMeals(ds).forEach(m => {
+    if (loggedSig.has((m.title||m.name||'') + '|' + (m.cal||0))) return;
     totals.cal += (m.cal||0); totals.p += (m.p||0); totals.c += (m.c||0);
     totals.f += (m.f||0); totals.fib += (m.fib||0);
   });
@@ -4138,6 +4196,7 @@ document.getElementById('resetBtn').addEventListener('click', () => {
   setSkippedItems(currentDay, {});
   setActivities(currentDay, []);
   setCustomMeals(selectedDateStr(), []);
+  localStorage.removeItem('mealPlan_activities_' + selectedDateStr());
   // Every day tab now maps to its own real calendar date (see
   // selectedDateStr()), so reset always clears that date's actual log —
   // no more special-casing "only if this tab happens to be today."
@@ -4426,10 +4485,10 @@ const DRAWER_SNACKS = [
 ];
 
 function getSuppWeekKey() {
-  const d = new Date();
-  const jan1 = new Date(d.getFullYear(), 0, 1);
-  const week = Math.ceil(((d - jan1) / 86400000 + jan1.getDay() + 1) / 7);
-  return `supp_${d.getFullYear()}_${week}`;
+  // Monday-based, matching fitness goals + the "resets Monday" copy — the old
+  // Jan-1 week number rolled over mid-week, so supplements and fitness reset on
+  // different days.
+  return 'supp_' + currentWeekKey();
 }
 function getSuppLog() {
   try { return JSON.parse(localStorage.getItem(getSuppWeekKey()) || '{}'); } catch { return {}; }
@@ -4885,7 +4944,14 @@ function getDayCalories(ds) {
       cal += slots[0].meal.cal;
     }
   } catch {}
-  getCustomMeals(ds).forEach(m => { cal += (m.cal||0); });
+  const loggedSig = new Set();
+  Object.values(log).forEach(meals => {
+    if (!Array.isArray(meals)) meals = [meals];
+    meals.forEach(m => { if (m) loggedSig.add((m.name||'') + '|' + (m.cal||0)); });
+  });
+  getCustomMeals(ds).forEach(m => {
+    if (!loggedSig.has((m.title||m.name||'') + '|' + (m.cal||0))) cal += (m.cal||0);
+  });
   return cal;
 }
 
@@ -5341,39 +5407,34 @@ function renderSlotSection() {
       </div>`;
   }).join('');
 
-  const customs = getCustomMeals(selectedDateStr());
-  const customTotal = customs.reduce((s,m) => s + (m.cal||0), 0);
-
-  // FIX (custom-meal card bug): meals saved via the Add Meal modal / Quick Pick
-  // are stored with `title`, not `name` — reading `m.name` here rendered the
-  // literal text "undefined". Also added the same "mark as eaten" checkbox
-  // every other slot row has, and an explicit text color, so the row lines up
-  // with the rest of the list instead of looking collapsed/shifted.
-  const customHtml = customs.length > 0 ? customs.map((m,i) => `
-    <div style="display:flex;align-items:center;gap:8px;padding:8px 14px;border-top:1px solid var(--border-tertiary)">
-      <div style="flex:1">
-        <div style="font-size:13px;font-weight:500;color:var(--text-primary)">${escapeHtml(m.title || m.name || 'Custom meal')}</div>
-        <div style="font-size:11px;color:var(--text-tertiary)">${m.cal||0} cal · ${m.p||0}g P · ${m.c||0}g C · ${m.f||0}g F</div>
-      </div>
-      <button onclick="deleteCustomMealSlot(${i})" style="background:none;border:none;font-size:16px;cursor:pointer;color:var(--text-tertiary);padding:4px">✕</button>
-    </div>`).join('') : '';
-
-  const customCard = `
+  // Legacy custom meals (added before custom meals were routed into slots)
+  // still live in the old per-date store. Show them in a small fallback card so
+  // they aren't lost, each removable — new ones never land here.
+  const legacyCustoms = getCustomMeals(selectedDateStr());
+  const legacyCard = legacyCustoms.length > 0 ? `
     <div class="slot-card">
       <div class="slot-header" style="padding-bottom:8px">
         <div class="slot-left">
           <span class="slot-emoji">✏️</span>
-          <div class="slot-name">Custom meal</div>
+          <div class="slot-name">Other logged meals</div>
         </div>
-        ${customs.length > 0 ? `<span style="font-size:12px;color:var(--success);font-weight:600">${customTotal} cal</span>` : ''}
+        <span style="font-size:12px;color:var(--success);font-weight:600">${legacyCustoms.reduce((a,m)=>a+(m.cal||0),0)} cal</span>
       </div>
-      ${customHtml}
-      <div style="padding:0 14px 12px">
-        <button class="add-meal-btn" onclick="openAddMeal()" style="width:100%;text-align:center">+ Add a different meal</button>
-      </div>
-    </div>`;
+      ${legacyCustoms.map((m,i) => `
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 14px;border-top:1px solid var(--border-tertiary)">
+          <div style="flex:1">
+            <div style="font-size:13px;font-weight:500;color:var(--text-primary)">${escapeHtml(m.title || m.name || 'Meal')}</div>
+            <div style="font-size:11px;color:var(--text-tertiary)">${m.cal||0} cal · ${m.p||0}g P · ${m.c||0}g C · ${m.f||0}g F</div>
+          </div>
+          <button onclick="deleteCustomMealSlot(${i})" style="background:none;border:none;font-size:16px;cursor:pointer;color:var(--text-tertiary);padding:4px">✕</button>
+        </div>`).join('')}
+    </div>` : '';
 
-  el.innerHTML = `<div class="slot-section">${slots}${customCard}</div>`;
+  const addCustomBtn = `
+    <button class="add-meal-btn" onclick="openAddMeal()" style="width:100%;text-align:center;margin-top:4px">
+      + Add a custom meal
+    </button>`;
+  el.innerHTML = `<div class="slot-section">${slots}${legacyCard}${addCustomBtn}</div>`;
 }
 
 function toggleWakeup(checked, dateStr) {
@@ -5497,8 +5558,8 @@ function deleteCustomMealSlot(idx) {
 // FIX: paired with the "Custom meal" card checkbox added above — this was
 // entirely missing before, so the checkbox had nothing to call.
 
-function openAddMeal() {
-  document.getElementById('addMealModal').classList.add('open');
+function openAddMeal(preSlot) {
+  openAddModal(preSlot);
 }
 
 
@@ -5552,26 +5613,15 @@ function renderWeeklyTracker() {
       <button class="week-reset-ghost" onclick="resetWeek(${currentViewWeek})" title="Reset Week ${currentViewWeek}">Reset</button>
     </div>
     <div class="week-card">
-      <span class="week-card-label">Eaten this week</span>
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <span class="week-card-label">Eaten this week</span>
+        <span class="week-card-sub" style="text-align:right">maintenance<br>${fmt(weeklyMaintenance)} cal</span>
+      </div>
       <div class="week-card-row">
         <span class="week-card-val">${fmt(totalWeekCal)}</span>
         <span class="week-card-sub">of ${fmt(weeklyTarget)} to eat</span>
       </div>
       <div class="week-bar"><div class="week-bar-fill${overTarget ? ' over' : ''}" style="width:${pct}%"></div></div>
-      <div class="week-rows">
-        <div class="week-row">
-          <span class="week-row-label">To eat this week</span>
-          <span class="week-row-val">${fmt(weeklyTarget)} cal</span>
-        </div>
-        <div class="week-row">
-          <span class="week-row-label">Maintenance burn</span>
-          <span class="week-row-val muted">${fmt(weeklyMaintenance)} cal</span>
-        </div>
-        <div class="week-row">
-          <span class="week-row-label">Deficit so far · ${daysLogged} ${daysLogged === 1 ? 'day' : 'days'} logged</span>
-          <span class="week-row-val ${deficitCls}">${deficitVal}</span>
-        </div>
-      </div>
     </div>`;
 }
 
@@ -5603,11 +5653,19 @@ function confirmResetWeek(weekNum) {
   dates.forEach(ds => {
     localStorage.removeItem(getSlotLogKey(ds));
     localStorage.removeItem('wakeup_checked_' + ds);
+    localStorage.removeItem('mealPlan_activities_' + ds);
+    localStorage.removeItem('mealPlan_custom_' + ds);
     clearSlotEatenForDate(ds);
   });
+  // Also clear this week's fitness + supplement tallies.
+  try { localStorage.removeItem('mealPlan_fitness'); } catch {}
+  try { localStorage.removeItem(getSuppWeekKey()); } catch {}
   renderSlotSection();
   renderWeeklyTracker();
   renderTracker();
+  if (typeof renderActivity === 'function') renderActivity();
+  if (typeof renderFitness === 'function') renderFitness();
+  if (typeof renderSupplements === 'function') renderSupplements();
 }
 
 function setMode(pms) {
