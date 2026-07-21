@@ -3165,9 +3165,12 @@ function setSkippedItems(day, data) {
 }
 
 const ACTIVITY_PRESETS = [
-  { name: 'Weight training (1hr)',       cal: 310, emoji: '🏋️' },
-  { name: 'Badminton (1.5hr)',           cal: 560, emoji: '🏸' },
-  { name: 'Dance class (1hr)',           cal: 295, emoji: '💃' },
+  // Conservative estimates for a ~55-65kg person. Strength training in
+  // particular is easy to over-count (long rest between sets), so these lean
+  // low on purpose — better to under-credit burn than to over-eat it back.
+  { name: 'Weight training (1hr)',       cal: 200, emoji: '🏋️' },
+  { name: 'Badminton (1.5hr)',           cal: 480, emoji: '🏸' },
+  { name: 'Dance class (1hr)',           cal: 280, emoji: '💃' },
   { name: '10k steps walk',             cal: 290, emoji: '🚶' },
   { name: 'Running (30min)',            cal: 250, emoji: '🏃' },
   { name: 'Pilates (30min)',            cal: 150, emoji: '🧘' },
@@ -5302,14 +5305,18 @@ function toggleFinishDay(ds) {
 function renderDayInsight(ds) {
   // Today's numbers — getDayCalories already includes wake-up + all slots + customs.
   const eaten = getDayCalories(ds);
-  const dailyDeficit = TDEE - eaten;
+  const burned = totalBurned(ds);
+  // FIX: deficit is (maintenance + what you burned) − what you ate. The old
+  // version ignored `burned`, so a workout day under-counted your deficit —
+  // it disagreed with the daily tracker, which nets the burn correctly.
+  const dailyDeficit = (TDEE + burned) - eaten;
 
-  // This week's running deficit (matches the weekly card's logic).
+  // This week's running deficit — same fix, burn counted per logged day.
   const now = new Date();
   const dates = getWeekDates(currentViewWeek, now.getFullYear(), now.getMonth());
-  let weekEaten = 0, daysLogged = 0;
-  dates.forEach(d => { const c = getDayCalories(d); if (c > 0) { weekEaten += c; daysLogged++; } });
-  const weekDeficit = (TDEE * daysLogged) - weekEaten;
+  let weekEaten = 0, weekBurned = 0, daysLogged = 0;
+  dates.forEach(d => { const c = getDayCalories(d); if (c > 0) { weekEaten += c; weekBurned += totalBurned(d); daysLogged++; } });
+  const weekDeficit = (TDEE * daysLogged + weekBurned) - weekEaten;
 
   const w = getWeight();
   const unit = w.unit || 'kg';
@@ -5326,7 +5333,9 @@ function renderDayInsight(ds) {
     const calsNeeded = toLose * perKg;
     const daysAtToday = Math.ceil(calsNeeded / dailyDeficit);
     const eta = new Date(); eta.setDate(eta.getDate() + daysAtToday);
-    const etaLabel = eta.toLocaleDateString(undefined, { day:'numeric', month:'short' });
+    const sameYear = eta.getFullYear() === new Date().getFullYear();
+    const etaLabel = eta.toLocaleDateString(undefined,
+      sameYear ? { day:'numeric', month:'short' } : { day:'numeric', month:'short', year:'numeric' });
     goalLine = `<div class="insight-goal">At today's pace, you'd reach <b>${formatWeight(goal, unit)}</b> in about <b>${daysAtToday} days</b> (around ${etaLabel}).</div>`;
   } else if (dailyDeficit <= 0) {
     goalLine = `<div class="insight-goal">No deficit today — you ate at or above maintenance, so no projected loss from today.</div>`;
@@ -5349,6 +5358,9 @@ function renderDayInsight(ds) {
         </div>
         <div class="day-insight-row">
           <span>Maintenance</span><span class="muted">${fmt(TDEE)} cal</span>
+        </div>
+        <div class="day-insight-row">
+          <span>Burned (activity)</span><span style="color:var(--success)">+${fmt(burned)} cal</span>
         </div>
         <div class="day-insight-row">
           <span>Today's deficit</span><span style="color:${defColor};font-weight:700">${defText}</span>
@@ -5762,10 +5774,10 @@ function renderWeeklyTracker() {
   if (currentViewWeek < 1) currentViewWeek = 1;
 
   const dates = getWeekDates(currentViewWeek, now.getFullYear(), now.getMonth());
-  let totalWeekCal = 0, daysLogged = 0;
+  let totalWeekCal = 0, weekBurned = 0, daysLogged = 0;
   dates.forEach(ds => {
     const c = getDayCalories(ds);
-    if (c > 0) { totalWeekCal += c; daysLogged++; }
+    if (c > 0) { totalWeekCal += c; weekBurned += totalBurned(ds); daysLogged++; }
   });
 
   const pms = isPMSMode();
@@ -5776,7 +5788,7 @@ function renderWeeklyTracker() {
   // Deficit counts ONLY the days actually logged. The old version did
   // (TDEE × 7) − eaten, so an un-logged week reported the entire weekly burn
   // as a deficit you'd "earned".
-  const deficitSoFar = (TDEE * daysLogged) - totalWeekCal;
+  const deficitSoFar = (TDEE * daysLogged + weekBurned) - totalWeekCal;
 
   const fmt = n => n >= 1000 ? (n/1000).toFixed(1) + 'k' : String(Math.round(n));
   const pct = Math.min(100, Math.round((totalWeekCal / weeklyTarget) * 100));
