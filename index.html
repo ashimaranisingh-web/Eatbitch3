@@ -1950,6 +1950,45 @@
     color: #fff;
   }
 
+  /* ── Finish day + projection ── */
+  .finish-day-btn {
+    width: 100%;
+    padding: 13px;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--accent);
+    background: var(--accent-dim);
+    color: var(--accent-light);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 4px;
+  }
+  .finish-day-btn:active { opacity: 0.85; }
+  .day-insight {
+    background: var(--bg-primary);
+    border: 0.5px solid var(--border-secondary);
+    border-radius: var(--radius-lg);
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+  .day-insight-head {
+    font-size: 13px; font-weight: 700; color: var(--text-primary);
+    margin-bottom: 10px;
+  }
+  .day-insight-rows { display: flex; flex-direction: column; gap: 7px; }
+  .day-insight-row {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 12px; color: var(--text-secondary);
+  }
+  .day-insight-row .muted { color: var(--text-tertiary); }
+  .insight-goal {
+    margin-top: 12px; padding-top: 11px;
+    border-top: 0.5px solid var(--border-tertiary);
+    font-size: 13px; color: var(--text-primary); line-height: 1.5;
+  }
+  .insight-goal b { color: var(--accent-light); }
+
   /* ── Day tab status dot ── */
   .day-dot {
     width: 5px; height: 5px;
@@ -1966,10 +2005,13 @@
 
   /* ── Weekly card ── */
   .week-card {
-    background: var(--bg-page);
-    border: 0.5px solid var(--border-tertiary);
-    border-radius: var(--radius-lg);
-    padding: 14px 16px;
+    /* Flat quiet-row look, matching the Activity/Fitness drawer stack:
+       transparent, no raised fill, just a hairline underneath. */
+    background: transparent;
+    border: none;
+    border-bottom: 0.5px solid var(--border-tertiary);
+    border-radius: 0;
+    padding: 14px 4px;
     margin-bottom: 14px;
   }
   .week-card-label {
@@ -2066,6 +2108,9 @@
 
 <div id="insightSection"></div>
 
+<!-- Finish day + projection (below calendar) -->
+<div id="finishDaySection"></div>
+
 <div id="survivalBadgeSection"></div>
 
 <!-- 2. Weekly component + reset week -->
@@ -2075,7 +2120,10 @@
 <div class="tracker" id="tracker">
   <div class="tracker-head">
     <span class="tracker-label" id="trackerDayLabel">Monday's progress</span>
-    <button class="reset-btn" id="resetBtn">Reset day</button>
+    <span style="display:flex;align-items:center;gap:10px">
+      <span style="font-size:10px;color:var(--text-tertiary)">maintenance <b style="color:var(--text-secondary);font-weight:600">2,072</b></span>
+      <button class="reset-btn" id="resetBtn">Reset day</button>
+    </span>
   </div>
 
   <div class="cal-equation" id="calEquation"></div>
@@ -2329,6 +2377,10 @@
 
 <script>
 const TARGETS = { cal: 1550, p: 120, c: 130, f: 50, fib: 28 };
+// Shared maintenance (TDEE) + the standard 7700 cal ≈ 1 kg fat figure, used by
+// the daily tracker, the weekly card, and the end-of-day projection.
+const TDEE = 2072;
+const CAL_PER_KG = 7700;
 const PMS_TARGETS = { cal: 1700, p: 110, c: 155, f: 55, fib: 30 };
 
 const PMS_MEAL_PLAN = {
@@ -4183,6 +4235,7 @@ function switchDay(day) {
   renderTracker();
   renderActivity();
   renderSlotSection();
+  renderFinishDay();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -4197,6 +4250,7 @@ document.getElementById('resetBtn').addEventListener('click', () => {
   setActivities(currentDay, []);
   setCustomMeals(selectedDateStr(), []);
   localStorage.removeItem('mealPlan_activities_' + selectedDateStr());
+  localStorage.removeItem('dayFinished_' + selectedDateStr());
   // Every day tab now maps to its own real calendar date (see
   // selectedDateStr()), so reset always clears that date's actual log —
   // no more special-casing "only if this tab happens to be today."
@@ -5235,6 +5289,119 @@ function restoreDefault(slotId, dateStr) {
   renderSlotSection(); renderTracker(); renderWeeklyTracker();
 }
 
+function toggleFinishDay(ds) {
+  const now = localStorage.getItem('dayFinished_' + ds) === 'true';
+  if (now) localStorage.removeItem('dayFinished_' + ds);
+  else localStorage.setItem('dayFinished_' + ds, 'true');
+  renderFinishDay();
+  renderTracker();
+}
+
+// End-of-day projection: turns today's deficit + the weekly picture + the
+// weight goal into an "at this pace, you'd hit your goal in N days" read.
+function renderDayInsight(ds) {
+  // Today's numbers — getDayCalories already includes wake-up + all slots + customs.
+  const eaten = getDayCalories(ds);
+  const dailyDeficit = TDEE - eaten;
+
+  // This week's running deficit (matches the weekly card's logic).
+  const now = new Date();
+  const dates = getWeekDates(currentViewWeek, now.getFullYear(), now.getMonth());
+  let weekEaten = 0, daysLogged = 0;
+  dates.forEach(d => { const c = getDayCalories(d); if (c > 0) { weekEaten += c; daysLogged++; } });
+  const weekDeficit = (TDEE * daysLogged) - weekEaten;
+
+  const w = getWeight();
+  const unit = w.unit || 'kg';
+  const cur = parseFloat(w.current), goal = parseFloat(w.goal);
+  const fmt = n => n >= 1000 ? (n/1000).toFixed(1) + 'k' : String(Math.round(n));
+
+  // Weight change implied by TODAY's deficit if repeated: kg/week = deficit*7/7700
+  const perKg = (unit === 'lb') ? (CAL_PER_KG / 2.20462) : CAL_PER_KG;
+  const kgPerWeekAtToday = (dailyDeficit * 7) / perKg;
+
+  let goalLine = '';
+  if (!isNaN(cur) && !isNaN(goal) && cur !== goal && dailyDeficit > 0) {
+    const toLose = Math.abs(cur - goal);           // in user's unit
+    const calsNeeded = toLose * perKg;
+    const daysAtToday = Math.ceil(calsNeeded / dailyDeficit);
+    const eta = new Date(); eta.setDate(eta.getDate() + daysAtToday);
+    const etaLabel = eta.toLocaleDateString(undefined, { day:'numeric', month:'short' });
+    goalLine = `<div class="insight-goal">At today's pace, you'd reach <b>${formatWeight(goal, unit)}</b> in about <b>${daysAtToday} days</b> (around ${etaLabel}).</div>`;
+  } else if (dailyDeficit <= 0) {
+    goalLine = `<div class="insight-goal">No deficit today — you ate at or above maintenance, so no projected loss from today.</div>`;
+  } else if (isNaN(cur) || isNaN(goal)) {
+    goalLine = `<div class="insight-goal" style="color:var(--text-tertiary)">Set your current + goal weight (in the Weight drawer) to see a target date.</div>`;
+  }
+
+  const defColor = dailyDeficit > 0 ? 'var(--success)' : 'var(--danger)';
+  const defText = dailyDeficit > 0 ? `${fmt(dailyDeficit)} cal under` : `${fmt(Math.abs(dailyDeficit))} cal over`;
+  const projText = kgPerWeekAtToday > 0
+    ? `~${(Math.round(kgPerWeekAtToday*100)/100)} ${unit}/week if every day looked like today`
+    : `above maintenance today`;
+
+  return `
+    <div class="day-insight">
+      <div class="day-insight-head">📊 ${DAY_NAMES[currentDay]} — day summary</div>
+      <div class="day-insight-rows">
+        <div class="day-insight-row">
+          <span>Eaten</span><span><b>${fmt(eaten)}</b> cal</span>
+        </div>
+        <div class="day-insight-row">
+          <span>Maintenance</span><span class="muted">${fmt(TDEE)} cal</span>
+        </div>
+        <div class="day-insight-row">
+          <span>Today's deficit</span><span style="color:${defColor};font-weight:700">${defText}</span>
+        </div>
+        <div class="day-insight-row">
+          <span>This week so far</span><span style="color:${weekDeficit>0?'var(--success)':'var(--danger)'};font-weight:600">${weekDeficit>0?fmt(weekDeficit):'+'+fmt(Math.abs(weekDeficit))} cal</span>
+        </div>
+        <div class="day-insight-row">
+          <span>Pace</span><span class="muted">${projText}</span>
+        </div>
+      </div>
+      ${goalLine}
+    </div>
+    ${currentDay === 'sun' ? renderWeeklyWrap(weekDeficit, daysLogged, weekEaten) : ''}`;
+}
+
+// Sunday = end of week, so it gets an extra weekly wrap-up on top of the daily
+// summary. Averages + a whole-week projection instead of a single-day one.
+function renderWeeklyWrap(weekDeficit, daysLogged, weekEaten) {
+  const fmt = n => Math.abs(n) >= 1000 ? (n/1000).toFixed(1) + 'k' : String(Math.round(n));
+  const pms = isPMSMode();
+  const dailyTarget = pms ? PMS_TARGETS.cal : TARGETS.cal;
+  const avgEaten = daysLogged > 0 ? Math.round(weekEaten / daysLogged) : 0;
+
+  const w = getWeight();
+  const unit = w.unit || 'kg';
+  const perKg = (unit === 'lb') ? (CAL_PER_KG / 2.20462) : CAL_PER_KG;
+  const kgThisWeek = weekDeficit / perKg; // deficit already = burn - eaten over logged days
+
+  let line;
+  if (daysLogged === 0) {
+    line = `No days logged this week yet — nothing to summarise.`;
+  } else if (weekDeficit > 0) {
+    line = `Across <b>${daysLogged}</b> logged ${daysLogged===1?'day':'days'} you averaged <b>${fmt(avgEaten)}</b> cal/day and built a <b>${fmt(weekDeficit)}</b> cal deficit — about <b>${(Math.round(kgThisWeek*100)/100)} ${unit}</b> of loss this week.`;
+  } else {
+    line = `Across <b>${daysLogged}</b> logged ${daysLogged===1?'day':'days'} you averaged <b>${fmt(avgEaten)}</b> cal/day and ran <b>${fmt(Math.abs(weekDeficit))}</b> cal over maintenance — no loss this week, and that's okay. Fresh week Monday.`;
+  }
+
+  const goalWeeks = (() => {
+    const cur = parseFloat(w.current), goal = parseFloat(w.goal);
+    if (isNaN(cur) || isNaN(goal) || cur === goal || weekDeficit <= 0) return '';
+    const toLose = Math.abs(cur - goal);
+    const weeks = Math.ceil((toLose * perKg) / weekDeficit);
+    return `<div style="margin-top:8px">At this week's rate, <b>${formatWeight(goal, unit)}</b> is about <b>${weeks} ${weeks===1?'week':'weeks'}</b> away.</div>`;
+  })();
+
+  return `
+    <div class="day-insight" style="margin-top:10px;border-color:var(--accent)">
+      <div class="day-insight-head">🗓️ Week ${currentViewWeek} wrap-up</div>
+      <div class="insight-goal" style="border-top:none;margin-top:0;padding-top:0">${line}${goalWeeks}</div>
+    </div>`;
+}
+
 function renderSlotSection() {
   const el = document.getElementById('slotSection');
   if (!el) return;
@@ -5435,6 +5602,22 @@ function renderSlotSection() {
       + Add a custom meal
     </button>`;
   el.innerHTML = `<div class="slot-section">${slots}${legacyCard}${addCustomBtn}</div>`;
+  renderFinishDay();
+}
+
+// Finish-day button + projection, rendered below the calendar (its own section).
+function renderFinishDay() {
+  const el = document.getElementById('finishDaySection');
+  if (!el) return;
+  const ds2 = selectedDateStr();
+  const finished = localStorage.getItem('dayFinished_' + ds2) === 'true';
+  el.innerHTML = `
+    <div style="margin-bottom:14px">
+      <button class="finish-day-btn" onclick="toggleFinishDay('${ds2}')">
+        ${finished ? '↺ Reopen day' : '✓ Finish day & see projection'}
+      </button>
+      ${finished ? '<div style="margin-top:10px">' + renderDayInsight(ds2) + '</div>' : ''}
+    </div>`;
 }
 
 function toggleWakeup(checked, dateStr) {
@@ -5588,7 +5771,6 @@ function renderWeeklyTracker() {
   const pms = isPMSMode();
   const dailyTarget = pms ? PMS_TARGETS.cal : TARGETS.cal;
   const weeklyTarget = dailyTarget * 7;
-  const TDEE = 2072;
   const weeklyMaintenance = TDEE * 7;
 
   // Deficit counts ONLY the days actually logged. The old version did
@@ -5655,6 +5837,7 @@ function confirmResetWeek(weekNum) {
     localStorage.removeItem('wakeup_checked_' + ds);
     localStorage.removeItem('mealPlan_activities_' + ds);
     localStorage.removeItem('mealPlan_custom_' + ds);
+    localStorage.removeItem('dayFinished_' + ds);
     clearSlotEatenForDate(ds);
   });
   // Also clear this week's fitness + supplement tallies.
