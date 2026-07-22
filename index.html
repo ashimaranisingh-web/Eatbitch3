@@ -2449,6 +2449,13 @@
 const TARGETS = { cal: 1550, p: 120, c: 130, f: 50, fib: 28 };
 // Shared maintenance (TDEE) + the standard 7700 cal ≈ 1 kg fat figure, used by
 // the daily tracker, the weekly card, and the end-of-day projection.
+// Rounds to at most 2 decimals and kills floating-point noise
+// (e.g. 57.1 - 50 = 7.100000000000001 in JS). Every displayed number goes
+// through this so nothing ever renders a 15-digit tail.
+function r2(n) {
+  const v = Number(n) || 0;
+  return Math.round(v * 100) / 100;
+}
 const TDEE = 2072;
 const CAL_PER_KG = 7700;
 const PMS_TARGETS = { cal: 1700, p: 110, c: 155, f: 55, fib: 30 };
@@ -4031,6 +4038,8 @@ function computeConsumed(day) {
     totals.f += (m.f||0); totals.fib += (m.fib||0);
   });
 
+  totals.cal = r2(totals.cal); totals.p = r2(totals.p);
+  totals.c = r2(totals.c); totals.f = r2(totals.f); totals.fib = r2(totals.fib);
   return totals;
 }
 
@@ -4041,7 +4050,7 @@ function renderTracker() {
   const target = TARGETS.cal;
   const isDeficit = netCal < 0;
   const isOver = netCal > target;
-  const fmt = (v) => v.toLocaleString();
+  const fmt = (v) => r2(v).toLocaleString();
 
   document.getElementById('trackerDayLabel').textContent = DAY_NAMES[currentDay] + "'s progress";
 
@@ -4079,10 +4088,10 @@ function renderTracker() {
   document.getElementById('trackerGrid').innerHTML = macros.map(m => {
     const pct = Math.min(100, Math.round((m.value / m.target) * 100));
     const over = m.value > m.target;
-    const overBy = over ? m.value - m.target : 0;
+    const overBy = over ? r2(m.value - m.target) : 0;
     return `<div class="metric">
       <p class="metric-label">${m.label}</p>
-      <div class="metric-val">${m.value}g<span class="target"> / ${m.target}g</span></div>
+      <div class="metric-val">${r2(m.value)}g<span class="target"> / ${m.target}g</span></div>
       <div class="bar"><div class="bar-fill ${m.cls}${over ? ' over' : ''}" style="width:${over ? 100 : pct}%"></div></div>
       ${over ? `<div class="over-note">+${overBy}g over</div>` : ''}
     </div>`;
@@ -5525,7 +5534,7 @@ function renderSlotSection() {
   const pms = isPMSMode();
   const activeSlots = pms ? PMS_MEAL_SLOTS : MEAL_SLOTS;
 
-  let dayTotal = { cal:0, p:0, c:0, f:0 };
+  let dayTotal = { cal:0, p:0, c:0, f:0 };  // rounded at display time via r2()
   const wakeChecked = localStorage.getItem('wakeup_checked_' + ds) === 'true';
   if (wakeChecked) {
     const w = activeSlots[0].meal;
@@ -5557,8 +5566,8 @@ function renderSlotSection() {
               onchange="toggleWakeup(this.checked, '${ds}')">
           </div>
           <div class="slot-macros-row">
-            <span class="slot-macro highlight">${m.cal} cal</span>
-            <span class="slot-macro highlight">${m.p}g P</span>
+            <span class="slot-macro highlight">${r2(m.cal)} cal</span>
+            <span class="slot-macro highlight">${r2(m.p)}g P</span>
             <span class="slot-macro">${m.c}g C</span>
             <span class="slot-macro">${m.f}g F</span>
           </div>
@@ -5588,8 +5597,8 @@ function renderSlotSection() {
               onchange="acceptDefault('${slot.id}', '${ds}')">
           </div>
           <div class="slot-macros-row">
-            <span class="slot-macro highlight">${d.cal} cal</span>
-            <span class="slot-macro highlight">${d.p}g P</span>
+            <span class="slot-macro highlight">${r2(d.cal)} cal</span>
+            <span class="slot-macro highlight">${r2(d.p)}g P</span>
             <span class="slot-macro" style="color:var(--text-tertiary);font-size:10px">planned</span>
           </div>
           <div style="padding:2px 14px 8px">
@@ -5609,7 +5618,7 @@ function renderSlotSection() {
                   onclick="togglePartialItem('${slot.id}', ${i})">${escapeHtml(it.n)}<span class="item-cal">${it.cal} cal</span></button>`).join('')}
               </div>
               <button type="button" class="skip-done-btn" onclick="logPartial('${slot.id}', '${ds}')">
-                ${kept.length === 0 ? 'Skipped the whole meal' : `Log what I ate — ${eff.cal} cal · ${eff.p}g P`}
+                ${kept.length === 0 ? 'Skipped the whole meal' : `Log what I ate — ${r2(eff.cal)} cal · ${r2(eff.p)}g P`}
               </button>
             </div>`;
           })() : ''}
@@ -5625,6 +5634,7 @@ function renderSlotSection() {
     }
 
     const slotTotal = loggedMeals.reduce((s,m) => ({cal:s.cal+(m.cal||0), p:s.p+(m.p||0)}), {cal:0,p:0});
+    slotTotal.cal = r2(slotTotal.cal); slotTotal.p = r2(slotTotal.p);
 
     const loggedHtml = loggedMeals.map((m, idx) => `
       <div style="display:flex;align-items:center;gap:8px;padding:6px 14px;border-top:1px solid var(--border-tertiary)">
@@ -5633,8 +5643,8 @@ function renderSlotSection() {
           ${m.qty ? `<div style="font-size:11px;color:var(--text-tertiary);margin-top:2px;line-height:1.6">${m.qty}</div>` : ''}
         </div>
         <div style="text-align:right;flex-shrink:0">
-          <span style="font-size:12px;font-weight:600;color:var(--success)">${m.cal} cal</span><br>
-          <span style="font-size:11px;color:var(--text-tertiary)">${m.p}g P</span>
+          <span style="font-size:12px;font-weight:600;color:var(--success)">${r2(m.cal)} cal</span><br>
+          <span style="font-size:11px;color:var(--text-tertiary)">${r2(m.p)}g P</span>
         </div>
         <button onclick="removeSlotMeal('${slot.id}', ${idx}, '${ds}')"
           style="background:none;border:none;font-size:16px;cursor:pointer;color:var(--text-tertiary);padding:4px;flex-shrink:0">✕</button>
@@ -5811,7 +5821,7 @@ function renderBuilder(slotId, dateStr) {
   const cfg = BUILDERS[slotId];
   const picks = builderPicks[slotId] || {};
   const t = builderTotals(slotId);
-  const r1 = n => Math.round(n * 10) / 10;
+  const r1 = r2;
 
   const rows = cfg.items.map(it => {
     const on = !!picks[it.id];
@@ -5861,7 +5871,7 @@ function confirmBuilder(slotId, dateStr) {
   const t = builderTotals(slotId);
   if (t.cal === 0) return;
   setLastBuild(slotId, Object.keys(builderPicks[slotId] || {}));
-  const r1 = n => Math.round(n * 10) / 10;
+  const r1 = r2;
   const cfg = BUILDERS[slotId];
   const meal = {
     name: slotId === 'protein' ? 'Protein shake' : 'Coffee',
