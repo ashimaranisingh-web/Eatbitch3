@@ -1989,6 +1989,76 @@
   }
   .insight-goal b { color: var(--accent-light); }
 
+  /* ── Shake / coffee builder ── */
+  .builder-open-btn {
+    width: 100%;
+    padding: 11px;
+    margin-bottom: 8px;
+    border-radius: 10px;
+    border: 1px solid var(--accent);
+    background: var(--accent-dim);
+    color: var(--accent-light);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .builder-open-btn:active { opacity: 0.85; }
+  .builder-repeat-btn {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 6px;
+    border-radius: 10px;
+    border: 1px solid var(--border-secondary);
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .builder-repeat-btn:active { color: var(--text-primary); }
+  .builder-list {
+    display: flex; flex-direction: column; gap: 6px;
+    max-height: 46vh; overflow-y: auto; margin-bottom: 12px;
+  }
+  .builder-row {
+    display: flex; align-items: center; gap: 10px;
+    width: 100%; padding: 11px 12px;
+    border-radius: 10px;
+    border: 1px solid var(--border-tertiary);
+    background: var(--bg-secondary);
+    font-family: inherit; cursor: pointer;
+    text-align: left;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .builder-row.on {
+    border-color: var(--accent);
+    background: var(--accent-dim);
+  }
+  .builder-check {
+    width: 20px; height: 20px; flex-shrink: 0;
+    border-radius: 5px;
+    border: 1.5px solid var(--border-secondary);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; color: #fff;
+  }
+  .builder-row.on .builder-check {
+    background: var(--accent); border-color: var(--accent);
+  }
+  .builder-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+  .builder-name { font-size: 13px; color: var(--text-primary); font-weight: 500; }
+  .builder-unit { color: var(--text-tertiary); font-weight: 400; font-size: 11px; }
+  .builder-note { font-size: 10px; color: var(--text-tertiary); }
+  .builder-macros { font-size: 11px; color: var(--text-secondary); flex-shrink: 0; white-space: nowrap; }
+  .builder-total {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 12px 4px; margin-bottom: 10px;
+    border-top: 0.5px solid var(--border-tertiary);
+  }
+  .builder-total-cal { font-size: 22px; font-weight: 700; color: var(--text-primary); }
+  .builder-total-macros { font-size: 12px; color: var(--text-tertiary); }
+
   /* ── Day tab status dot ── */
   .day-dot {
     width: 5px; height: 5px;
@@ -5031,8 +5101,7 @@ const INGREDIENTS = [
   // tracker — are exact for all three.
   { id:'carb_150', name:'Carb — roti / paratha / rice (150 cal)',
     unit:'Roti 55g (~1⅓) · Paratha 52g (~1) · Rice 115g',
-    cal:150, p:4, c:28, f:2, fib:2,
-    qty:'Pick one to hit 150 cal → Roti: 55g cooked (~1⅓ roti) · Paratha: 52g cooked (~1 paratha) · Rice: 115g cooked' },
+    cal:150, p:4, c:28, f:2, fib:2 },
   { id:'dosa',        name:'Dosa (incl. oil)',                     unit:'100g',      cal:150, p:3,  c:26, f:3,  fib:1 },
   { id:'chilla',      name:'Moong dal chilla (incl. oil)',         unit:'100g',      cal:170, p:9,  c:20, f:5,  fib:4 },
   { id:'egg_boiled',  name:'Boiled egg',                           unit:'1 egg',     cal:70,  p:6,  c:0,  f:5,  fib:0 },
@@ -5077,7 +5146,7 @@ const COFFEE_OPTIONS = [
   { id:'coffee_milk',    name:'Black coffee + slim milk',              unit:'1 cup (60ml milk)', cal:25, p:2, c:3, f:0, fib:0 },
   { id:'coffee_jaggery', name:'Black coffee + slim milk + jaggery',    unit:'1 cup (60ml milk + 1 tsp jaggery)', cal:45, p:2, c:8, f:0, fib:0 },
   { id:'coffee_lf',      name:'Coffee + lactose-free milk + jaggery',  unit:'1 cup (250ml Amul LF + 1 tsp jaggery)', cal:170, p:8, c:17, f:8, fib:0,
-    qty:'Black coffee · Amul lactose-free milk (250ml) · Jaggery (1 tsp) — estimated, verify with nutritionist' },
+    qty:'Black coffee · Amul lactose-free milk (250ml) · Jaggery (1 tsp)' },
 ];
 
 // Protein — its own component, separate from wake-up. Logged whenever it
@@ -5088,6 +5157,39 @@ const PROTEIN_OPTIONS = [
   { id:'protein_shake',  name:'Protein shake (banana, cocoa, milk)',  unit:'1 shake',  cal:425, p:59, c:38, f:5, fib:3,
     qty:'Banana (1) · Slim milk (200ml) · Protein powder (2 scoops) · Unsweetened cocoa powder (1 tsp)' },
 ];
+
+// ── Shake / coffee builders ──────────────────────────────────────────
+// Tick the components you actually used, totals add up live. Anything with
+// `on:true` starts checked (the base you almost always have).
+const BUILDERS = {
+  protein: {
+    title: 'Build your shake',
+    items: [
+      { id:'whey',    name:'Whey isolate',        unit:'1 scoop',  cal:130, p:30,  c:1,  f:0.5, fib:0, on:true },
+      { id:'whey2',   name:'Whey isolate',        unit:'2 scoops', cal:260, p:60,  c:2,  f:1,   fib:0 },
+      { id:'milk',    name:'Milk',                unit:'125ml',    cal:65,  p:4.3, c:6,  f:2.2, fib:0, on:true,
+        note:'avg of slim & lactose-free' },
+      { id:'pb',      name:'Peanut butter',       unit:'30g',      cal:177, p:7.5, c:6,  f:15,  fib:2 },
+      { id:'banana',  name:'Banana',              unit:'1 medium', cal:105, p:1.3, c:27, f:0.4, fib:3 },
+      { id:'cocoa',   name:'Cocoa powder',        unit:'1 tsp',    cal:12,  p:1,   c:3,  f:0.7, fib:2 },
+      { id:'coffee',  name:'Coffee',              unit:'1 shot',   cal:5,   p:0.3, c:1,  f:0,   fib:0 },
+      { id:'dates',   name:'Dates',               unit:'2',        cal:46,  p:0.4, c:12, f:0,   fib:1 },
+    ]
+  },
+  coffee: {
+    title: 'Build your coffee',
+    items: [
+      { id:'black',   name:'Black coffee',        unit:'1 cup',    cal:5,   p:0.3, c:1, f:0,   fib:0, on:true },
+      { id:'slim',    name:'Slim milk',           unit:'60ml',     cal:22,  p:2,   c:3, f:0.1, fib:0 },
+      { id:'lf',      name:'Lactose-free milk',   unit:'60ml',     cal:35,  p:2,   c:3, f:1.8, fib:0 },
+      { id:'lf250',   name:'Lactose-free milk',   unit:'250ml',    cal:148, p:8,   c:12,f:7.5, fib:0 },
+      { id:'jaggery', name:'Jaggery',             unit:'1 tsp',    cal:20,  p:0,   c:5, f:0,   fib:0 },
+      { id:'whey_c',  name:'Whey isolate',        unit:'1 scoop',  cal:130, p:30,  c:1, f:0.5, fib:0 },
+    ]
+  }
+};
+// Which components are ticked right now, per builder.
+let builderPicks = {};
 
 const MEAL_SLOTS = [
   {
@@ -5579,9 +5681,24 @@ function renderSlotSection() {
           </button>
         </div>` : ''}
         <div style="padding:0 14px 12px">
+          ${BUILDERS[slot.id] ? (() => {
+            const last = getLastBuild(slot.id);
+            const lastT = last && last.length ? (() => {
+              let cal = 0;
+              BUILDERS[slot.id].items.forEach(it => { if (last.includes(it.id)) cal += it.cal; });
+              return cal;
+            })() : 0;
+            return `
+            ${lastT > 0 ? `<button class="builder-repeat-btn" onclick="repeatLastBuild('${slot.id}', '${ds}')">
+              ↻ Repeat last ${slot.id === 'protein' ? 'shake' : 'coffee'} · ${lastT} cal
+            </button>` : ''}
+            <button class="builder-open-btn" onclick="openBuilder('${slot.id}', '${ds}')">
+              ${slot.id === 'protein' ? '🥤 Build your shake' : '☕ Build your coffee'}
+            </button>`;
+          })() : `
           <select class="slot-select" onchange="promptIngredientQty('${slot.id}', this.value, '${ds}'); this.value=''">
             ${optionsHtml}
-          </select>
+          </select>`}
         </div>
       </div>`;
   }).join('');
@@ -5651,6 +5768,113 @@ function getIngredientListForSlot(slotId) {
   // options from, or the option index (i0, i1...) points at the wrong item —
   // same class of bug as the earlier INGREDIENTS/SNACK_INGREDIENTS mismatch.
   return base.concat(getCustomIngredients());
+}
+
+// Open the builder overlay for a slot ('protein' or 'coffee').
+function openBuilder(slotId, dateStr) {
+  const cfg = BUILDERS[slotId];
+  if (!cfg) return;
+  // Start from the defaults each time it's opened.
+  builderPicks[slotId] = {};
+  cfg.items.forEach(it => { if (it.on) builderPicks[slotId][it.id] = true; });
+  const overlay = document.createElement('div');
+  overlay.className = 'talk-popup-overlay';
+  overlay.id = 'builderOverlay';
+  overlay.innerHTML = `<div class="talk-popup" id="builderPanel"></div>`;
+  overlay.addEventListener('click', e => { if (e.target === overlay) overlay.remove(); });
+  document.body.appendChild(overlay);
+  renderBuilder(slotId, dateStr);
+}
+
+function toggleBuilderItem(slotId, itemId, dateStr) {
+  if (!builderPicks[slotId]) builderPicks[slotId] = {};
+  if (builderPicks[slotId][itemId]) delete builderPicks[slotId][itemId];
+  else builderPicks[slotId][itemId] = true;
+  renderBuilder(slotId, dateStr);
+}
+
+function builderTotals(slotId) {
+  const cfg = BUILDERS[slotId];
+  const picks = builderPicks[slotId] || {};
+  const t = { cal:0, p:0, c:0, f:0, fib:0, names:[] };
+  cfg.items.forEach(it => {
+    if (!picks[it.id]) return;
+    t.cal += it.cal; t.p += it.p; t.c += it.c; t.f += it.f; t.fib += (it.fib||0);
+    t.names.push(`${it.name} (${it.unit})`);
+  });
+  return t;
+}
+
+function renderBuilder(slotId, dateStr) {
+  const panel = document.getElementById('builderPanel');
+  if (!panel) return;
+  const cfg = BUILDERS[slotId];
+  const picks = builderPicks[slotId] || {};
+  const t = builderTotals(slotId);
+  const r1 = n => Math.round(n * 10) / 10;
+
+  const rows = cfg.items.map(it => {
+    const on = !!picks[it.id];
+    return `<button type="button" class="builder-row${on ? ' on' : ''}"
+      onclick="toggleBuilderItem('${slotId}', '${it.id}', '${dateStr}')">
+      <span class="builder-check">${on ? '✓' : ''}</span>
+      <span class="builder-info">
+        <span class="builder-name">${it.name} <span class="builder-unit">${it.unit}</span></span>
+        ${it.note ? `<span class="builder-note">${it.note}</span>` : ''}
+      </span>
+      <span class="builder-macros">${it.cal} cal · ${r1(it.p)}g P</span>
+    </button>`;
+  }).join('');
+
+  panel.innerHTML = `
+    <div class="talk-popup-handle"></div>
+    <div class="talk-popup-title">${cfg.title}</div>
+    <div class="talk-popup-sub" style="margin-bottom:12px">Tick what you actually put in.</div>
+    <div class="builder-list">${rows}</div>
+    <div class="builder-total">
+      <span class="builder-total-cal">${t.cal} cal</span>
+      <span class="builder-total-macros">${r1(t.p)}g P · ${r1(t.c)}g C · ${r1(t.f)}g F</span>
+    </div>
+    <button class="talk-open-claude" ${t.cal === 0 ? 'disabled style="opacity:.5"' : ''}
+      onclick="confirmBuilder('${slotId}', '${dateStr}')">Add ${t.cal ? t.cal + ' cal' : ''} →</button>
+    <button class="talk-cancel" onclick="document.getElementById('builderOverlay').remove()">Cancel</button>`;
+}
+
+// Last build per slot, so it can be repeated in one tap.
+function getLastBuild(slotId) {
+  try { return JSON.parse(localStorage.getItem('lastBuild_' + slotId) || 'null'); } catch { return null; }
+}
+function setLastBuild(slotId, ids) {
+  try { localStorage.setItem('lastBuild_' + slotId, JSON.stringify(ids)); } catch {}
+}
+
+// Add the previous build straight to the log — no modal, no re-ticking.
+function repeatLastBuild(slotId, dateStr) {
+  const ids = getLastBuild(slotId);
+  if (!ids || !ids.length) return;
+  builderPicks[slotId] = {};
+  ids.forEach(id => { builderPicks[slotId][id] = true; });
+  confirmBuilder(slotId, dateStr);
+}
+
+function confirmBuilder(slotId, dateStr) {
+  const t = builderTotals(slotId);
+  if (t.cal === 0) return;
+  setLastBuild(slotId, Object.keys(builderPicks[slotId] || {}));
+  const r1 = n => Math.round(n * 10) / 10;
+  const cfg = BUILDERS[slotId];
+  const meal = {
+    name: slotId === 'protein' ? 'Protein shake' : 'Coffee',
+    qty: t.names.join(' · '),
+    cal: t.cal, p: r1(t.p), c: r1(t.c), f: r1(t.f), fib: r1(t.fib)
+  };
+  const log = getSlotLog(dateStr);
+  if (!Array.isArray(log[slotId])) log[slotId] = log[slotId] ? [log[slotId]] : [];
+  log[slotId].push(meal);
+  setSlotLog(dateStr, log);
+  const ov = document.getElementById('builderOverlay');
+  if (ov) ov.remove();
+  renderSlotSection(); renderTracker(); renderWeeklyTracker(); renderTabs();
 }
 
 function promptIngredientQty(slotId, val, dateStr) {
